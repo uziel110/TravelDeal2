@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "1084407146117",
+    "firebase_url": "https://travel-deal-d453e.firebaseio.com",
+    "project_id": "travel-deal-d453e",
+    "storage_bucket": "travel-deal-d453e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084407146117:android:9c192638c427751e496bec",
+        "android_client_info": {
+          "package_name": "com.example.traveldeal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084407146117-b7edtr232thl1c3q793oea5o7sgvdshu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.traveldeal",
+            "certificate_hash": "d40f2a4ab686be916b38063c363b9c0d1fb96aa6"
+          }
+        },
+        {
+          "client_id": "1084407146117-mbv4evvkcf539frfv73mjmis08jsf4ph.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.traveldeal",
+            "certificate_hash": "529990ffef55f57cb0f9dc06207f9d71fc085531"
+          }
+        },
+        {
+          "client_id": "1084407146117-opuq992mq703qfdb4tamm3pdb9es02aq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGMR_WSydp7UKNnRjNu9XjgBDbECvCuJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084407146117-opuq992mq703qfdb4tamm3pdb9es02aq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084407146117:android:856e33afe97410ed496bec",
+        "android_client_info": {
+          "package_name": "com.example.traveldeal2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084407146117-5vbu5lnkvvloc0jsrqtetvnvei3sho6a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.traveldeal2",
+            "certificate_hash": "d40f2a4ab686be916b38063c363b9c0d1fb96aa6"
+          }
+        },
+        {
+          "client_id": "1084407146117-opuq992mq703qfdb4tamm3pdb9es02aq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGMR_WSydp7UKNnRjNu9XjgBDbECvCuJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084407146117-opuq992mq703qfdb4tamm3pdb9es02aq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

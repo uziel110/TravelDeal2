@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                //.setIsSmartLockEnabled(false)
+                .setIsSmartLockEnabled(false)
                 //.setLogo(R.drawable.klipartz)
                 .build(),
             RC_SIGN_IN
@@ -76,14 +76,14 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Send button */
     fun startTravelButton(view: View) {
-        val intent = Intent(this, AddTravelActivity::class.java)
+        val intent = Intent(this, NavigationActivity::class.java)
         this.startActivity(intent)
     }
-
-    fun btMyTravels(view: View) {
-        val intent = Intent(this, AllTravelsActivity::class.java)
-        this.startActivity(intent)
-    }
+//
+//    fun btMyTravels(view: View) {
+//        val intent = Intent(this, AllTravelsActivity::class.java)
+//        this.startActivity(intent)
+//    }
 
     fun signOutButton(view: View) {
         FirebaseAuth.getInstance().signOut()
