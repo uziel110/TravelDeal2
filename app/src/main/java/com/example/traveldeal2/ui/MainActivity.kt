@@ -69,8 +69,8 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Send button */
     fun startTravelButton(view: View) {
-        val intent = Intent(this, NavigationActivity::class.java)
-        this.startActivity(intent)
+     //   val intent = Intent(this, NavigationActivity::class.java)
+       // this.startActivity(intent)
     }
 //
 //    fun btMyTravels(view: View) {

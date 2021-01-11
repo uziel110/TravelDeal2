@@ -1,16 +1,5 @@
 <resources>
     <string name="app_name">Travel Deal 2</string>
-    <string name="title_activity_navigation">NavigationActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
 
     <string name="Add_travel">New travel</string>
     <string name="My_travels">My travels</string>
@@ -36,12 +25,15 @@
     <string name="saved_success">Details saved successfully!</string>
     <string name="incorrect_email">The email address is incorrect</string>
     <string name="incorrect_phone_number">Phone number is incorrect</string>
+    <string name="admin_tab">Admin</string>
+    <string name="travels_tab">Travels requests</string>
 
     <string-array name="status_array">
         <item>SEND</item>
         <item>RECEIVED</item>
         <item>RUN</item>
         <item>CLOSED</item>
+        <item>PAID</item>
     </string-array>
 
 </resources>

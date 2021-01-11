@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="4dp"
-    tools:context=".data.ui.MainActivity">
+    tools:context=".ui.MainActivity">
 
     <!--    <TextView-->
     <!--        android:id="@+id/textView2"-->
@@ -61,7 +61,6 @@
         android:layout_marginRight="50dp"
         android:layout_marginBottom="150dp"
         android:gravity="center"
-        android:onClick="btMyTravels"
         android:text="@string/My_travels"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"

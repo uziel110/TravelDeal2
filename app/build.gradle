@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
 }
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-kapt'
 // Add this line
 apply plugin: 'com.google.gms.google-services'
 
@@ -16,6 +17,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -50,6 +52,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
     implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
+    implementation "androidx.drawerlayout:drawerlayout:1.1.1"
     implementation 'androidx.room:room-runtime:2.2.6'
 
     testImplementation 'junit:junit:4.13.1'
@@ -67,5 +70,20 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-auth-ktx'
     annotationProcessor 'androidx.room:room-compiler:2.2.6'
+
+    // Room components
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+
+    //Material design
+    implementation("com.google.android.material:material:1.3.0-beta01")
+    implementation 'com.google.android.material:material:1.2.1'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
 
 }
