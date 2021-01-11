@@ -1,15 +1,43 @@
+package com.example.traveldeal2.data.repositories
 
-import android.app.Application
+import  android.app.Application
+import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.traveldeal2.data.entities.Travel
-import com.example.traveldeal2.data.repositories.TravelDataSource
-import com.google.android.gms.tasks.Task
 
+class TravelRepository(application: Application) : Application() {
 
-class TravelRepository : Application() {
-
-    var remoteDataSource: TravelDataSource = TravelDataSource()
-
-    fun insert (travel : Travel): Task<Void> {
-        return remoteDataSource.insert(travel)
+    private var remoteDatabase: ITravelDataSource = TravelDataSource()
+    private val localDatabase = LocalDatabase(application.applicationContext)
+    val travelsList = MutableLiveData<List<Travel?>?>()
+    init {
+        val notifyData : ITravelDataSource.NotifyLiveData = object : ITravelDataSource.NotifyLiveData{
+            override fun onDataChange() {
+                var tempList = remoteDatabase.getAllTravels()
+                travelsList.postValue(tempList)
+                localDatabase.clearTable()
+                localDatabase.addTravels(tempList)
+            }
+        }
+        remoteDatabase.setNotifyLiveData(notifyData)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    fun insert(travel: Travel) {
+        remoteDatabase.addTravel(travel)
+    }
+
+    fun getLiveData(): LiveData<Boolean> {
+        return remoteDatabase.getLiveData()
+    }
+
+    fun getAllTravels(): MutableLiveData<List<Travel?>?> {
+        return travelsList
+    }
+//
+//    fun getTravel(id: String): MutableLiveData<Travel> {
+//        return remoteDatabase.getTravel(id)
+//    }
 }

@@ -22,13 +22,6 @@ class MainActivity : AppCompatActivity() {
         if (FirebaseAuth.getInstance().currentUser != null)
             return
         startSignInIntent()
-
-//        val handler = Handler()
-//        handler.postDelayed(Runnable {
-//            val intent = Intent(this, AddTravelActivity::class.java)
-//            this.startActivity(intent)
-//            this.finish()
-//        }, 500)
     }
 
     private fun startSignInIntent() {

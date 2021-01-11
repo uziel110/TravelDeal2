@@ -1,36 +1,92 @@
 package com.example.traveldeal2.data.repositories
 
+import android.content.ContentValues.TAG
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.traveldeal2.data.entities.Travel
-import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 /**
- * fire base data source
+ * fire base com.example.traveldeal.data source
  */
-class TravelDataSource {
+class TravelDataSource :
+    ITravelDataSource {
     private val rootNode = FirebaseDatabase.getInstance()
     private val reference = rootNode.getReference("travels")
+    private val liveData: MutableLiveData<Boolean> = MutableLiveData()
+    private var uid: String
+    var travelsList: MutableList<Travel> = mutableListOf()
+    private var travels: MutableLiveData<MutableList<Travel>> = MutableLiveData()
+    private var aTravel: MutableLiveData<Travel> = MutableLiveData()
 
-    fun insert(travel: Travel): Task<Void> {
-        return reference.push().setValue(travel)
-    }
+    lateinit var notifyData: ITravelDataSource.NotifyLiveData
 
-    //val query: Query = eMailRef.orderByChild("RequestStatus").equalTo("נשלח")
-
-    fun getTravelsByEMail(eMail: String): List<Travel> {
-        val list: MutableList<Travel> = mutableListOf()
-        val eMailRef = reference.child(eMail)
-        eMailRef.addListenerForSingleValueEvent(object : ValueEventListener {
+    init {
+        uid = FirebaseAuth.getInstance().uid.toString()
+        reference.child(uid).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                list.clear()
-                for (snapshot in dataSnapshot.children)
-                    list.add(snapshot.value as Travel)
+                travelsList.clear()
+                for (travelSnapshot in dataSnapshot.children) {
+                    val travel: Travel? = travelSnapshot.getValue(Travel::class.java)
+                    if (travel != null /*&& travel.requestStatus != resources.getStringArray(R.array.status_array)[3]*/) {
+                        travelsList.add(travel)
+                    }
+                }
+                // travels.value = travelsList
+                notifyData.onDataChange()
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+            override fun onCancelled(databaseError: DatabaseError) {
             }
         })
-        return list
+    }
+
+    override fun addTravel(travel: Travel) {
+        val curKey = reference.child(uid).push().key
+        if (curKey == null) {
+            Log.w(TAG, "Couldn't get push key for travels")
+            return
+        }
+        travel.clientId = curKey
+        reference.child(uid).child(curKey).setValue(travel).addOnSuccessListener {
+            liveData.value = true
+        }.addOnFailureListener {
+            liveData.value = false
+        }
+    }
+
+    override fun editTravel(p: Travel) {
+        TODO("Not yet implemented")
+    }
+
+
+    override fun getLiveData(): LiveData<Boolean> {
+        return liveData
+    }
+
+    override fun getAllTravels(): MutableList<Travel> {
+        return travelsList
+    }
+
+//    fun getTravel(travelId: String): MutableLiveData<Travel> {
+//        lateinit var currTravel: Travel
+//        reference.child(uid).child(travelId).addValueEventListener(object : ValueEventListener {
+//
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                val travel: Travel? = dataSnapshot.getValue(Travel::class.java)
+//                //currTravel = dataSnapshot.getValue(Travel::class.java)!!
+//                aTravel.value = travel
+//            }
+//
+//            override fun onCancelled(databaseError: DatabaseError) {
+//            }
+//        })
+//        return aTravel
+//    }
+
+    override fun setNotifyLiveData(obj: ITravelDataSource.NotifyLiveData) {
+        notifyData = obj
     }
 }

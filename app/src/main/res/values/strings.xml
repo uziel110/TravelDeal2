@@ -11,4 +11,37 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string name="Add_travel">New travel</string>
+    <string name="My_travels">My travels</string>
+    <string name="Sign_out">Sign out</string>
+    <string name="clientNameHint">Name</string>
+    <string name="phoneNameHint">Phone number</string>
+    <string name="emailAddressHint">Email address</string>
+    <string name="departureAddressHint">Collection address</string>
+    <string name="destinationAddressHint">Destination address</string>
+    <string name="fromTitle">from:</string>
+    <string name="toTitle">to:</string>
+    <string name="passengersNumber"> passengers</string>
+    <string name="onePassengers">one passenger</string>
+    <string name="passengersNumberHint"> Number of passengers</string>
+    <string name="departureDateHint"> Departure date</string>
+    <string name="returnDateHint">Return date</string>
+    <string name="statusText">Travel status</string>
+    <string name="buttonSaveText">Save</string>
+    <string name="header_travel_details">"Fill Details"</string>
+    <string name="num_bigger_than_0">The number must be bigger than zero</string>
+    <string name="enter_exit_date_first">Please enter a departure date first</string>
+    <string name="fill_all_fields">All fields should be filled</string>
+    <string name="saved_success">Details saved successfully!</string>
+    <string name="incorrect_email">The email address is incorrect</string>
+    <string name="incorrect_phone_number">Phone number is incorrect</string>
+
+    <string-array name="status_array">
+        <item>SEND</item>
+        <item>RECEIVED</item>
+        <item>RUN</item>
+        <item>CLOSED</item>
+    </string-array>
+
 </resources>

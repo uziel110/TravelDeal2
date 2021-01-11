@@ -1,83 +1,81 @@
 package com.example.traveldeal2.data.entities
 
-class Travel() {
-    companion object {
-       // @PrimaryKey
-        var key = 1
-        fun getNextKey(): Int {
-            return ++key
-        }
-    }
+import androidx.room.*
+import androidx.room.Entity
+import com.example.traveldeal2.utils.UserLocation
+import com.google.firebase.database.Exclude
 
-    var travelKey = Companion
+//@TypeConverters(Travel.UserLocationConverter::class)
+//private val travelLocation: UserLocation? = null
+
+@Entity(tableName = "travels_table")
+class Travel {
+    @PrimaryKey
+    var clientId: String = ""
+        set
         get() = field
-
     var clientName: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var clientPhone: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var clientEmailAddress: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var departureAddress: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
+    @TypeConverters(UserLocationConverter::class)
+    var departLocation: UserLocation? = null
+        set
+        get() = if (field != null) field else UserLocation(0.0, 0.0)
     var departureDate: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var destinationAddress: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
+    @TypeConverters(UserLocationConverter::class)
+    var destLocation: UserLocation? = null
+        set
+        get() = if (field != null) field else UserLocation(0.0, 0.0)
     var returnDate: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var passengersNumber: Int = 0
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var requestStatus: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
+
+    // for expandable of card in recycle view
+    @Ignore
+    var expandable: Boolean = false
+        @Exclude
+        set
+        get() = field
+
+    // temporary ignored
+    @Ignore
+    var company: HashMap<String, Boolean> = hashMapOf()
+        set
+        get() = field
+
+    class UserLocationConverter {
+        @TypeConverter
+        fun fromString(value: String?): UserLocation? {
+            if (value == null || value == "") return null
+            val lat = value.split(" ").toTypedArray()[0].toDouble()
+            val lang = value.split(" ").toTypedArray()[1].toDouble()
+            return UserLocation(lat, lang)
         }
 
-    constructor(
-        _name: String,
-        _phone: String,
-        _eMail: String,
-        _departureAddress: String,
-        _departureDate: String,
-        _destAddress: String,
-        _returnDate: String,
-        _passNum: String,
-        _status: String
-    ) : this() {
-        key = getNextKey()
-        clientName = _name
-        clientPhone = _phone
-        clientEmailAddress = _eMail
-        departureAddress = _departureAddress
-        departureDate = _departureDate
-        destinationAddress = _destAddress
-        returnDate = _returnDate
-        passengersNumber = if (_passNum == "") 0 else _passNum.toInt()
-        requestStatus = _status
+        @TypeConverter
+        fun asString(userLocation: UserLocation?): String {
+            return if (userLocation == null) "" else userLocation.lat
+                .toString() + " " + userLocation.lon
+        }
     }
 }
