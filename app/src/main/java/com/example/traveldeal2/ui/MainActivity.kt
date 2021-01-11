@@ -1,4 +1,4 @@
-package com.example.traveldeal2
+package com.example.traveldeal2.ui
 
 import android.app.Activity
 import android.content.Intent

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Travel Deal</string>
+    <string name="Add_travel">נסיעה חדשה</string>
+    <string name="My_travels">הנסיעות שלי</string>
+    <string name="Sign_out">יציאה</string>
+    <string name="clientNameHint">שם</string>
+    <string name="phoneNameHint"> מספר טלפון</string>
+    <string name="emailAddressHint">כתובת דוא\"ל</string>
+    <string name="departureAddressHint">כתובת איסוף</string>
+    <string name="destinationAddressHint">כתובת יעד</string>
+    <string name="fromTitle">מ-</string>
+    <string name="toTitle">ל-</string>
+    <string name="passengersNumber"> נוסעים</string>
+    <string name="onePassengers"> נוסע אחד</string>
+
+    <string name="passengersNumberHint">מספר נוסעים</string>
+    <string name="departureDateHint"> תאריך יציאה</string>
+    <string name="returnDateHint"> תאריך חזרה</string>
+    <string name="statusText">סטטוס נסיעה</string>
+    <string name="buttonSaveText">שמור</string>
+    <string name="header_travel_details">מילוי פרטים</string>
+    <string name="num_bigger_than_0">הזן ערך גדול מאפס</string>
+    <string name="enter_exit_date_first">הזן קודם תאריך יציאה</string>
+    <string name="fill_all_fields">יש למלא את כל השדות</string>
+    <string name="saved_success">הפרטים נשמרו בהצלחה!</string>
+    <string name="incorrect_email">כתובת המייל אינה תקינה</string>
+    <string name="incorrect_phone_number">מספר הטלפון לא תקין</string>
+
+    <string-array name="status_array" tools:ignore="InconsistentArrays">
+        <item>נשלח</item>
+        <item>התקבל</item>
+        <item>פעיל</item>
+        <item>סגור</item>
+        <item>שולם</item>
+    </string-array>
+
+</resources>

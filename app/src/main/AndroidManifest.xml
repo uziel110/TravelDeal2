@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDeal2">
         <activity
-            android:name=".NavigationActivity"
+            android:name=".ui.NavigationActivity"
             android:label="@string/title_activity_navigation"
             android:theme="@style/Theme.TravelDeal2.NoActionBar"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
