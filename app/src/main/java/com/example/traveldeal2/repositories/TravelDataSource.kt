@@ -17,7 +17,7 @@ class TravelDataSource :
     private val reference = rootNode.getReference("travels")
     private val liveData: MutableLiveData<Boolean> = MutableLiveData()
     private var uid: String
-    var travelsList: MutableList<Travel> = mutableListOf()
+    var allTravelsList: MutableList<Travel> = mutableListOf()
     private var travels: MutableLiveData<MutableList<Travel>> = MutableLiveData()
     private var aTravel: MutableLiveData<Travel> = MutableLiveData()
 
@@ -25,13 +25,15 @@ class TravelDataSource :
 
     init {
         uid = FirebaseAuth.getInstance().uid.toString()
-        reference.child(uid).addValueEventListener(object : ValueEventListener {
+        reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                travelsList.clear()
-                for (travelSnapshot in dataSnapshot.children) {
-                    val travel: Travel? = travelSnapshot.getValue(Travel::class.java)
-                    if (travel != null /*&& travel.requestStatus != resources.getStringArray(R.array.status_array)[3]*/) {
-                        travelsList.add(travel)
+                allTravelsList.clear()
+                for (user in dataSnapshot.children) {
+                    for (travelSnapshot in user.children) {
+                        val travel: Travel? = travelSnapshot.getValue(Travel::class.java)
+                        if (travel != null /*&& travel.requestStatus != resources.getStringArray(R.array.status_array)[3]*/) {
+                            allTravelsList.add(travel)
+                        }
                     }
                 }
                 // travels.value = travelsList
@@ -67,7 +69,7 @@ class TravelDataSource :
     }
 
     override fun getAllTravels(): MutableList<Travel> {
-        return travelsList
+        return allTravelsList
     }
 
 //    fun getTravel(travelId: String): MutableLiveData<Travel> {

@@ -6,10 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.traveldeal2.data.entities.Travel
+import com.example.traveldeal2.utils.UserLocationConverter
 import kotlinx.coroutines.CoroutineScope
 
 @Database(entities = [Travel::class], version = 1, exportSchema = false)
-@TypeConverters(Travel.UserLocationConverter::class)
+@TypeConverters(UserLocationConverter::class)
 abstract class TravelRoomDatabase : RoomDatabase() {
 
     abstract fun travelDao(): TravelDAO

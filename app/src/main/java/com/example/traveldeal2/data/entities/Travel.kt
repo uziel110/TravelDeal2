@@ -2,7 +2,10 @@ package com.example.traveldeal2.data.entities
 
 import androidx.room.*
 import androidx.room.Entity
+import com.example.traveldeal2.enums.Status
+import com.example.traveldeal2.utils.RequestStatusConverter
 import com.example.traveldeal2.utils.UserLocation
+import com.example.traveldeal2.utils.UserLocationConverter
 import com.google.firebase.database.Exclude
 
 //@TypeConverters(Travel.UserLocationConverter::class)
@@ -46,36 +49,18 @@ class Travel {
     var passengersNumber: Int = 0
         set
         get() = field
-    var requestStatus: String = ""
+    @TypeConverters(RequestStatusConverter::class)
+    var requestStatus: Status = Status.SENT
         set
         get() = field
-
+    @Ignore //todo unignore - temporary ignored
+    var company: HashMap<String, Boolean> = hashMapOf()
+        set
+        get() = field
     // for expandable of card in recycle view
     @Ignore
     var expandable: Boolean = false
         @Exclude
         set
         get() = field
-
-    // temporary ignored
-    @Ignore
-    var company: HashMap<String, Boolean> = hashMapOf()
-        set
-        get() = field
-
-    class UserLocationConverter {
-        @TypeConverter
-        fun fromString(value: String?): UserLocation? {
-            if (value == null || value == "") return null
-            val lat = value.split(" ").toTypedArray()[0].toDouble()
-            val lang = value.split(" ").toTypedArray()[1].toDouble()
-            return UserLocation(lat, lang)
-        }
-
-        @TypeConverter
-        fun asString(userLocation: UserLocation?): String {
-            return if (userLocation == null) "" else userLocation.lat
-                .toString() + " " + userLocation.lon
-        }
-    }
 }

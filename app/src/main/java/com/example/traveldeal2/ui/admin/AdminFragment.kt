@@ -50,7 +50,6 @@ class AdminFragment : Fragment(),TravelRecyclerViewAdapter.OnItemClickListener {
         adminViewModel.travelsList?.observe(viewLifecycleOwner, {
             travelsList = (it as List<Travel>).toMutableList()
             recyclerView.adapter = TravelRecyclerViewAdapter( it, this)
-
         })
 
         recyclerView.layoutManager = LinearLayoutManager(context)

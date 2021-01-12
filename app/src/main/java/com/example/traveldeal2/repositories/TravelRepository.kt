@@ -42,4 +42,8 @@ class TravelRepository(context: Context) : Application() {
     fun getAllTravels(): MutableLiveData<List<Travel?>?> {
         return travelsList
     }
+
+    fun getAllTravelsFromLocal(): LiveData<List<Travel>> {
+        return localDatabase.getAllTravels()
+    }
 }
