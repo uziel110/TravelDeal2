@@ -4,25 +4,23 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.navigation.ui.*
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
     private val RC_SIGN_IN = 123
+    lateinit var drawerLayout: DrawerLayout
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -38,18 +36,36 @@ class MainActivity : AppCompatActivity() {
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show()
 //        }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_signOut
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
+
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
+        navView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { menuItem ->
+            val id = menuItem.itemId
+            //it's possible to do more actions on several items, if there is a large amount of items I prefer switch(){case} instead of if()
+            if (id == R.id.nav_signOut) {
+                signOut()
+            }
+            //This is for maintaining the behavior of the Navigation view
+            NavigationUI.onNavDestinationSelected(menuItem, navController)
+            //This is for closing the drawer after acting on it
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        })
 
         if (FirebaseAuth.getInstance().currentUser != null)
             return
@@ -85,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
                 if (user != null) {
-                    Toast.makeText(this, user.email, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Welcome ${user.displayName}", Toast.LENGTH_LONG).show()
                 }
             } else {
                 Toast.makeText(this, "Sign in failed", Toast.LENGTH_LONG).show()
@@ -98,7 +114,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
@@ -110,8 +125,10 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    fun signOutButton(view: View) {
+    fun signOut() {
         FirebaseAuth.getInstance().signOut()
+        Toast.makeText(applicationContext, "You are signed out", Toast.LENGTH_SHORT).show()
         startSignInIntent()
     }
+
 }
