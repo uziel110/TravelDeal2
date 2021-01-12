@@ -39,13 +39,20 @@ class AdminFragment : Fragment(),TravelRecyclerViewAdapter.OnItemClickListener {
         adminViewModel = ViewModelProvider(this).get(AdminViewModel::class.java)
         recyclerView = view.findViewById(R.id.rvUserTravels)
 
-        val finishedTravels = adminViewModel.getAllTravels() //.getTravelsByStatus("סגור")
-        finishedTravels.observe(viewLifecycleOwner, {
-            if (it != null) {
-                recyclerView.adapter = TravelRecyclerViewAdapter(it as List<Travel>, this)
-                travelsList = it as MutableList<Travel?>
-            }
+//        val finishedTravels = adminViewModel.getAllTravels() //.getTravelsByStatus("סגור")
+//        finishedTravels.observe(viewLifecycleOwner, {
+//            if (it != null) {
+//                recyclerView.adapter = TravelRecyclerViewAdapter(it as List<Travel>, this)
+//                travelsList = it as MutableList<Travel?>
+//            }
+//        })
+
+        adminViewModel.travelsList?.observe(viewLifecycleOwner, {
+            travelsList = (it as List<Travel>).toMutableList()
+            recyclerView.adapter = TravelRecyclerViewAdapter( it, this)
+
         })
+
         recyclerView.layoutManager = LinearLayoutManager(context)
         //recyclerView.setHasFixedSize(false)
     }

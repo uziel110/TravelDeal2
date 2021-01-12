@@ -1,16 +1,25 @@
 package com.example.traveldeal2.ui.admin
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.traveldeal2.data.entities.Travel
+import com.example.traveldeal2.enums.Status
 import com.example.traveldeal2.repositories.TravelRepository
 import com.example.traveldeal2.utils.App
 
 class AdminViewModel : ViewModel(), IAdminViewModel {
     val app = App
     private var rp: TravelRepository = TravelRepository(app.instance)
+    var travelsList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
+
+    init {
+        rp.getAllTravels().observeForever {
+            travelsList?.postValue(it?.filter { travel ->
+                travel!!.requestStatus == Status.CLOSED.name
+            })
+        }
+    }
 
     override fun insertItem(travel: Travel) {
         rp.insert(travel)
