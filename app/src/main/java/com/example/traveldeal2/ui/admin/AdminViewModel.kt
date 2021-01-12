@@ -1,23 +1,25 @@
 package com.example.traveldeal2.ui.admin
 
+import android.icu.text.SimpleDateFormat
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.traveldeal2.data.entities.Travel
-import com.example.traveldeal2.enums.Status
 import com.example.traveldeal2.repositories.TravelRepository
 import com.example.traveldeal2.utils.App
+import java.util.*
 
 class AdminViewModel : ViewModel() {
     val app = App
     private var rp: TravelRepository = TravelRepository(app.instance)
     var travelsList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
+    var filteredList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
 
     init {
         rp.getAllTravelsFromLocal().observeForever {
-            travelsList?.postValue(it?.filter { travel ->
-                travel!!.requestStatus == Status.CLOSED
-            })
+            travelsList?.postValue(it)
         }
     }
 
@@ -29,8 +31,22 @@ class AdminViewModel : ViewModel() {
         return rp.getLiveData()
     }
 
-    fun getAllTravels(): MutableLiveData<List<Travel?>?> {
-        return rp.getAllTravels()
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun getTravelsByDate(_startDate: String, _endDate: String): MutableLiveData<List<Travel?>?>? {
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        val startDate: Date = sdf.parse(_startDate)
+        val endDate: Date = sdf.parse(_startDate)
+        filteredList?.postValue(travelsList?.value?.filter { travel ->
+            val trStartDate: Date = sdf.parse(travel?.departureDate)
+            val trEndDate: Date = sdf.parse(travel?.returnDate)
+            trStartDate.after(startDate)
+                    && trEndDate.after(endDate)
+        })
+        return filteredList
+    }
+
+    fun getAllTravels(): MutableLiveData<List<Travel?>?>? {
+        return travelsList
     }
 
 //    fun getTravelsByStatus(string: String): MutableLiveData<List<Travel?>?> {
