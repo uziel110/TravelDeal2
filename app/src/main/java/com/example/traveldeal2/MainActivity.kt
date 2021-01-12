@@ -13,17 +13,18 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.navigation.NavController
 import androidx.navigation.ui.*
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 123
     lateinit var drawerLayout: DrawerLayout
-
+    lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-
+    lateinit var navView: NavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,14 +32,18 @@ class MainActivity : AppCompatActivity(){
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-//        val fab: FloatingActionButton = findViewById(R.id.fab)
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
+        setViews()
+        setNavigationDrawer()
+
+        if (FirebaseAuth.getInstance().currentUser != null)
+            return
+        startSignInIntent()
+    }
+
+    private fun setViews() {
         drawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
+        navView = findViewById(R.id.nav_view)
+        navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -46,14 +51,16 @@ class MainActivity : AppCompatActivity(){
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_signOut
             ), drawerLayout
         )
+    }
+
+    private fun setNavigationDrawer() {
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
         navView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { menuItem ->
             val id = menuItem.itemId
             //it's possible to do more actions on several items, if there is a large amount of items I prefer switch(){case} instead of if()
@@ -66,10 +73,6 @@ class MainActivity : AppCompatActivity(){
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         })
-
-        if (FirebaseAuth.getInstance().currentUser != null)
-            return
-        startSignInIntent()
     }
 
     private fun startSignInIntent() {
@@ -125,10 +128,9 @@ class MainActivity : AppCompatActivity(){
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    fun signOut() {
+    private fun signOut() {
         FirebaseAuth.getInstance().signOut()
         Toast.makeText(applicationContext, "You are signed out", Toast.LENGTH_SHORT).show()
         startSignInIntent()
     }
-
 }
