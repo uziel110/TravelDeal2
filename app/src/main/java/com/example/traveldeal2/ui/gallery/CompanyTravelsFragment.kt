@@ -5,18 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
+import android.widget.Filter
 import androidx.annotation.RequiresApi
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.utils.App
 import com.example.traveldeal2.utils.TravelRecyclerViewAdapter
-import com.example.traveldeal2.utils.UserLocation
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -28,7 +30,10 @@ class CompanyTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
     private lateinit var companyTravelsViewModel: CompanyTravelsViewModel
     lateinit var recyclerView: RecyclerView
     lateinit var travelsList: MutableList<Travel?>
-    lateinit var vehicleLocation: LatLng
+    var vehicleLocation: String = "חיפה" //todo remove initialization
+    var vehicleLatLng: LatLng = LatLng(0.0,0.0) //todo remove initialization
+    lateinit var btFilter: Button
+    lateinit var etDistance: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,12 +50,43 @@ class CompanyTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.rvUserTravels)
 //        etLocation = view.findViewById(R.id.ac_VehicleLocation)
-//        etDistance = view.findViewById(R.id.et_MaxDistance)
-
+        etDistance = view.findViewById(R.id.et_MaxDistance)
+        btFilter = view.findViewById(R.id.bt_filter)
+        btFilter.setOnClickListener {
+            if (vehicleLocation != "" && etDistance.text.toString() != "") {
+                companyTravelsViewModel.getRelevantTravels(
+                    etDistance.text.toString().toInt(),
+                    vehicleLatLng,
+                    requireActivity().applicationContext
+                ).observe(viewLifecycleOwner, {
+                    travelsList = (it as List<Travel>).toMutableList()
+                    recyclerView.adapter =
+                        TravelRecyclerViewAdapter(it, this@CompanyTravelsFragment)
+                })
+                //while (t.isAlive);
+                //rvOpenTravels.adapter = arrayAdapter
+//            } else {
+//                rvOpenTravels.adapter = OpenTravelArrayAdapter(openTravelList, viewModel)
+            }
+        }
         placeAutoComplete()
 
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
+
+//    fun btFilterOnClick(view: View){
+//        if (vehicleLocation != "" && etDistance.text.toString() != "") {
+//            companyTravelsViewModel.getRelevantTravels (
+//                etDistance.text.toString().toInt(),
+//                vehicleLatLng,
+//                requireActivity().applicationContext
+//            ).observe(viewLifecycleOwner, {
+//                travelsList = (it as List<Travel>).toMutableList()
+//                recyclerView.adapter =
+//                    TravelRecyclerViewAdapter(it, this@CompanyTravelsFragment)
+//            })
+//        }
+//    }
 
     override fun onItemClick(itemID: Int) {
 //        val t = travelsList[itemID]
@@ -80,7 +116,8 @@ class CompanyTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
         vehicleLocationAutocompleteFragment.setOnPlaceSelectedListener(object :
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                vehicleLocation = place.latLng!!
+                vehicleLocation = place.name!!
+                vehicleLatLng = place.latLng!!
             }
 
             override fun onError(status: com.google.android.gms.common.api.Status) {

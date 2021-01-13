@@ -34,13 +34,16 @@ class HistoryTravelsViewModel : ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun getTravelsByDate(_startDate: String, _endDate: String): MutableLiveData<List<Travel?>?> {
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
-        val startDate: Date = sdf.parse(_startDate)
-        val endDate: Date = sdf.parse(_endDate)
-        filteredList?.postValue(travelsList?.value?.filter { travel ->
-            val retDate: Date = sdf.parse(travel?.returnDate)
-            retDate in startDate..endDate
-        })
+        val t = Thread {
+            val sdf = SimpleDateFormat("dd/MM/yyyy")
+            val startDate: Date = sdf.parse(_startDate)
+            val endDate: Date = sdf.parse(_endDate)
+            filteredList?.postValue(travelsList?.value?.filter { travel ->
+                val retDate: Date = sdf.parse(travel?.returnDate)
+                retDate in startDate..endDate
+            })
+        }
+        t.start()
         return filteredList!!
     }
 

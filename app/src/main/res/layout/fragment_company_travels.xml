@@ -27,21 +27,42 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="מרחק:"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/et_MaxDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="string/Distance"
+                android:layout_weight="1"
+                android:inputType="numberDecimal" />
+            <Button
+                android:id="@+id/bt_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="סנן" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="מיקום:" />-->
-
             <androidx.cardview.widget.CardView
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_weight="1"
                 android:ems="10"
                 android:outlineSpotShadowColor="@color/fui_transparent"
                 app:cardBackgroundColor="@color/fui_transparent">
@@ -53,24 +74,6 @@
                     android:layout_height="match_parent" />
             </androidx.cardview.widget.CardView>
 
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="מרחק:" />
-
-                <EditText
-                    android:id="@+id/et_MaxDistance"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:hint="string/Distance"
-                    android:inputType="numberDecimal" />
-            </LinearLayout>
 
         </LinearLayout>
 

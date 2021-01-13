@@ -11,6 +11,7 @@ import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.repositories.TravelRepository
 import com.example.traveldeal2.utils.AddressTool
 import com.example.traveldeal2.utils.App
+import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
 class CompanyTravelsViewModel : ViewModel() {
@@ -49,29 +50,23 @@ class CompanyTravelsViewModel : ViewModel() {
         return travelsList
     }
 
-//    fun relevantTravels(radius: Int, location: String, context: Context): List<Travel?> {
-//        val latLong = AddressTool.getLocationFromAddress(context, location)
-//        return filteredList?.value!!.filter { it ->
-//            latLong?.let { it1 ->
-//                AddressTool.getLocationFromAddress(
-//                    context, it!!.sourceAdders
-//                )?.let { it2 ->
-//                    AddressTool.calculateDistance(it1, it2)
-//                }
-//            }!! <= radius
-//        }
-//    }
-
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun relevantTravels(_startDate: String, _endDate: String, context: Context): List<Travel?> {
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
-        val startDate: Date = sdf.parse(_startDate)
-        val endDate: Date = sdf.parse(_startDate)
-        return filteredList?.value!!.filter { travel ->
-            val trStartDate: Date = sdf.parse(travel?.departureDate)
-            val trEndDate: Date = sdf.parse(travel?.returnDate)
-            trStartDate.after(startDate)
-                    && trEndDate.after(endDate)
+    fun getRelevantTravels(
+        radius: Int,
+        location: LatLng,
+        context: Context
+    ): MutableLiveData<List<Travel?>?> {
+        val t = Thread {
+            filteredList?.postValue(travelsList?.value?.filter { it ->
+                location.let { it1 ->
+                    AddressTool.getLocationFromAddress(
+                        context, it!!.departureAddress
+                    )?.let { it2 ->
+                        AddressTool.calculateDistance(it1, it2)
+                    }
+                }!! <= radius
+            })
         }
+        t.start()
+        return filteredList!!
     }
 }
