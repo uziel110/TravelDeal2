@@ -60,7 +60,7 @@
                 android:hint="@string/End_date"
                />
         </LinearLayout>
-<!--        android:text="20/12/2021"-->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvUserTravels"
             android:padding="4dp"

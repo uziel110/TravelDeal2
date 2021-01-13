@@ -32,17 +32,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (FirebaseAuth.getInstance().currentUser != null)
-            return
-        startSignInIntent()
-
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         setViews()
         setNavigationDrawer()
 
-
+        if (FirebaseAuth.getInstance().currentUser != null)
+            return
+        startSignInIntent()
     }
 
     private fun setViews() {

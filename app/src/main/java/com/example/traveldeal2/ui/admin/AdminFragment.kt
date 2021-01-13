@@ -1,18 +1,14 @@
 package com.example.traveldeal2.ui.admin
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import android.widget.EditText
 import androidx.annotation.RequiresApi
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
-import com.example.traveldeal2.utils.App
 import com.example.traveldeal2.utils.TravelRecyclerViewAdapter
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -49,7 +44,6 @@ class AdminFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClickListener 
 //        adminViewModel.text.observe(viewLifecycleOwner, Observer {
 //            textView.text = it
 //        })
-
         return root
     }
 
@@ -64,21 +58,6 @@ class AdminFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClickListener 
         createDatePicker(etStartDate, true)
         createDatePicker(etEndDate, false)
 
-        etEndDate.addTextChangedListener(object : TextWatcher {
-
-            override fun afterTextChanged(s: Editable) {
-                adminViewModel.getTravelsByDate(
-                    etStartDate.text.toString(),
-                    etEndDate.text.toString()
-                )?.observe(viewLifecycleOwner, {
-                    travelsList = (it as List<Travel>).toMutableList()
-                    recyclerView.adapter = TravelRecyclerViewAdapter(it, this@AdminFragment)
-                })
-            }
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-        })
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
@@ -87,8 +66,9 @@ class AdminFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClickListener 
 //        Toast.makeText(this, "clientId: ${t!!.clientId}", Toast.LENGTH_SHORT).show()
     }
 
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.N)
-    private fun createDatePicker(view: EditText, start:Boolean) {
+    private fun createDatePicker(view: EditText, start: Boolean) {
         view.setOnClickListener {
             val cldr: Calendar = Calendar.getInstance()
             val day: Int = cldr.get(Calendar.DAY_OF_MONTH)
@@ -99,16 +79,26 @@ class AdminFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClickListener 
                 this.requireContext(),
                 { _, theYear, monthOfYear, dayOfMonth ->
                     view.setText("$dayOfMonth/${monthOfYear + 1}/$theYear")
+                    if (etStartDate.text.toString() != "" && etEndDate.text.toString() != "") {
+                        adminViewModel.getTravelsByDate(
+                            etStartDate.text.toString(),
+                            etEndDate.text.toString()
+                        )?.observe(viewLifecycleOwner, {
+                            travelsList = (it as List<Travel>).toMutableList()
+                            recyclerView.adapter = TravelRecyclerViewAdapter(it, this@AdminFragment)
+                        })
+                    }
                 },
                 year, month, day
 
             )
+            val sdf = SimpleDateFormat("dd/MM/yyyy")
             if (start) {
-                picker.datePicker.minDate = System.currentTimeMillis() - 1000
+                if (etEndDate.text.toString() != "")
+                    picker.datePicker.maxDate = sdf.parse(etEndDate.text.toString()).time
                 picker.show()
-            }
-            else {
-                val sdf = SimpleDateFormat("dd/MM/yyyy")
+            } else {
+
                 try {
                     picker.datePicker.minDate = sdf.parse(etStartDate.text.toString()).time
                     picker.show()
@@ -122,6 +112,5 @@ class AdminFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClickListener 
                 }
             }
         }
-
     }
 }

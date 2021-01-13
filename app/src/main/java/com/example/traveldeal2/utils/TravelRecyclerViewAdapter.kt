@@ -17,7 +17,7 @@ object Strings {
 }
 
 class TravelRecyclerViewAdapter(
-    private val travelList: List<Travel>,
+    var travelList: List<Travel>,
     private val listener: OnItemClickListener
 ) :
     RecyclerView.Adapter<TravelRecyclerViewAdapter.ViewHolder>() {
