@@ -51,8 +51,8 @@ class HistoryTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.rvUserTravels)
-        etStartDate = view.findViewById(R.id.ac_VehicleLocation)
-        etEndDate = view.findViewById(R.id.et_MaxDistance)
+        etStartDate = view.findViewById(R.id.start_date)
+        etEndDate = view.findViewById(R.id.end_date)
 
         createDatePicker(etStartDate, true)
         createDatePicker(etEndDate, false)
