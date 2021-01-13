@@ -23,9 +23,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AdminFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClickListener {
+class HistoryTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClickListener {
 
-    private lateinit var adminViewModel: AdminViewModel
+    private lateinit var historyTravelsViewModel: HistoryTravelsViewModel
     lateinit var recyclerView: RecyclerView
     lateinit var travelsList: MutableList<Travel?>
     lateinit var etStartDate: EditText
@@ -37,9 +37,9 @@ class AdminFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClickListener 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        adminViewModel =
-            ViewModelProvider(this).get(AdminViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_sadmin, container, false)
+        historyTravelsViewModel =
+            ViewModelProvider(this).get(HistoryTravelsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_history_travels, container, false)
 //        val textView: TextView = root.findViewById(R.id.text_slideshow)
 //        adminViewModel.text.observe(viewLifecycleOwner, Observer {
 //            textView.text = it
@@ -50,14 +50,19 @@ class AdminFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClickListener 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adminViewModel = ViewModelProvider(this).get(AdminViewModel::class.java)
         recyclerView = view.findViewById(R.id.rvUserTravels)
-        etStartDate = view.findViewById(R.id.et_HistoryStartDate)
-        etEndDate = view.findViewById(R.id.et_HistoryEndDate)
+        etStartDate = view.findViewById(R.id.ac_VehicleLocation)
+        etEndDate = view.findViewById(R.id.et_MaxDistance)
 
         createDatePicker(etStartDate, true)
         createDatePicker(etEndDate, false)
 
+        //todo apply when one of two edit text is empty
+        historyTravelsViewModel.getAllTravels()?.observe(viewLifecycleOwner, {
+            travelsList = (it as List<Travel>).toMutableList()
+            recyclerView.adapter =
+                TravelRecyclerViewAdapter(it, this@HistoryTravelsFragment)
+        })
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
@@ -80,12 +85,13 @@ class AdminFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClickListener 
                 { _, theYear, monthOfYear, dayOfMonth ->
                     view.setText("$dayOfMonth/${monthOfYear + 1}/$theYear")
                     if (etStartDate.text.toString() != "" && etEndDate.text.toString() != "") {
-                        adminViewModel.getTravelsByDate(
+                        historyTravelsViewModel.getTravelsByDate(
                             etStartDate.text.toString(),
                             etEndDate.text.toString()
                         )?.observe(viewLifecycleOwner, {
                             travelsList = (it as List<Travel>).toMutableList()
-                            recyclerView.adapter = TravelRecyclerViewAdapter(it, this@AdminFragment)
+                            recyclerView.adapter =
+                                TravelRecyclerViewAdapter(it, this@HistoryTravelsFragment)
                         })
                     }
                 },
@@ -107,8 +113,7 @@ class AdminFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClickListener 
                         this.requireContext(),
                         R.string.enter_start_date_first,
                         Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 }
             }
         }

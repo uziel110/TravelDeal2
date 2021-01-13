@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navView: NavigationView
-    lateinit var userMailTextView:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,10 +79,6 @@ class MainActivity : AppCompatActivity() {
         if (FirebaseAuth.getInstance().currentUser != null)
             return
         startSignInIntent()
-
-//        userMailTextView = findViewById(R.id.userMailTextView)
-//        val temp = "user.email"
-//        userMailTextView.setText(temp)
 
     }
 

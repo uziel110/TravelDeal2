@@ -1,4 +1,4 @@
-package com.example.traveldeal2.ui.admin
+package com.example.traveldeal2.ui.gallery
 
 import android.content.Context
 import android.icu.text.SimpleDateFormat
@@ -9,10 +9,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.repositories.TravelRepository
+import com.example.traveldeal2.utils.AddressTool
 import com.example.traveldeal2.utils.App
 import java.util.*
 
-class AdminViewModel : ViewModel() {
+class CompanyTravelsViewModel : ViewModel() {
     val app = App
     private var rp: TravelRepository = TravelRepository(app.instance)
     var travelsList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
@@ -48,6 +49,19 @@ class AdminViewModel : ViewModel() {
         return travelsList
     }
 
+//    fun relevantTravels(radius: Int, location: String, context: Context): List<Travel?> {
+//        val latLong = AddressTool.getLocationFromAddress(context, location)
+//        return filteredList?.value!!.filter { it ->
+//            latLong?.let { it1 ->
+//                AddressTool.getLocationFromAddress(
+//                    context, it!!.sourceAdders
+//                )?.let { it2 ->
+//                    AddressTool.calculateDistance(it1, it2)
+//                }
+//            }!! <= radius
+//        }
+//    }
+
     @RequiresApi(Build.VERSION_CODES.N)
     fun relevantTravels(_startDate: String, _endDate: String, context: Context): List<Travel?> {
         val sdf = SimpleDateFormat("dd/MM/yyyy")
@@ -61,17 +75,3 @@ class AdminViewModel : ViewModel() {
         }
     }
 }
-
-//    fun getTravelsByStatus(string: String): MutableLiveData<List<Travel?>?> {
-//        val travels: MutableList<Travel> = mutableListOf()
-//        val allTravels = getAllTravels().value
-//        if (allTravels != null) {
-//            for (travel in allTravels)
-//                if (travel!!.requestStatus == string) travels.add(travel)
-//        }
-//        return MutableLiveData(travels)
-//    }
-//    private val _text = MutableLiveData<String>().apply {
-//        value = "This is slideshow Fragment"
-//    }
-//    val text: LiveData<String> = _text
