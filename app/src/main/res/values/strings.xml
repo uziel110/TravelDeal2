@@ -21,6 +21,7 @@
     <string name="header_travel_details">"Fill Details"</string>
     <string name="num_bigger_than_0">The number must be bigger than zero</string>
     <string name="enter_exit_date_first">Please enter a departure date first</string>
+    <string name="enter_start_date_first">Please enter start date first</string>
     <string name="fill_all_fields">All fields should be filled</string>
     <string name="saved_success">Details saved successfully!</string>
     <string name="incorrect_email">The email address is incorrect</string>
@@ -49,5 +50,7 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="Start_date">Start date</string>
+    <string name="End_date">End date</string>
 
 </resources>

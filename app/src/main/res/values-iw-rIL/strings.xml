@@ -23,6 +23,7 @@
     <string name="header_travel_details">מילוי פרטים</string>
     <string name="num_bigger_than_0">הזן ערך גדול מאפס</string>
     <string name="enter_exit_date_first">הזן קודם תאריך יציאה</string>
+    <string name="enter_start_date_first">הזן קודם תאריך התחלה</string>
     <string name="fill_all_fields">יש למלא את כל השדות</string>
     <string name="saved_success">הפרטים נשמרו בהצלחה!</string>
     <string name="incorrect_email">כתובת המייל אינה תקינה</string>
@@ -44,6 +45,8 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="Start_date">תאריך התחלה</string>
+    <string name="End_date">תאריך סיום</string>
 
     <string-array name="status_array" tools:ignore="InconsistentArrays">
         <item>נשלח</item>

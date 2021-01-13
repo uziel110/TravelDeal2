@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -25,9 +26,15 @@ class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navView: NavigationView
+    lateinit var userMailTextView:TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (FirebaseAuth.getInstance().currentUser != null)
+            return
+        startSignInIntent()
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -35,9 +42,7 @@ class MainActivity : AppCompatActivity() {
         setViews()
         setNavigationDrawer()
 
-        if (FirebaseAuth.getInstance().currentUser != null)
-            return
-        startSignInIntent()
+
     }
 
     private fun setViews() {
@@ -73,6 +78,15 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         })
+
+        if (FirebaseAuth.getInstance().currentUser != null)
+            return
+        startSignInIntent()
+
+//        userMailTextView = findViewById(R.id.userMailTextView)
+//        val temp = "user.email"
+//        userMailTextView.setText(temp)
+
     }
 
     private fun startSignInIntent() {

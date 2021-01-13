@@ -35,12 +35,12 @@ class AdminViewModel : ViewModel() {
     fun getTravelsByDate(_startDate: String, _endDate: String): MutableLiveData<List<Travel?>?>? {
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         val startDate: Date = sdf.parse(_startDate)
-        val endDate: Date = sdf.parse(_startDate)
+        val endDate: Date = sdf.parse(_endDate)
         filteredList?.postValue(travelsList?.value?.filter { travel ->
-            val trStartDate: Date = sdf.parse(travel?.departureDate)
+            val trStartDate: Date = sdf.parse(travel?.returnDate)
             val trEndDate: Date = sdf.parse(travel?.returnDate)
-            trStartDate.after(startDate)
-                    && trEndDate.after(endDate)
+            trStartDate.compareTo(startDate) >= 0
+                    && trEndDate.compareTo(endDate) <= 0
         })
         return filteredList
     }

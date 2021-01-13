@@ -33,36 +33,40 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="From" />
+                android:text="מ-" />
 
             <EditText
                 android:id="@+id/et_HistoryStartDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Start date"
-                android:text="20/09/2021" />
-
+                android:focusable="false"
+                android:inputType="date"
+                android:hint="@string/Start_date"
+             />
+<!--            android:text="20/09/2021"-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Until" />
+                android:text="עד" />
 
             <EditText
                 android:id="@+id/et_HistoryEndDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="End date"
-                android:text="20/12/2021" />
+                android:focusable="false"
+                android:inputType="date"
+                android:hint="@string/End_date"
+               />
         </LinearLayout>
-
+<!--        android:text="20/12/2021"-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvUserTravels"
+            android:padding="4dp"
+            android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:padding="4dp"
             tools:listitem="@layout/activity_card_travel" />
 
     </LinearLayout>
