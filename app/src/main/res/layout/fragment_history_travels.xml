@@ -23,42 +23,62 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Closed travels" />
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/pick_dats" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_margin="8dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="מ-" />
 
-            <EditText
-                android:id="@+id/ac_VehicleLocation"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="6dp"
                 android:layout_weight="1"
-                android:focusable="false"
-                android:inputType="date"
-                android:hint="@string/Start_date"
-             />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="עד" />
+                app:endIconMode="clear_text"
+                android:hint="@string/Start_date">
 
-            <EditText
-                android:id="@+id/et_MaxDistance"
-                android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/start_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:gravity="center" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="6dp"
                 android:layout_weight="1"
-                android:focusable="false"
-                android:inputType="date"
+                app:endIconMode="clear_text"
                 android:hint="@string/End_date"
-               />
+               >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/end_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:gravity="center" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvUserTravels"
