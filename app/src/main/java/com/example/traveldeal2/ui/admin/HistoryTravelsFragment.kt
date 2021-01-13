@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.annotation.RequiresApi
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -44,6 +46,7 @@ class HistoryTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
 //        adminViewModel.text.observe(viewLifecycleOwner, Observer {
 //            textView.text = it
 //        })
+
         return root
     }
 
@@ -57,6 +60,9 @@ class HistoryTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
         createDatePicker(etStartDate, true)
         createDatePicker(etEndDate, false)
 
+        setEditTextListener(etStartDate)
+        setEditTextListener(etEndDate)
+
         //todo apply when one of two edit text is empty
         historyTravelsViewModel.getAllTravels()?.observe(viewLifecycleOwner, {
             travelsList = (it as List<Travel>).toMutableList()
@@ -64,6 +70,22 @@ class HistoryTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
                 TravelRecyclerViewAdapter(it, this@HistoryTravelsFragment)
         })
         recyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun setEditTextListener(editText: EditText){
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable) {
+                if (editText.text.toString()==""){
+                    historyTravelsViewModel.getAllTravels()?.observe(viewLifecycleOwner, {
+                        travelsList = (it as List<Travel>).toMutableList()
+                        recyclerView.adapter =
+                            TravelRecyclerViewAdapter(it, this@HistoryTravelsFragment)
+                    })
+                }
+            }
+        })
     }
 
     override fun onItemClick(itemID: Int) {
