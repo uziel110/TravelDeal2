@@ -2,10 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-kapt'
-// Add this line
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -20,6 +16,17 @@ android {
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // ...
+        // Set the properties within `local.properties` into a `Properties` class so that values
+        // within `local.properties` (e.g. Maps API key) are accessible in this file.
+        Properties properties = new Properties()
+        if (rootProject.file("local.properties").exists()) {
+            properties.load(rootProject.file("local.properties").newDataInputStream())
+        }
+
+        // Inject the Maps API key into the manifest
+        manifestPlaceholders = [mapsApiKey: properties.getProperty("MAPS_API_KEY", "")]
     }
 
     buildTypes {
@@ -35,8 +42,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-}
 
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
+    }
+}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-kapt'
+// Add this line
+apply plugin: 'com.google.gms.google-services'
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -73,6 +87,9 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-auth-ktx'
     annotationProcessor 'androidx.room:room-compiler:2.2.6'
+
+    //places
+    implementation 'com.google.android.libraries.places:places:2.4.0'
 
     // Room components
     annotationProcessor "androidx.room:room-compiler:$roomVersion"
