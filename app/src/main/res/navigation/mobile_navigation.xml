@@ -14,12 +14,12 @@
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.example.traveldeal2.ui.gallery.CompanyTravelsFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_HistoryTravels" />
+        android:label="@string/travels_tab"
+        tools:layout="@layout/fragment_company_travels" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.traveldeal2.ui.admin.HistoryTravelsFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/admin_tab"
         tools:layout="@layout/fragment_history_travels" />
 </navigation>

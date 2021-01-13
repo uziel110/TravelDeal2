@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string name="app_name">Travel Deal</string>
+    <string name="app_name">Travel Deal 2</string>
     <string name="Add_travel">נסיעה חדשה</string>
     <string name="My_travels">הנסיעות שלי</string>
     <string name="Sign_out">יציאה</string>
@@ -47,6 +47,9 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="Start_date">תאריך התחלה</string>
     <string name="End_date">תאריך סיום</string>
+    <string name="pick_dats">בחר תאריכים להצגה</string>
+    <string name="travels_dont_exists">אין נסיעות בתאריכים שנבחרו</string>
+
 
     <string-array name="status_array" tools:ignore="InconsistentArrays">
         <item>נשלח</item>
