@@ -1,8 +1,6 @@
 package com.example.traveldeal2.ui.gallery
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,7 @@ import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
-import com.example.traveldeal2.utils.App
+import com.example.traveldeal2.utils.*
 
 
 object Strings {
@@ -20,7 +18,10 @@ object Strings {
     }
 }
 
-class CompanyRecyclerViewAdapter(var travelList: List<Travel>) :
+class CompanyRecyclerViewAdapter(
+    var travelList: List<Travel>,
+    private val listener: CompanyCardButtonsListener
+) :
     RecyclerView.Adapter<CompanyRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -57,14 +58,11 @@ class CompanyRecyclerViewAdapter(var travelList: List<Travel>) :
         }
 
         holder.btnCall.setOnClickListener {
+            listener.createCall(travelList[listPosition].clientPhone)
         }
 
         holder.btnSms.setOnClickListener {
-//            val intent = Intent(Intent.ACTION_CALL)
-//            intent.data = Uri.parse("tel:" + bundle.getString("mobilePhone"))
-//            context.startActivity(intent)
-//            travelList[listPosition].expandable = !travelList[listPosition].expandable
-//            notifyItemChanged(listPosition)
+
         }
 
         holder.btnEmail.setOnClickListener {
@@ -73,7 +71,7 @@ class CompanyRecyclerViewAdapter(var travelList: List<Travel>) :
 
     override fun getItemCount() = travelList.size
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemID: String = ""
         var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewDepartureAddress)
         var destinationAddress: TextView =
@@ -86,5 +84,16 @@ class CompanyRecyclerViewAdapter(var travelList: List<Travel>) :
         var btnCall: Button = this.itemView.findViewById(R.id.btn_create_call)
         var btnSms: Button = this.itemView.findViewById(R.id.btn_send_sms)
         var btnEmail: Button = this.itemView.findViewById(R.id.btn_send_email)
+    }
+
+    /**
+     * Requests the [android.Manifest.permission.CAMERA] permission.
+     * If an additional rationale should be displayed, the user has to launch the request from
+     * a SnackBar that includes additional information.
+     */
+    interface CompanyCardButtonsListener {
+        fun createCall(phoneNumber: String)
+//        fun sendSms(phoneNumber: String)
+//        fun createCall(phoneNumber: String)
     }
 }
