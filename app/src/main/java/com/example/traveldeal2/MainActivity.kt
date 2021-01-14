@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navView: NavigationView
     lateinit var userMailTextView:TextView
+    lateinit var userNameTextView:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,8 +72,9 @@ class MainActivity : AppCompatActivity() {
         headerView.findViewById<View>(R.id.userMailTextView) as TextView
     userMailTextView.text =  FirebaseAuth.getInstance().currentUser?.email
 
-////    userMailTextView = findViewById(R.id.drawer_layout)
-//    userMailTextView.text = "test"
+        userNameTextView =    headerView.findViewById<View>(R.id.userNameTextView) as TextView
+        userNameTextView.text =  FirebaseAuth.getInstance().currentUser?.displayName
+
     }
 
     private fun setNavigationDrawer() {

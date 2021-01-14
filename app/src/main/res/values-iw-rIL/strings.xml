@@ -49,6 +49,9 @@
     <string name="End_date">תאריך סיום</string>
     <string name="pick_dats">בחר תאריכים לסינון</string>
     <string name="travels_dont_exists">אין נסיעות בתאריכים שנבחרו</string>
+    <string name="log_out">יציאה</string>
+    <string name="distance_title">בחר נסיעות באזורך</string>
+    <string name="distance">מרחק</string>
 
 
     <string-array name="status_array" tools:ignore="InconsistentArrays">
