@@ -153,18 +153,7 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
     }
 
     override fun sendEMail(travel: Travel) {
-//        if (ContextCompat.checkSelfPermission(
-//                App.instance,
-//                Manifest.permission.SEND_SMS
-//            ) == PackageManager.PERMISSION_GRANTED
-//        ) {
             Utils.sendEmail(travel)
-//        } else {
-//            ActivityCompat.requestPermissions(
-//                this.requireActivity(), arrayOf(Manifest.permission.SEND_SMS),
-//                1
-//            )
-//        }
     }
 
     fun requestCallPermission() {
@@ -188,20 +177,4 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
             )
         }
     }
-
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<String>,
-//        grantResults: IntArray
-//    ) {
-//        if (requestCode == 0) {
-//            // Request for camera permission.
-//            if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                // Permission has been granted. Start camera preview Activity.
-//
-//            } else {
-//                // Permission request was denied.
-//            }
-//        }
-//    }
 }
