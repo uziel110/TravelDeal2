@@ -152,6 +152,21 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
         }
     }
 
+    override fun sendEMail(travel: Travel) {
+//        if (ContextCompat.checkSelfPermission(
+//                App.instance,
+//                Manifest.permission.SEND_SMS
+//            ) == PackageManager.PERMISSION_GRANTED
+//        ) {
+            Utils.sendEmail(travel)
+//        } else {
+//            ActivityCompat.requestPermissions(
+//                this.requireActivity(), arrayOf(Manifest.permission.SEND_SMS),
+//                1
+//            )
+//        }
+    }
+
     fun requestCallPermission() {
         // Permission has not been granted and must be requested.
         if (ActivityCompat.shouldShowRequestPermissionRationale(

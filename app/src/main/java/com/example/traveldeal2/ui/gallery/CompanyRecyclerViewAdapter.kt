@@ -62,10 +62,11 @@ class CompanyRecyclerViewAdapter(
         }
 
         holder.btnSms.setOnClickListener {
-listener.sendSms(travelList[listPosition].clientPhone,travelList[listPosition])
+            listener.sendSms(travelList[listPosition].clientPhone, travelList[listPosition])
         }
 
         holder.btnEmail.setOnClickListener {
+            listener.sendEMail(travelList[listPosition])
         }
     }
 
@@ -93,7 +94,7 @@ listener.sendSms(travelList[listPosition].clientPhone,travelList[listPosition])
      */
     interface CompanyCardButtonsListener {
         fun createCall(phoneNumber: String)
-        fun sendSms(phoneNumber: String, travel:Travel)
-//        fun createCall(phoneNumber: String)
+        fun sendSms(phoneNumber: String, travel: Travel)
+        fun sendEMail(travel: Travel)
     }
 }
