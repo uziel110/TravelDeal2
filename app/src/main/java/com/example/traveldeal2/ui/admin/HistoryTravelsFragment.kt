@@ -64,7 +64,7 @@ class HistoryTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
         setEditTextListener(etEndDate)
 
         //todo apply when one of two edit text is empty
-        historyTravelsViewModel.getAllTravels()?.observe(viewLifecycleOwner, {
+        historyTravelsViewModel.getClosedTravels()?.observe(viewLifecycleOwner, {
             travelsList = (it as List<Travel>).toMutableList()
             recyclerView.adapter =
                 TravelRecyclerViewAdapter(it, this@HistoryTravelsFragment)
@@ -78,7 +78,7 @@ class HistoryTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
                 if (editText.text.toString()==""){
-                    historyTravelsViewModel.getAllTravels()?.observe(viewLifecycleOwner, {
+                    historyTravelsViewModel.getClosedTravels()?.observe(viewLifecycleOwner, {
                         travelsList = (it as List<Travel>).toMutableList()
                         recyclerView.adapter =
                             TravelRecyclerViewAdapter(it, this@HistoryTravelsFragment)

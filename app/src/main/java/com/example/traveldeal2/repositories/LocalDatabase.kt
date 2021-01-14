@@ -54,6 +54,10 @@ class LocalDatabase(context: Context) : ILocalDatabase {
         return travelDao.getTravels()
     }
 
+    fun getTravelsByStatus(status: Int): LiveData<List<Travel>> {
+        return travelDao.getTravelsByStatus(status)
+    }
+
     override fun clearTable() {
         travelDao.deleteAll()
     }

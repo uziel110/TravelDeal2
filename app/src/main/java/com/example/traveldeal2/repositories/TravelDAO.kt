@@ -8,10 +8,10 @@ import com.example.traveldeal2.enums.Status
 @Dao
 interface TravelDAO {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(travel: Travel)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(travel: List<Travel?>?)
 
     @Update
@@ -22,9 +22,9 @@ interface TravelDAO {
 
     @Query("SELECT * from travels_table WHERE clientId = :key")
     fun getTravelById(key: String?): LiveData<Travel?>?
-//
-//    @Query("SELECT * from travels_table WHERE requestStatus = :key")
-//    fun getTravelByStatus(key: Status?): LiveData<Travel?>?
+
+    @Query("SELECT * from travels_table WHERE requestStatus = :key")
+    fun getTravelsByStatus(key: Int): LiveData<List<Travel>>
 
     @Query("SELECT * FROM travels_table")
     fun getTravels(): LiveData<List<Travel>>

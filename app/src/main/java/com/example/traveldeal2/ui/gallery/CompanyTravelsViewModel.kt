@@ -1,10 +1,6 @@
 package com.example.traveldeal2.ui.gallery
 
 import android.content.Context
-import android.icu.text.SimpleDateFormat
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.traveldeal2.data.entities.Travel
@@ -12,7 +8,6 @@ import com.example.traveldeal2.repositories.TravelRepository
 import com.example.traveldeal2.utils.AddressTool
 import com.example.traveldeal2.utils.App
 import com.google.android.gms.maps.model.LatLng
-import java.util.*
 
 class CompanyTravelsViewModel : ViewModel() {
     val app = App
@@ -28,22 +23,6 @@ class CompanyTravelsViewModel : ViewModel() {
 
     fun insertItem(travel: Travel) {
         rp.insert(travel)
-    }
-
-    fun getLiveData(): LiveData<Boolean> {
-        return rp.getLiveData()
-    }
-
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun getTravelsByDate(_startDate: String, _endDate: String): MutableLiveData<List<Travel?>?> {
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
-        val startDate: Date = sdf.parse(_startDate)
-        val endDate: Date = sdf.parse(_endDate)
-        filteredList?.postValue(travelsList?.value?.filter { travel ->
-            val retDate: Date = sdf.parse(travel?.returnDate)
-            retDate in startDate..endDate
-        })
-        return filteredList!!
     }
 
     fun getAllTravels(): MutableLiveData<List<Travel?>?>? {

@@ -6,6 +6,7 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.traveldeal2.data.entities.Travel
+import com.example.traveldeal2.enums.Status
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
@@ -45,5 +46,9 @@ class TravelRepository(context: Context) : Application() {
 
     fun getAllTravelsFromLocal(): LiveData<List<Travel>> {
         return localDatabase.getAllTravels()
+    }
+
+    fun getTravelsByStatus(status: Int): LiveData<List<Travel>> {
+        return localDatabase.getTravelsByStatus(status)
     }
 }

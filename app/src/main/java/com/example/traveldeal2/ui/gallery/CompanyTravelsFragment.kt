@@ -8,10 +8,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Switch
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
@@ -41,7 +41,7 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
     lateinit var vehicleLatLng: LatLng
     lateinit var btFilter: Button
     lateinit var etDistance: EditText
-    lateinit var sbInterested : SwitchMaterial
+    lateinit var sbInterested: SwitchMaterial
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,14 +69,20 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
 //            // Responds to switch being checked/unchecked
 //        }
 
+
     }
 
     private fun setEditTextListener(editText: EditText) {
+        editText.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                filter()// code to execute when EditText loses focus
+            }
+        }
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
-                filter()
+//                filter()
             }
         })
     }
@@ -129,7 +135,6 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
                 Toast.makeText(App.instance, "Auto complete error", Toast.LENGTH_SHORT).show()
             }
         })
-
     }
 
     override fun createCall(phoneNumber: String) {
@@ -161,7 +166,7 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
     }
 
     override fun sendEMail(travel: Travel) {
-            Utils.sendEmail(travel)
+        Utils.sendEmail(travel)
     }
 
     fun requestCallPermission() {

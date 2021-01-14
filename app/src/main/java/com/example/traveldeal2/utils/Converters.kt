@@ -35,22 +35,24 @@ class DestinationAddresses {
 }
 
 class RequestStatusConverter {
-    @TypeConverter
-    fun getStatus(status: Int): Status? {
-        return when (status) {
-            0 -> Status.SENT
-            1 -> Status.RECEIVED
-            2 -> Status.RUNNING
-            3 -> Status.CLOSED
-            4 -> Status.PAID
-            else -> null
-        }
-    }
 
     @TypeConverter
-    fun getTypeInt(status: Status): Int {
-        return status.ordinal
-    }
+    fun getTypeInt(status: Status) = status.ordinal
+
+    @TypeConverter
+    fun getStatus(value: Int) = enumValues<Status>()[value]
+
+//    @TypeConverter
+//    fun getStatus(status: Int): Status? {
+//        return when (status) {
+//            0 -> Status.SENT
+//            1 -> Status.RECEIVED
+//            2 -> Status.RUNNING
+//            3 -> Status.CLOSED
+//            4 -> Status.PAID
+//            else -> null
+//        }
+//    }
 }
 
 class CompanyConverter {
