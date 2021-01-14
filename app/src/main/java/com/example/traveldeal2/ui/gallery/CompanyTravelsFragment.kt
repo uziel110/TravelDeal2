@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Filter
-import androidx.annotation.RequiresApi
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -30,7 +30,8 @@ class CompanyTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
     private lateinit var companyTravelsViewModel: CompanyTravelsViewModel
     lateinit var recyclerView: RecyclerView
     lateinit var travelsList: MutableList<Travel?>
-    var vehicleLocation: String = "חיפה" //todo remove initialization
+    var vehicleLocation: String = ""
+//        "חיפה" //todo remove initialization
     var vehicleLatLng: LatLng = LatLng(0.0,0.0) //todo remove initialization
     lateinit var btFilter: Button
     lateinit var etDistance: EditText
@@ -93,8 +94,11 @@ class CompanyTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
 //        Toast.makeText(this, "clientId: ${t!!.clientId}", Toast.LENGTH_SHORT).show()
     }
 
+
+    //R.string.AriLazarApi.toString()
     private fun placeAutoComplete() {
-        Places.initialize(this.requireContext(), R.string.AriLazarApi.toString())
+        Places.initialize(this.requireContext(),"AIzaSyBlm-gYIse1zkWi3WwqQg3w9UOxRm4P3pE")
+        //val placesClient = Places.createClient(this.requireContext())
 
         // Initialize the AutocompleteSupportFragment.
         val vehicleLocationAutocompleteFragment =
@@ -117,7 +121,8 @@ class CompanyTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 vehicleLocation = place.name!!
-                vehicleLatLng = place.latLng!!
+               // vehicleLocation = place.address.toString()
+               // vehicleLatLng = place.latLng!!
             }
 
             override fun onError(status: com.google.android.gms.common.api.Status) {

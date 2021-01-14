@@ -47,7 +47,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="Start_date">תאריך התחלה</string>
     <string name="End_date">תאריך סיום</string>
-    <string name="pick_dats">בחר תאריכים להצגה</string>
+    <string name="pick_dats">בחר תאריכים לסינון</string>
     <string name="travels_dont_exists">אין נסיעות בתאריכים שנבחרו</string>
 
 

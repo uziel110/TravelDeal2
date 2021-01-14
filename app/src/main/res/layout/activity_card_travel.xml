@@ -14,8 +14,7 @@
         android:id="@+id/cardMainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
-        >
+        android:padding="8dp">
 
         <ImageView
             android:id="@+id/image_view"
@@ -45,7 +44,7 @@
             android:layout_marginRight="8dp"
             android:layout_toEndOf="@+id/DepartureAddressTitle"
             android:layout_toRightOf="@+id/DepartureAddressTitle"
-            android:textColor="#faba2a"
+            android:textColor="#59b2d6"
             android:textStyle="bold"/>
 
         <TextView
@@ -72,7 +71,7 @@
             android:layout_toEndOf="@+id/DepartureAddressTitle"
             android:layout_toRightOf="@+id/DestinationAddressTitle"
             android:layout_below="@+id/TextViewDepartureAddress"
-            android:textColor="#faba2a"
+            android:textColor="#59b2d6"
             android:textStyle="bold"/>
 
         <TextView
@@ -86,7 +85,7 @@
             android:layout_marginRight="4dp"
             android:layout_marginTop="8dp"
             android:layout_below="@+id/TextViewDestinationAddress"
-            android:textColor="#faba2a"
+            android:textColor="#59b2d6"
             android:textStyle="bold"/>
 
         <View
@@ -98,7 +97,7 @@
             android:layout_marginEnd="4dp"
             android:layout_toEndOf="@+id/TextViewDepartureDate"
             android:layout_toRightOf="@+id/TextViewDepartureDate"
-            android:background="#faba2a"
+            android:background="#59b2d6"
             android:layout_marginRight="4dp"
             android:textStyle="bold"/>
 
@@ -113,7 +112,7 @@
             android:layout_toEndOf="@+id/dividerLine"
             android:layout_toRightOf="@+id/dividerLine"
             android:text="ReturnDate"
-            android:textColor="#faba2a"
+            android:textColor="#59b2d6"
             android:textStyle="bold"/>
 
         <TextView
@@ -125,7 +124,7 @@
             android:text="PassengersNumber"
             android:layout_marginTop="8dp"
             android:layout_below="@+id/TextViewReturnDate"
-            android:textColor="#faba2a"
+            android:textColor="#59b2d6"
             android:textStyle="bold"/>
 
 

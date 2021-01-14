@@ -54,6 +54,6 @@
     <string name="Start_date">Start date</string>
     <string name="End_date">End date</string>
     <string name="AriLazarApi" translatable="false">AIzaSyBlm-gYIse1zkWi3WwqQg3w9UOxRm4P3pE</string>
-    <string name="pick_dats">Select dates to show</string>
+    <string name="pick_dats">Select dates to filter</string>
 
 </resources>

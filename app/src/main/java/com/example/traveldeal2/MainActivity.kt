@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navView: NavigationView
+    lateinit var userMailTextView:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +34,11 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+//        val vehicleLocationAutocompleteFragment =
+//                supportFragmentManager.findFragmentById(R.id.nav_header_main)
+//
+
 
         setViews()
         setNavigationDrawer()
@@ -42,7 +48,10 @@ class MainActivity : AppCompatActivity() {
         startSignInIntent()
     }
 
+
     private fun setViews() {
+
+
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
@@ -53,6 +62,17 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_signOut
             ), drawerLayout
         )
+
+
+
+
+    val headerView = navView.getHeaderView(0)
+    userMailTextView =
+        headerView.findViewById<View>(R.id.userMailTextView) as TextView
+    userMailTextView.text =  FirebaseAuth.getInstance().currentUser?.email
+
+////    userMailTextView = findViewById(R.id.drawer_layout)
+//    userMailTextView.text = "test"
     }
 
     private fun setNavigationDrawer() {
