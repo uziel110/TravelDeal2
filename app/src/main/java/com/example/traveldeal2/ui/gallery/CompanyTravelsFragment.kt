@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -136,9 +137,20 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
         }
     }
 
-//    override fun sendSms(phoneNumber: String) {
-//        TODO("Not yet implemented")
-//    }
+    override fun sendSms(phoneNumber: String, travel: Travel) {
+        if (ContextCompat.checkSelfPermission(
+                App.instance,
+                Manifest.permission.SEND_SMS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            Utils.sendSms(phoneNumber, travel)
+        } else {
+            ActivityCompat.requestPermissions(
+                this.requireActivity(), arrayOf(Manifest.permission.SEND_SMS),
+                1
+            )
+        }
+    }
 
     fun requestCallPermission() {
         // Permission has not been granted and must be requested.
