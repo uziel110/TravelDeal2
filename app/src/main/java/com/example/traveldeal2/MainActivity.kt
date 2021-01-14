@@ -1,9 +1,7 @@
 package com.example.traveldeal2
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -15,7 +13,6 @@ import androidx.navigation.findNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.ui.*
@@ -23,14 +20,14 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
+class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 123
     lateinit var drawerLayout: DrawerLayout
     lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navView: NavigationView
-    lateinit var userMailTextView: TextView
-
+    lateinit var userMailTextView:TextView
+    lateinit var userNameTextView:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,8 +65,9 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
             headerView.findViewById<View>(R.id.userMailTextView) as TextView
         userMailTextView.text = FirebaseAuth.getInstance().currentUser?.email
 
-////    userMailTextView = findViewById(R.id.drawer_layout)
-//    userMailTextView.text = "test"
+        userNameTextView =    headerView.findViewById<View>(R.id.userNameTextView) as TextView
+        userNameTextView.text =  FirebaseAuth.getInstance().currentUser?.displayName
+
     }
 
     private fun setNavigationDrawer() {
