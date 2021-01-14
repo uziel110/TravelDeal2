@@ -25,37 +25,32 @@
             android:layout_height="wrap_content"
             android:text="סינון לפי מרחק" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="מרחק:"
-                android:textAlignment="center" />
-
-            <EditText
-                android:id="@+id/et_MaxDistance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="string/Distance"
-                android:layout_weight="1"
-                android:inputType="numberDecimal" />
-            <Button
-                android:id="@+id/bt_filter"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="סנן" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="מרחק:"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/et_MaxDistance"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:inputType="number" />
+
+            </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

@@ -2,12 +2,14 @@ package com.example.traveldeal2.ui.gallery
 
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Filter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -31,8 +33,7 @@ class CompanyTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
     lateinit var recyclerView: RecyclerView
     lateinit var travelsList: MutableList<Travel?>
     var vehicleLocation: String = ""
-//        "חיפה" //todo remove initialization
-    var vehicleLatLng: LatLng = LatLng(0.0,0.0) //todo remove initialization
+    lateinit var vehicleLatLng: LatLng
     lateinit var btFilter: Button
     lateinit var etDistance: EditText
 
@@ -50,55 +51,48 @@ class CompanyTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.rvUserTravels)
-//        etLocation = view.findViewById(R.id.ac_VehicleLocation)
         etDistance = view.findViewById(R.id.et_MaxDistance)
-        btFilter = view.findViewById(R.id.bt_filter)
-        btFilter.setOnClickListener {
-            if (vehicleLocation != "" && etDistance.text.toString() != "") {
-                companyTravelsViewModel.getRelevantTravels(
-                    etDistance.text.toString().toInt(),
-                    vehicleLatLng,
-                    requireActivity().applicationContext
-                ).observe(viewLifecycleOwner, {
-                    travelsList = (it as List<Travel>).toMutableList()
-                    recyclerView.adapter =
-                        TravelRecyclerViewAdapter(it, this@CompanyTravelsFragment)
-                })
-                //while (t.isAlive);
-                //rvOpenTravels.adapter = arrayAdapter
-//            } else {
-//                rvOpenTravels.adapter = OpenTravelArrayAdapter(openTravelList, viewModel)
-            }
-        }
+
         placeAutoComplete()
+        setEditTextListener(etDistance)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
+
     }
 
-//    fun btFilterOnClick(view: View){
-//        if (vehicleLocation != "" && etDistance.text.toString() != "") {
-//            companyTravelsViewModel.getRelevantTravels (
-//                etDistance.text.toString().toInt(),
-//                vehicleLatLng,
-//                requireActivity().applicationContext
-//            ).observe(viewLifecycleOwner, {
-//                travelsList = (it as List<Travel>).toMutableList()
-//                recyclerView.adapter =
-//                    TravelRecyclerViewAdapter(it, this@CompanyTravelsFragment)
-//            })
-//        }
-//    }
+    private fun setEditTextListener(editText: EditText) {
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable) {
+                filter()
+            }
+        })
+    }
+
+    fun filter() {
+        if (vehicleLocation != "" && etDistance.text.toString() != "") {
+            companyTravelsViewModel.getRelevantTravels(
+                etDistance.text.toString().toInt(),
+                vehicleLatLng,
+                requireActivity().applicationContext
+            ).observe(viewLifecycleOwner, {
+                travelsList = (it as List<Travel>).toMutableList()
+                recyclerView.adapter =
+                    TravelRecyclerViewAdapter(it, this@CompanyTravelsFragment)
+            })
+
+        } else
+            Toast.makeText(this.requireContext(), "Fill all the fields", Toast.LENGTH_SHORT).show()
+    }
 
     override fun onItemClick(itemID: Int) {
 //        val t = travelsList[itemID]
 //        Toast.makeText(this, "clientId: ${t!!.clientId}", Toast.LENGTH_SHORT).show()
     }
 
-
-    //R.string.AriLazarApi.toString()
     private fun placeAutoComplete() {
-        Places.initialize(this.requireContext(),"AIzaSyBlm-gYIse1zkWi3WwqQg3w9UOxRm4P3pE")
-        //val placesClient = Places.createClient(this.requireContext())
+        Places.initialize(this.requireContext(), "AIzaSyBlm-gYIse1zkWi3WwqQg3w9UOxRm4P3pE")
 
         // Initialize the AutocompleteSupportFragment.
         val vehicleLocationAutocompleteFragment =
@@ -120,9 +114,9 @@ class CompanyTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
         vehicleLocationAutocompleteFragment.setOnPlaceSelectedListener(object :
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                vehicleLocation = place.name!!
-               // vehicleLocation = place.address.toString()
-               // vehicleLatLng = place.latLng!!
+                vehicleLocation = place.address.toString()
+                vehicleLatLng = place.latLng!!
+                filter()
             }
 
             override fun onError(status: com.google.android.gms.common.api.Status) {
