@@ -23,4 +23,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${mapsApiKey}" />
     </application>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 </manifest>

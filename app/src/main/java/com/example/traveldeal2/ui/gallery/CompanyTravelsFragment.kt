@@ -28,7 +28,7 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 
 
-class CompanyTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClickListener {
+class CompanyTravelsFragment : Fragment(){
     private lateinit var companyTravelsViewModel: CompanyTravelsViewModel
     lateinit var recyclerView: RecyclerView
     lateinit var travelsList: MutableList<Travel?>
@@ -79,16 +79,11 @@ class CompanyTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
             ).observe(viewLifecycleOwner, {
                 travelsList = (it as List<Travel>).toMutableList()
                 recyclerView.adapter =
-                    TravelRecyclerViewAdapter(it, this@CompanyTravelsFragment)
+                    CompanyRecyclerViewAdapter(it)
             })
 
         } else
             Toast.makeText(this.requireContext(), "Fill all the fields", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onItemClick(itemID: Int) {
-//        val t = travelsList[itemID]
-//        Toast.makeText(this, "clientId: ${t!!.clientId}", Toast.LENGTH_SHORT).show()
     }
 
     private fun placeAutoComplete() {
