@@ -36,11 +36,6 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-//        val vehicleLocationAutocompleteFragment =
-//                supportFragmentManager.findFragmentById(R.id.nav_header_main)
-//
-
-
         setViews()
         setNavigationDrawer()
 
@@ -65,12 +60,10 @@ class MainActivity : AppCompatActivity() {
         )
 
 
-
-
-    val headerView = navView.getHeaderView(0)
-    userMailTextView =
-        headerView.findViewById<View>(R.id.userMailTextView) as TextView
-    userMailTextView.text =  FirebaseAuth.getInstance().currentUser?.email
+        val headerView = navView.getHeaderView(0)
+        userMailTextView =
+            headerView.findViewById<View>(R.id.userMailTextView) as TextView
+        userMailTextView.text = FirebaseAuth.getInstance().currentUser?.email
 
         userNameTextView =    headerView.findViewById<View>(R.id.userNameTextView) as TextView
         userNameTextView.text =  FirebaseAuth.getInstance().currentUser?.displayName
