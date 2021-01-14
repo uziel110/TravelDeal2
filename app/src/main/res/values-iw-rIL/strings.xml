@@ -52,6 +52,8 @@
     <string name="log_out">יציאה</string>
     <string name="distance_title">בחר נסיעות באזורך</string>
     <string name="distance">מרחק</string>
+    <string name="interested">מעוניין לבצע את הנסיעה</string>
+    <string name="Approved">אושר</string>
 
 
     <string-array name="status_array" tools:ignore="InconsistentArrays">

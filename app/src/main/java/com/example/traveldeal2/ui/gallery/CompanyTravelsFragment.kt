@@ -10,6 +10,7 @@ import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Switch
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -26,6 +27,7 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 
 class CompanyTravelsFragment : Fragment(){
@@ -36,6 +38,7 @@ class CompanyTravelsFragment : Fragment(){
     lateinit var vehicleLatLng: LatLng
     lateinit var btFilter: Button
     lateinit var etDistance: EditText
+    lateinit var sbInterested : SwitchMaterial
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,6 +60,11 @@ class CompanyTravelsFragment : Fragment(){
         setEditTextListener(etDistance)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
+
+//        // To listen for a switch's checked/unchecked state changes
+//        sbInterested.setOnCheckedChangeListener { buttonView, isChecked
+//            // Responds to switch being checked/unchecked
+//        }
 
     }
 

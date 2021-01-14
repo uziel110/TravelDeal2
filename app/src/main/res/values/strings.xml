@@ -58,5 +58,7 @@
     <string name="log_out">Log out</string>
     <string name="distance_title">Select travels in your area</string>
     <string name="distance">Distance</string>
+    <string name="interested">Interested in the travel</string>
+    <string name="Approved">Approved</string>
 
 </resources>

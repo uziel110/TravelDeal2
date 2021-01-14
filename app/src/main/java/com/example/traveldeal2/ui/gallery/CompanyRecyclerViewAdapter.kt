@@ -83,8 +83,8 @@ class CompanyRecyclerViewAdapter(var travelList: List<Travel>) :
         var psgNum: TextView = this.itemView.findViewById(R.id.TextViewPassengersNumber) as TextView
         var expandableLayout: LinearLayout = this.itemView.findViewById(R.id.ExpandableLayout)
         var mainLayout: RelativeLayout = this.itemView.findViewById(R.id.cardMainLayout)
-        var btnCall: Button = this.itemView.findViewById(R.id.btn_create_call)
-        var btnSms: Button = this.itemView.findViewById(R.id.btn_send_sms)
-        var btnEmail: Button = this.itemView.findViewById(R.id.btn_send_email)
+        var btnCall: ImageButton = this.itemView.findViewById(R.id.btn_create_call)
+        var btnSms: ImageButton = this.itemView.findViewById(R.id.btn_send_sms)
+        var btnEmail: ImageButton = this.itemView.findViewById(R.id.btn_send_email)
     }
 }

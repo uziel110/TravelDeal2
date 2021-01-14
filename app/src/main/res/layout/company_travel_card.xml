@@ -7,13 +7,15 @@
     android:layout_margin="4dp"
     app:cardBackgroundColor="#80ffffff"
     app:cardElevation="0.05dp"
-    tools:showIn="@layout/company_travel_card">
-
+    >
+<!--    tools:showIn="@layout/company_travel_card"-->
     <RelativeLayout
         android:id="@+id/cardMainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp">
+
+
 
         <ImageView
             android:id="@+id/image_view"
@@ -128,59 +130,86 @@
             android:textColor="#59b2d6"
             android:textStyle="bold" />
 
-
         <LinearLayout
-            android:id="@+id/ExpandableLayout"
+            android:id="@+id/switchrLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/TextViewPassengersNumber"
+            android:visibility="visible"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp">
 
-            <Button
-                android:id="@+id/btn_create_call"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:textSize="12dp"
-                android:drawableLeft="@drawable/ic_baseline_call"
-                android:textStyle="bold" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/interested"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/interested"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"/>
 
-            <Button
-                android:id="@+id/btn_send_sms"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_baseline_sms"
-                android:textSize="12dp"
-
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/btn_send_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_baseline_email"
-                android:textSize="12dp"
-                android:textStyle="bold" />
             <CheckBox
                 android:id="@+id/cb_ready_to_drive"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:text="מוכן להסיע"
+                android:layout_weight="2"
+                android:text="@string/Approved"
+                android:clickable="false"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                 android:textSize="12dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:gravity="center"/>
 
         </LinearLayout>
+
+
+<!--        android:layout_toEndOf="@+id/TextViewDestinationAddress"-->
+<!--        android:layout_toRightOf="@+id/TextViewDestinationAddress"-->
+        <LinearLayout
+            android:id="@+id/ExpandableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/switchrLayout"
+            android:visibility="visible"
+            android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btn_create_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:textSize="12dp"
+                    android:background="@drawable/rounded_corner_grey_bg"
+                    android:src="@drawable/ic_baseline_call"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/btn_send_sms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:textSize="12dp"
+                    android:background="@drawable/rounded_corner_grey_bg"
+                    android:src="@drawable/ic_baseline_sms"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/btn_send_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:textSize="12dp"
+                    android:background="@drawable/rounded_corner_grey_bg"
+                    android:src="@drawable/ic_baseline_email"
+                    android:textStyle="bold" />
+            </LinearLayout>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
