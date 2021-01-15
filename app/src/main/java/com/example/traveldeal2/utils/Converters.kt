@@ -2,6 +2,11 @@ package com.example.traveldeal2.utils
 
 import androidx.room.TypeConverter
 import com.example.traveldeal2.enums.Status
+import com.google.gson.Gson
+
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
+
 
 class UserLocationConverter {
     @TypeConverter
@@ -54,6 +59,20 @@ class RequestStatusConverter {
 //        }
 //    }
 }
+
+//object CompanyConverter {
+//    @TypeConverter
+//    fun fromString(value: String?): Map<String, Boolean> {
+//        val mapType: Type = object : TypeToken<Map<String?, Boolean?>?>() {}.type
+//        return Gson().fromJson(value, mapType)
+//    }
+//
+//    @TypeConverter
+//    fun fromStringMap(map: Map<String?, Boolean?>?): String {
+//        val gson = Gson()
+//        return gson.toJson(map)
+//    }
+//}
 
 class CompanyConverter {
     @TypeConverter

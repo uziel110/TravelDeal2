@@ -3,13 +3,11 @@ package com.example.traveldeal2.data.entities
 import androidx.room.*
 import androidx.room.Entity
 import com.example.traveldeal2.enums.Status
+import com.example.traveldeal2.utils.CompanyConverter
 import com.example.traveldeal2.utils.RequestStatusConverter
 import com.example.traveldeal2.utils.UserLocation
 import com.example.traveldeal2.utils.UserLocationConverter
 import com.google.firebase.database.Exclude
-
-//@TypeConverters(Travel.UserLocationConverter::class)
-//private val travelLocation: UserLocation? = null
 
 @Entity(tableName = "travels_table")
 class Travel {
@@ -53,10 +51,10 @@ class Travel {
     var requestStatus: Status = Status.SENT
         set
         get() = field
-    @Ignore //todo unignore - temporary ignored
-    var company: HashMap<String, Boolean> = hashMapOf()
-        set
-        get() = field
+//    @TypeConverters(CompanyConverter::class)
+//    var company = mutableMapOf<String, Boolean>()
+//        set
+//        get() = field
     // for expandable of card in recycle view
     @Ignore
     var expandable: Boolean = false

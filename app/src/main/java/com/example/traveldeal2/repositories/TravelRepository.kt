@@ -36,6 +36,10 @@ class TravelRepository(context: Context) : Application() {
         remoteDatabase.addTravel(travel)
     }
 
+    fun update(travel: Travel) {
+        remoteDatabase.updateTravel(travel)
+    }
+
     fun getLiveData(): LiveData<Boolean> {
         return remoteDatabase.getLiveData()
     }

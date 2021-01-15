@@ -5,11 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import android.widget.CompoundButton
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
+import com.example.traveldeal2.enums.Status
 import com.example.traveldeal2.utils.*
+import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.firebase.auth.FirebaseAuth
 
 
 object Strings {
@@ -68,6 +72,23 @@ class CompanyRecyclerViewAdapter(
         holder.btnEmail.setOnClickListener {
             listener.sendEMail(travelList[listPosition])
         }
+
+//        holder.switchInterested.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+//            val currTravel = travelList[listPosition]
+//            val companyId = FirebaseAuth.getInstance().currentUser?.email
+//            if (isChecked) {
+//                companyId?.let { currTravel.company.put(it, true) }
+//                if (currTravel.requestStatus == Status.SENT) {
+//                    currTravel.requestStatus = Status.RECEIVED
+//                }
+//            } else {// not checked
+//                companyId?.let { currTravel.company.put(it, false) }
+//                if (currTravel.requestStatus == Status.RECEIVED && currTravel.company.size == 1)
+//                    currTravel.requestStatus = Status.SENT
+//            }
+//            listener.updateTravel(currTravel)
+//            notifyDataSetChanged()
+//        })
     }
 
     override fun getItemCount() = travelList.size
@@ -85,6 +106,7 @@ class CompanyRecyclerViewAdapter(
         var btnCall: ImageButton = this.itemView.findViewById(R.id.btn_create_call)
         var btnSms: ImageButton = this.itemView.findViewById(R.id.btn_send_sms)
         var btnEmail: ImageButton = this.itemView.findViewById(R.id.btn_send_email)
+        var switchInterested: SwitchMaterial = this.itemView.findViewById(R.id.switch_interested)
     }
 
     /**
@@ -96,5 +118,6 @@ class CompanyRecyclerViewAdapter(
         fun createCall(phoneNumber: String)
         fun sendSms(phoneNumber: String, travel: Travel)
         fun sendEMail(travel: Travel)
+        fun updateTravel(travel: Travel)
     }
 }

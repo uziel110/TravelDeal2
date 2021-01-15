@@ -20,9 +20,14 @@ class CompanyTravelsViewModel : ViewModel() {
             travelsList?.postValue(it)
         }
     }
+//
+//    fun insertItem(travel: Travel) {
+//        rp.insert(travel)
+//    }
 
-    fun insertItem(travel: Travel) {
-        rp.insert(travel)
+
+    fun updateItem(travel: Travel) {
+        rp.update(travel)
     }
 
     fun getAllTravels(): MutableLiveData<List<Travel?>?>? {

@@ -67,8 +67,7 @@ class AddressTool {
                     sin(lngDistance / 2) *
                     sin(lngDistance / 2)
             val c = 2 * atan2(sqrt(a), sqrt(1 - a))
-            var x = ((AVERAGE_RADIUS_OF_EARTH * c).roundToInt()).toFloat()
-            return x
+            return ((AVERAGE_RADIUS_OF_EARTH * c).roundToInt()).toFloat()
         }
     }
 }

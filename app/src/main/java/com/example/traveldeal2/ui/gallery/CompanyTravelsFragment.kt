@@ -34,7 +34,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial
 
 
 class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCardButtonsListener {
-    private lateinit var companyTravelsViewModel: CompanyTravelsViewModel
+    lateinit var companyTravelsViewModel: CompanyTravelsViewModel
     lateinit var recyclerView: RecyclerView
     lateinit var travelsList: MutableList<Travel?>
     var vehicleLocation: String = ""
@@ -167,6 +167,10 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
 
     override fun sendEMail(travel: Travel) {
         Utils.sendEmail(travel)
+    }
+
+    override fun updateTravel(travel: Travel) {
+        companyTravelsViewModel.updateItem(travel)
     }
 
     fun requestCallPermission() {

@@ -59,8 +59,14 @@ class TravelDataSource :
         }
     }
 
-    override fun editTravel(p: Travel) {
-        TODO("Not yet implemented")
+    override fun updateTravel(travel: Travel) {
+        val travelID = travel.clientId
+        val ref = reference.orderByKey().orderByKey().equalTo(travelID).ref
+        ref.setValue(travel).addOnSuccessListener {
+            liveData.value = true
+        }.addOnFailureListener {
+            liveData.value = false
+        }
     }
 
 
