@@ -28,18 +28,15 @@ class TravelDataSource :
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 allTravelsList.clear()
-                for (user in dataSnapshot.children) {
-                    for (travelSnapshot in user.children) {
+                    for (travelSnapshot in dataSnapshot.children) {
                         val travel: Travel? = travelSnapshot.getValue(Travel::class.java)
-                        if (travel != null /*&& travel.requestStatus != resources.getStringArray(R.array.status_array)[3]*/) {
+                        if (travel != null && travel.clientId == uid) {
                             allTravelsList.add(travel)
                         }
                     }
-                }
                 // travels.value = travelsList
                 notifyData.onDataChange()
             }
-
             override fun onCancelled(databaseError: DatabaseError) {
             }
         })
@@ -60,13 +57,13 @@ class TravelDataSource :
     }
 
     override fun updateTravel(travel: Travel) {
-        val travelID = travel.clientId
-        val ref = reference.orderByKey().orderByKey().equalTo(travelID).ref
-        ref.setValue(travel).addOnSuccessListener {
-            liveData.value = true
-        }.addOnFailureListener {
-            liveData.value = false
-        }
+        val curKey = travel.travelId
+        reference.child(curKey).setValue(travel)
+//            .addOnSuccessListener {
+//            liveData.value = true
+//        }.addOnFailureListener {
+//            liveData.value = false
+//        }
     }
 
 

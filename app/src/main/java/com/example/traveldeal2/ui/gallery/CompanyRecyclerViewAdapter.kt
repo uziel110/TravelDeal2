@@ -73,22 +73,24 @@ class CompanyRecyclerViewAdapter(
             listener.sendEMail(travelList[listPosition])
         }
 
-//        holder.switchInterested.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-//            val currTravel = travelList[listPosition]
-//            val companyId = FirebaseAuth.getInstance().currentUser?.email
-//            if (isChecked) {
-//                companyId?.let { currTravel.company.put(it, true) }
-//                if (currTravel.requestStatus == Status.SENT) {
-//                    currTravel.requestStatus = Status.RECEIVED
-//                }
-//            } else {// not checked
-//                companyId?.let { currTravel.company.put(it, false) }
-//                if (currTravel.requestStatus == Status.RECEIVED && currTravel.company.size == 1)
-//                    currTravel.requestStatus = Status.SENT
-//            }
-//            listener.updateTravel(currTravel)
-//            notifyDataSetChanged()
-//        })
+        holder.switchInterested.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            val currTravel = travelList[listPosition]
+            val companyId = FirebaseAuth.getInstance().currentUser?.uid
+            if (isChecked) {
+                if (currTravel.company == null)
+                    currTravel.company = hashMapOf()
+                currTravel.company?.put(companyId!!, true)
+                if (currTravel.requestStatus == Status.SENT) {
+                    currTravel.requestStatus = Status.RECEIVED
+                }
+            } else {// not checked
+                currTravel.company?.put(companyId!!, false)
+                if (currTravel.requestStatus == Status.RECEIVED && currTravel.company?.size == 1)
+                    currTravel.requestStatus = Status.SENT
+            }
+            listener.updateTravel(currTravel)
+            notifyDataSetChanged()
+        })
     }
 
     override fun getItemCount() = travelList.size
