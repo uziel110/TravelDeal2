@@ -32,7 +32,6 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.material.switchmaterial.SwitchMaterial
 
-
 class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCardButtonsListener {
     lateinit var companyTravelsViewModel: CompanyTravelsViewModel
     lateinit var recyclerView: RecyclerView
@@ -62,6 +61,8 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
         placeAutoComplete()
         setEditTextListener(etDistance)
 
+        viewNotClosedTravels()
+
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
@@ -75,8 +76,17 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
-//                filter()
+                if (editText.text.toString() == "")
+                    viewNotClosedTravels()
             }
+        })
+    }
+
+    fun viewNotClosedTravels() {
+        companyTravelsViewModel.getAllTravels()?.observe(viewLifecycleOwner, {
+            travelsList = (it as List<Travel>).toMutableList()
+            recyclerView.adapter =
+                CompanyRecyclerViewAdapter(it, this)
         })
     }
 

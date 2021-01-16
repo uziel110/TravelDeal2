@@ -15,7 +15,6 @@ import com.example.traveldeal2.utils.*
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
 
-
 object Strings {
     fun get(@StringRes stringRes: Int, vararg formatArgs: Any = emptyArray()): String {
         return App.instance.getString(stringRes, *formatArgs)
@@ -59,12 +58,12 @@ class CompanyRecyclerViewAdapter(
                 Strings.get(R.string.onePassengers)
             } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
 
-        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
+//        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
 
-        holder.mainLayout.setOnClickListener {
-            travelList[listPosition].expandable = !travelList[listPosition].expandable
-            notifyItemChanged(listPosition)
-        }
+//        holder.mainLayout.setOnClickListener {
+//            travelList[listPosition].expandable = !travelList[listPosition].expandable
+//            notifyItemChanged(listPosition)
+//        }
 
         holder.btnCall.setOnClickListener {
             listener.createCall(travelList[listPosition].clientPhone)
@@ -92,7 +91,7 @@ class CompanyRecyclerViewAdapter(
                 currTravel.company?.remove(companyId!!)
             }
             listener.updateTravel(currTravel)
-//            notifyDataSetChanged()
+            notifyDataSetChanged()
         })
     }
 
