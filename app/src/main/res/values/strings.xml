@@ -27,7 +27,7 @@
     <string name="incorrect_email">The email address is incorrect</string>
     <string name="incorrect_phone_number">Phone number is incorrect</string>
     <string name="admin_tab">Admin</string>
-    <string name="travels_tab">Travels requests</string>
+    <string name="travels_tab">Travels search</string>
     <string name="travels_dont_exists">No travels on selected dates</string>
 
     <string-array name="status_array">
@@ -47,7 +47,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_main">MainActivity</string>
