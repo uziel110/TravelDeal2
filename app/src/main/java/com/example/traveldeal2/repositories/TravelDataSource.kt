@@ -30,7 +30,7 @@ class TravelDataSource :
                 allTravelsList.clear()
                     for (travelSnapshot in dataSnapshot.children) {
                         val travel: Travel? = travelSnapshot.getValue(Travel::class.java)
-                        if (travel != null && travel.clientId == uid) {
+                        if (travel != null) {
                             allTravelsList.add(travel)
                         }
                     }

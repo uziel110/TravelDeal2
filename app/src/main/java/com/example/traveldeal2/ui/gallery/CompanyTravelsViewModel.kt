@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.traveldeal2.data.entities.Travel
+import com.example.traveldeal2.enums.Status
 import com.example.traveldeal2.repositories.TravelRepository
 import com.example.traveldeal2.utils.AddressTool
 import com.example.traveldeal2.utils.App
@@ -16,7 +17,7 @@ class CompanyTravelsViewModel : ViewModel() {
     var filteredList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
 
     init {
-        rp.getAllTravelsFromLocal().observeForever {
+        rp.getTravelsByStatus(listOf(Status.SENT.ordinal, Status.RECEIVED.ordinal )).observeForever {
             travelsList?.postValue(it)
         }
     }
