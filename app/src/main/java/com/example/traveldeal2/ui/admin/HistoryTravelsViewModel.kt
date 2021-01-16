@@ -18,7 +18,7 @@ class HistoryTravelsViewModel : ViewModel() {
     var filteredList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
 
     init {
-        rp.getTravelsByStatus(Status.CLOSED.ordinal).observeForever {
+        rp.getTravelsByStatus(listOf(Status.CLOSED.ordinal)).observeForever {
             travelsList?.postValue(it)
         }
     }

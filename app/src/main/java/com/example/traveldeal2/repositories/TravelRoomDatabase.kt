@@ -20,7 +20,7 @@ abstract class TravelRoomDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: TravelRoomDatabase? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope): TravelRoomDatabase {
+        fun getDatabase(context: Context): TravelRoomDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
             return INSTANCE ?: synchronized(this) {

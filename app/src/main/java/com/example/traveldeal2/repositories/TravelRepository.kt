@@ -13,8 +13,7 @@ import kotlinx.coroutines.SupervisorJob
 class TravelRepository(context: Context) : Application() {
 
     private var remoteDatabase: ITravelDataSource = TravelDataSource()
-    private val localDatabase =
-        LocalDatabase.getLocalDatabase(context, CoroutineScope(SupervisorJob()))
+    private val localDatabase = LocalDatabase.getLocalDatabase(context)
     val travelsList = MutableLiveData<List<Travel?>?>()
 
     init {
@@ -52,7 +51,7 @@ class TravelRepository(context: Context) : Application() {
         return localDatabase.getAllTravels()
     }
 
-    fun getTravelsByStatus(status: Int): LiveData<List<Travel>> {
+    fun getTravelsByStatus(status: List<Int>): LiveData<List<Travel>> {
         return localDatabase.getTravelsByStatus(status)
     }
 }

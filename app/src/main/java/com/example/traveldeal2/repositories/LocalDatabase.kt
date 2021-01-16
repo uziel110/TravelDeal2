@@ -14,7 +14,7 @@ class LocalDatabase(context: Context) : ILocalDatabase {
         @Volatile
         private var INSTANCE: LocalDatabase? = null
 
-        fun getLocalDatabase(context: Context, scope: CoroutineScope): LocalDatabase {
+        fun getLocalDatabase(context: Context): LocalDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
             return INSTANCE ?: synchronized(this) {
@@ -25,8 +25,7 @@ class LocalDatabase(context: Context) : ILocalDatabase {
         }
     }
 
-    private val database =
-        TravelRoomDatabase.getDatabase(context, CoroutineScope(SupervisorJob()))
+    private val database = TravelRoomDatabase.getDatabase(context)
     var travelDao = database.travelDao()
 
     fun getTravel(id: String?): LiveData<Travel?>? {
@@ -54,7 +53,7 @@ class LocalDatabase(context: Context) : ILocalDatabase {
         return travelDao.getTravels()
     }
 
-    fun getTravelsByStatus(status: Int): LiveData<List<Travel>> {
+    fun getTravelsByStatus(status: List<Int>): LiveData<List<Travel>> {
         return travelDao.getTravelsByStatus(status)
     }
 

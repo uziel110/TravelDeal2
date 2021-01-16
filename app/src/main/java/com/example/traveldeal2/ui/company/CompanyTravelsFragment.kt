@@ -63,13 +63,6 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
         setEditTextListener(etDistance)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-
-//        // To listen for a switch's checked/unchecked state changes
-//        sbInterested.setOnCheckedChangeListener { buttonView, isChecked
-//            // Responds to switch being checked/unchecked
-//        }
-
-
     }
 
     private fun setEditTextListener(editText: EditText) {
