@@ -1,0 +1,39 @@
+package com.example.traveldeal2.ui.company
+
+import android.content.Context
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.example.traveldeal2.data.entities.Travel
+import com.example.traveldeal2.enums.Status
+import com.example.traveldeal2.repositories.TravelRepository
+import com.example.traveldeal2.utils.AddressTool
+import com.example.traveldeal2.utils.App
+import com.google.android.gms.maps.model.LatLng
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+
+class MyTravelsViewModel: ViewModel() {
+    val app = App
+    private var rp: TravelRepository = TravelRepository(app.instance)
+    var travelsList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
+    var filteredList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
+
+    init {
+        rp.getTravelsByStatus(listOf(Status.SENT.ordinal, Status.RECEIVED.ordinal )).observeForever {
+            travelsList?.postValue(it.filter { it.company != null && it.company!!.contains(FirebaseAuth.getInstance().uid)}) // TODO: 16/01/2021 change to email
+        }
+    }
+//
+//    fun insertItem(travel: Travel) {
+//        rp.insert(travel)
+//    }
+
+
+    fun updateItem(travel: Travel) {
+        rp.update(travel)
+    }
+
+    fun getAllTravels(): MutableLiveData<List<Travel?>?>? {
+        return travelsList
+    }
+}

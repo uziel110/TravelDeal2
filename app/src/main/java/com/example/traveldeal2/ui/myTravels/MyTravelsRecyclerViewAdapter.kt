@@ -1,4 +1,5 @@
-package com.example.traveldeal2.ui.company
+package com.example.traveldeal2.ui.myTravels
+
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -22,15 +23,15 @@ object Strings {
     }
 }
 
-class CompanyRecyclerViewAdapter(
+class MyTravelsRecyclerViewAdapter(
     var travelList: List<Travel>,
     private val listener: CompanyCardButtonsListener
 ) :
-    RecyclerView.Adapter<CompanyRecyclerViewAdapter.ViewHolder>() {
+    RecyclerView.Adapter<MyTravelsRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.company_travel_card, parent, false)
+            .inflate(R.layout.my_travels_card, parent, false)
         return ViewHolder(view)
     }
 
@@ -59,12 +60,12 @@ class CompanyRecyclerViewAdapter(
                 Strings.get(R.string.onePassengers)
             } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
 
-        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
-
-        holder.mainLayout.setOnClickListener {
-            travelList[listPosition].expandable = !travelList[listPosition].expandable
-            notifyItemChanged(listPosition)
-        }
+//        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
+//
+//        holder.mainLayout.setOnClickListener {
+//            travelList[listPosition].expandable = !travelList[listPosition].expandable
+//            notifyItemChanged(listPosition)
+//        }
 
         holder.btnCall.setOnClickListener {
             listener.createCall(travelList[listPosition].clientPhone)
@@ -92,7 +93,7 @@ class CompanyRecyclerViewAdapter(
                 currTravel.company?.remove(companyId!!)
             }
             listener.updateTravel(currTravel)
-//            notifyDataSetChanged()
+            notifyDataSetChanged()
         })
     }
 
