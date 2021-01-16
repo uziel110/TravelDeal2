@@ -1,4 +1,4 @@
-package com.example.traveldeal2.ui.gallery
+package com.example.traveldeal2.ui.company
 
 import android.Manifest
 import android.content.pm.PackageManager

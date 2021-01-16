@@ -1,4 +1,4 @@
-package com.example.traveldeal2.ui.gallery
+package com.example.traveldeal2.ui.company
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -48,6 +48,8 @@ class CompanyRecyclerViewAdapter(
         holder.departureDate.text = currentItem.departureDate
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
+//        holder.cbApproved.isChecked = if (currentItem.requestStatus == Status.RUNNING || )
+
         val passengersNum = currentItem.passengersNumber.toString()
         holder.psgNum.text =
             if (passengersNum == "1") {
@@ -73,20 +75,18 @@ class CompanyRecyclerViewAdapter(
             listener.sendEMail(travelList[listPosition])
         }
 
-        holder.switchInterested.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+        holder.switchInterested.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
             val currTravel = travelList[listPosition]
             val companyId = FirebaseAuth.getInstance().currentUser?.uid
             if (isChecked) {
                 if (currTravel.company == null)
                     currTravel.company = hashMapOf()
-                currTravel.company?.put(companyId!!, true)
-                if (currTravel.requestStatus == Status.SENT) {
-                    currTravel.requestStatus = Status.RECEIVED
-                }
-            } else {// not checked
                 currTravel.company?.put(companyId!!, false)
+                currTravel.requestStatus = Status.RECEIVED
+            } else {// not checked
                 if (currTravel.requestStatus == Status.RECEIVED && currTravel.company?.size == 1)
                     currTravel.requestStatus = Status.SENT
+                currTravel.company?.remove(companyId!!)
             }
             listener.updateTravel(currTravel)
             notifyDataSetChanged()
@@ -109,6 +109,7 @@ class CompanyRecyclerViewAdapter(
         var btnSms: ImageButton = this.itemView.findViewById(R.id.btn_send_sms)
         var btnEmail: ImageButton = this.itemView.findViewById(R.id.btn_send_email)
         var switchInterested: SwitchMaterial = this.itemView.findViewById(R.id.switch_interested)
+        var cbApproved: CheckBox = this.itemView.findViewById(R.id.cb_ready_to_drive)
     }
 
     /**
