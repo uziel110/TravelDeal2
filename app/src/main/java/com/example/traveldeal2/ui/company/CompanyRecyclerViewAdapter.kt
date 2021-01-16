@@ -111,7 +111,6 @@ class CompanyRecyclerViewAdapter(
         var btnSms: ImageButton = this.itemView.findViewById(R.id.btn_send_sms)
         var btnEmail: ImageButton = this.itemView.findViewById(R.id.btn_send_email)
         var switchInterested: SwitchMaterial = this.itemView.findViewById(R.id.switch_interested)
-        var cbApproved: CheckBox = this.itemView.findViewById(R.id.cb_ready_to_drive)
     }
 
     /**
