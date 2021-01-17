@@ -8,6 +8,7 @@ import com.example.traveldeal2.enums.Status
 import com.example.traveldeal2.repositories.TravelRepository
 import com.example.traveldeal2.utils.AddressTool
 import com.example.traveldeal2.utils.App
+import com.example.traveldeal2.utils.Utils.Companion.decodeKey
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
@@ -19,15 +20,10 @@ class MyTravelsViewModel: ViewModel() {
     var filteredList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
 
     init {
-        rp.getTravelsByStatus(listOf(Status.SENT.ordinal, Status.RECEIVED.ordinal )).observeForever {
-            travelsList?.postValue(it.filter { it.company != null && it.company!!.contains(FirebaseAuth.getInstance().uid)}) // TODO: 16/01/2021 change to email
+        rp.getTravelsByStatus(listOf( Status.RECEIVED.ordinal, Status.RUNNING.ordinal )).observeForever {
+            travelsList?.postValue(it.filter { it.company != null && it.company!!.contains(decodeKey(FirebaseAuth.getInstance().currentUser?.email))})
         }
     }
-//
-//    fun insertItem(travel: Travel) {
-//        rp.insert(travel)
-//    }
-
 
     fun updateItem(travel: Travel) {
         rp.update(travel)

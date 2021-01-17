@@ -184,7 +184,7 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
     }
 
     override fun sendEMail(travel: Travel) {
-        Utils.sendEmail(travel)
+        Utils.sendEmail(travel, false)
     }
 
     override fun updateTravel(travel: Travel) {

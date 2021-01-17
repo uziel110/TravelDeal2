@@ -90,7 +90,7 @@
             android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/activity_card_travel"
+            tools:listitem="@layout/admin_travel_card"
             android:layout_marginLeft="16dp" />
 
     </LinearLayout>

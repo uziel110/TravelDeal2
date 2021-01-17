@@ -19,13 +19,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
-import com.example.traveldeal2.utils.TravelRecyclerViewAdapter
+import com.example.traveldeal2.ui.company.CompanyRecyclerViewAdapter
+import com.example.traveldeal2.utils.HistoryRecyclerViewAdapter
+import com.example.traveldeal2.utils.Utils
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-class HistoryTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClickListener {
+class HistoryTravelsFragment : Fragment(), HistoryRecyclerViewAdapter.HistoryCardButtonsListener {
 
     private lateinit var historyTravelsViewModel: HistoryTravelsViewModel
     lateinit var recyclerView: RecyclerView
@@ -67,7 +68,7 @@ class HistoryTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
         historyTravelsViewModel.getClosedTravels()?.observe(viewLifecycleOwner, {
             travelsList = (it as List<Travel>).toMutableList()
             recyclerView.adapter =
-                TravelRecyclerViewAdapter(it, this@HistoryTravelsFragment)
+                HistoryRecyclerViewAdapter(it, this@HistoryTravelsFragment)
         })
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
@@ -81,16 +82,11 @@ class HistoryTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
                     historyTravelsViewModel.getClosedTravels()?.observe(viewLifecycleOwner, {
                         travelsList = (it as List<Travel>).toMutableList()
                         recyclerView.adapter =
-                            TravelRecyclerViewAdapter(it, this@HistoryTravelsFragment)
+                            HistoryRecyclerViewAdapter(it, this@HistoryTravelsFragment)
                     })
                 }
             }
         })
-    }
-
-    override fun onItemClick(itemID: Int) {
-//        val t = travelsList[itemID]
-//        Toast.makeText(this, "clientId: ${t!!.clientId}", Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
@@ -113,7 +109,7 @@ class HistoryTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
                         )?.observe(viewLifecycleOwner, {
                             travelsList = (it as List<Travel>).toMutableList()
                             recyclerView.adapter =
-                                TravelRecyclerViewAdapter(it, this@HistoryTravelsFragment)
+                                HistoryRecyclerViewAdapter(it, this@HistoryTravelsFragment)
                         })
                     }
                 },
@@ -139,5 +135,13 @@ class HistoryTravelsFragment : Fragment(), TravelRecyclerViewAdapter.OnItemClick
                 }
             }
         }
+    }
+
+    override fun sendEMail(travel: Travel) {
+        Utils.sendEmail(travel, true) // TODO: 17/01/2021 need to send the company email
+    }
+
+    override fun updateTravel(travel: Travel) {
+        historyTravelsViewModel.updateItem(travel)
     }
 }

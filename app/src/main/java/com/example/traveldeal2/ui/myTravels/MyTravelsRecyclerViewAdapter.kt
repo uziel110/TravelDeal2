@@ -51,8 +51,11 @@ class MyTravelsRecyclerViewAdapter(
         holder.returnDate.text = currentItem.returnDate
         holder.switchInterested.isChecked =
             currentItem.company?.contains(FirebaseAuth.getInstance().uid) == true
-
-//        holder.cbApproved.isChecked = if (currentItem.requestStatus == Status.RUNNING || )
+        if (holder.switchInterested.isChecked) {
+            holder.cbApproved.isChecked = (currentItem.requestStatus == Status.RUNNING &&
+                    currentItem.company?.get(FirebaseAuth.getInstance().uid)  == true)
+        }
+//                   .contains(FirebaseAuth.getInstance().uid) == true && )
 
         val passengersNum = currentItem.passengersNumber.toString()
         holder.psgNum.text =
@@ -101,9 +104,9 @@ class MyTravelsRecyclerViewAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemID: String = ""
-        var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewDepartureAddress)
+        var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewCustomerName)
         var destinationAddress: TextView =
-            this.itemView.findViewById(R.id.TextViewDestinationAddress)
+            this.itemView.findViewById(R.id.TextViewTravelDays)
         var departureDate: TextView = this.itemView.findViewById(R.id.TextViewDepartureDate)
         var returnDate: TextView = this.itemView.findViewById(R.id.TextViewReturnDate)
         var psgNum: TextView = this.itemView.findViewById(R.id.TextViewPassengersNumber) as TextView

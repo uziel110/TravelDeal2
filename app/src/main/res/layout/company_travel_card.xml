@@ -26,7 +26,7 @@
             android:src="@drawable/ic_bus" />
 
         <TextView
-            android:id="@+id/DepartureAddressTitle"
+            android:id="@+id/customerNameTitle"
             android:layout_width="34dp"
             android:layout_height="20dp"
             android:layout_marginEnd="10dp"
@@ -38,22 +38,22 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/TextViewDepartureAddress"
+            android:id="@+id/TextViewCustomerName"
             android:layout_width="200dp"
             android:layout_height="20dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="8dp"
-            android:layout_toEndOf="@+id/DepartureAddressTitle"
-            android:layout_toRightOf="@+id/DepartureAddressTitle"
+            android:layout_toEndOf="@+id/customerNameTitle"
+            android:layout_toRightOf="@+id/customerNameTitle"
             android:text="DepartureAddress"
             android:textColor="#59b2d6"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/DestinationAddressTitle"
+            android:id="@+id/travelDaysTitle"
             android:layout_width="30dp"
             android:layout_height="20dp"
-            android:layout_below="@+id/DepartureAddressTitle"
+            android:layout_below="@+id/customerNameTitle"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="8dp"
@@ -64,15 +64,15 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/TextViewDestinationAddress"
+            android:id="@+id/TextViewTravelDays"
             android:layout_width="200dp"
             android:layout_height="20dp"
-            android:layout_below="@+id/TextViewDepartureAddress"
+            android:layout_below="@+id/TextViewCustomerName"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="8dp"
-            android:layout_toEndOf="@+id/DepartureAddressTitle"
-            android:layout_toRightOf="@+id/DestinationAddressTitle"
+            android:layout_toEndOf="@+id/customerNameTitle"
+            android:layout_toRightOf="@+id/travelDaysTitle"
             android:text="DestinationAddress"
             android:textColor="#59b2d6"
             android:textStyle="bold" />
@@ -81,12 +81,12 @@
             android:id="@+id/TextViewDepartureDate"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_below="@+id/TextViewDestinationAddress"
+            android:layout_below="@+id/TextViewTravelDays"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
-            android:layout_toEndOf="@+id/DepartureAddressTitle"
-            android:layout_toRightOf="@+id/DepartureAddressTitle"
+            android:layout_toEndOf="@+id/customerNameTitle"
+            android:layout_toRightOf="@+id/customerNameTitle"
             android:text="DepartureDate"
             android:textColor="#59b2d6"
             android:textStyle="bold" />
@@ -95,7 +95,7 @@
             android:id="@+id/dividerLine"
             android:layout_width="5dp"
             android:layout_height="1dp"
-            android:layout_below="@+id/TextViewDestinationAddress"
+            android:layout_below="@+id/TextViewTravelDays"
             android:layout_marginTop="18dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
@@ -109,7 +109,7 @@
             android:id="@+id/TextViewReturnDate"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_below="@+id/TextViewDestinationAddress"
+            android:layout_below="@+id/TextViewTravelDays"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="8dp"
             android:layout_toEndOf="@+id/dividerLine"
@@ -124,8 +124,8 @@
             android:layout_height="20dp"
             android:layout_below="@+id/TextViewReturnDate"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/DepartureAddressTitle"
-            android:layout_toRightOf="@+id/DepartureAddressTitle"
+            android:layout_toEndOf="@+id/customerNameTitle"
+            android:layout_toRightOf="@+id/customerNameTitle"
             android:text="PassengersNumber"
             android:textColor="#59b2d6"
             android:textStyle="bold" />

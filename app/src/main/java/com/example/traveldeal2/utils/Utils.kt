@@ -3,6 +3,7 @@ package com.example.traveldeal2.utils
 import android.content.Intent
 import android.net.Uri
 import com.example.traveldeal2.data.entities.Travel
+import com.google.firebase.auth.FirebaseAuth
 
 
 class Utils {
@@ -22,8 +23,18 @@ class Utils {
             App.instance.startActivity(intent)
         }
 
-        fun sendEmail(travel: Travel) {
-            val recipient: String = travel.clientEmailAddress
+        fun decodeKey(key: String?): String {
+            return key!!.replace("\\u002e", ".").replace("\\u0024", "\$").replace("\\\\", "\\")
+        }
+
+        fun encodeKey(key: String?): String {
+            return key!!.replace("\\", "\\\\").replace("\$", "\\u0024").replace(".", "\\u002e")
+        }
+
+        fun sendEmail(travel: Travel, isCompany: Boolean) {
+            val companyMail =  travel.company?.filter { it.value }?.keys?.first()
+
+            val recipient: String =  if(isCompany) decodeKey(companyMail) else travel.clientEmailAddress
             val subject = "אני מעוניין לבצע את הנסיעה.."
             val message = "וזה תוכן ההודעה שלי"
             /*ACTION_SEND action to launch an email client installed on your Android device.*/
