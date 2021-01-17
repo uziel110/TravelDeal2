@@ -12,6 +12,7 @@ import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.enums.Status
 import com.example.traveldeal2.utils.*
+import com.example.traveldeal2.utils.Utils.Companion.decodeKey
 import com.example.traveldeal2.utils.Utils.Companion.encodeKey
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
@@ -37,7 +38,7 @@ class CompanyRecyclerViewAdapter(
     @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
 
-        val userMail = FirebaseAuth.getInstance().currentUser?.email
+        val userMail = encodeKey(FirebaseAuth.getInstance().currentUser?.email)
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
         var tmp = currentItem.departureAddress
@@ -50,7 +51,7 @@ class CompanyRecyclerViewAdapter(
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
         holder.switchInterested.isChecked =
-            currentItem.company?.contains(encodeKey(userMail)) == true
+            currentItem.company?.contains(userMail) == true
 
 //        holder.cbApproved.isChecked = if (currentItem.requestStatus == Status.RUNNING || )
 
@@ -81,7 +82,7 @@ class CompanyRecyclerViewAdapter(
 
         holder.switchInterested.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
             val currTravel = travelList[listPosition]
-            val companyEmail = encodeKey(userMail)
+            val companyEmail = userMail
             if (isChecked) {
                 if (currTravel.company == null)
                     currTravel.company = hashMapOf()

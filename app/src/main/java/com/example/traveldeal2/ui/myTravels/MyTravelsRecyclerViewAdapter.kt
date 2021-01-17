@@ -38,6 +38,7 @@ class MyTravelsRecyclerViewAdapter(
     @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
 
+        val userMail = Utils.encodeKey(FirebaseAuth.getInstance().currentUser?.email)
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
         var tmp = currentItem.departureAddress
@@ -50,10 +51,10 @@ class MyTravelsRecyclerViewAdapter(
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
         holder.switchInterested.isChecked =
-            currentItem.company?.contains(FirebaseAuth.getInstance().uid) == true
+            currentItem.company?.contains(userMail) == true
         if (holder.switchInterested.isChecked) {
             holder.cbApproved.isChecked = (currentItem.requestStatus == Status.RUNNING &&
-                    currentItem.company?.get(FirebaseAuth.getInstance().uid)  == true)
+                    currentItem.company?.get(userMail)  == true)
         }
 //                   .contains(FirebaseAuth.getInstance().uid) == true && )
 
