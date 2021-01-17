@@ -4,13 +4,13 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -30,7 +30,6 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-import com.google.android.material.switchmaterial.SwitchMaterial
 
 class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCardButtonsListener {
     lateinit var companyTravelsViewModel: CompanyTravelsViewModel
@@ -38,9 +37,7 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
     lateinit var travelsList: MutableList<Travel?>
     var vehicleLocation: String = ""
     lateinit var vehicleLatLng: LatLng
-    lateinit var btFilter: Button
     lateinit var etDistance: EditText
-    lateinit var sbInterested: SwitchMaterial
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +47,7 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
         companyTravelsViewModel =
             ViewModelProvider(this).get(CompanyTravelsViewModel::class.java)
         return inflater.inflate(R.layout.fragment_company_travels, container, false)
+
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -89,6 +87,23 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
                 CompanyRecyclerViewAdapter(it, this)
         })
     }
+
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//        outState.putParcelable(
+//            "bla",
+//            recyclerView.layoutManager?.onSaveInstanceState()
+//        )
+//    }
+//
+//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+//        super.onViewStateRestored(savedInstanceState)
+//        if (savedInstanceState != null) {
+//            val savedRecyclerLayoutState: Parcelable? =
+//                savedInstanceState.getParcelable("bla")
+//            recyclerView.layoutManager!!.onRestoreInstanceState(savedRecyclerLayoutState)
+//        }
+//    }
 
     fun filter() {
         if (vehicleLocation != "" && etDistance.text.toString() != "") {
@@ -176,7 +191,7 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
         companyTravelsViewModel.updateItem(travel)
     }
 
-    fun requestCallPermission() {
+    private fun requestCallPermission() {
         // Permission has not been granted and must be requested.
         if (ActivityCompat.shouldShowRequestPermissionRationale(
                 this.requireActivity(),

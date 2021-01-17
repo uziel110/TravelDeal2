@@ -47,9 +47,30 @@ class CompanyRecyclerViewAdapter(
         holder.departureDate.text = currentItem.departureDate
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
+
+//        holder.switchInterested.setOnCheckedChangeListener(null)
         holder.switchInterested.isChecked =
             currentItem.company?.contains(FirebaseAuth.getInstance().uid) == true
         //       holder.cbApproved.isChecked = if (currentItem.requestStatus == Status.RUNNING || )
+        holder.switchInterested.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
+            val currTravel = travelList[listPosition]
+            val companyId = FirebaseAuth.getInstance().currentUser?.uid
+            if (isChecked) {
+                if (currTravel.company == null)
+                    currTravel.company = hashMapOf()
+                currTravel.company?.put(companyId!!, false)
+                currTravel.requestStatus = Status.RECEIVED
+            } else {// not checked
+                if (currTravel.requestStatus == Status.RECEIVED && currTravel.company?.size == 1)
+                    currTravel.requestStatus = Status.SENT
+                currTravel.company?.remove(companyId!!)
+            }
+            listener.updateTravel(currTravel)
+
+//            notifyItemChanged(listPosition)
+//            notifyDataSetChanged()
+        })
+
 
         val passengersNum = currentItem.passengersNumber.toString()
         holder.psgNum.text =
