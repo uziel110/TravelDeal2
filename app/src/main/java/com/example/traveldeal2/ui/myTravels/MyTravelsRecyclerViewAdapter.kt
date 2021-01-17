@@ -1,4 +1,5 @@
-package com.example.traveldeal2.ui.company
+package com.example.traveldeal2.ui.myTravels
+
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -15,21 +16,22 @@ import com.example.traveldeal2.utils.*
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
 
+
 object Strings {
     fun get(@StringRes stringRes: Int, vararg formatArgs: Any = emptyArray()): String {
         return App.instance.getString(stringRes, *formatArgs)
     }
 }
 
-class CompanyRecyclerViewAdapter(
+class MyTravelsRecyclerViewAdapter(
     var travelList: List<Travel>,
     private val listener: CompanyCardButtonsListener
 ) :
-    RecyclerView.Adapter<CompanyRecyclerViewAdapter.ViewHolder>() {
+    RecyclerView.Adapter<MyTravelsRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.company_travel_card, parent, false)
+            .inflate(R.layout.my_travels_card, parent, false)
         return ViewHolder(view)
     }
 
@@ -59,7 +61,7 @@ class CompanyRecyclerViewAdapter(
             } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
 
 //        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
-
+//
 //        holder.mainLayout.setOnClickListener {
 //            travelList[listPosition].expandable = !travelList[listPosition].expandable
 //            notifyItemChanged(listPosition)
@@ -111,6 +113,7 @@ class CompanyRecyclerViewAdapter(
         var btnSms: ImageButton = this.itemView.findViewById(R.id.btn_send_sms)
         var btnEmail: ImageButton = this.itemView.findViewById(R.id.btn_send_email)
         var switchInterested: SwitchMaterial = this.itemView.findViewById(R.id.switch_interested)
+        var cbApproved: CheckBox = this.itemView.findViewById(R.id.cb_ready_to_drive)
     }
 
     /**

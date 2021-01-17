@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_myTravels">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.traveldeal2.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_myTravels"
+        android:name="com.example.traveldeal2.ui.myTravels.MyTravelsFragment"
+        android:label="@string/My_travels"
+        tools:layout="@layout/fragment_my_travels" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_searchTravels"
         android:name="com.example.traveldeal2.ui.company.CompanyTravelsFragment"
         android:label="@string/travels_tab"
         tools:layout="@layout/fragment_company_travels" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_admin"
         android:name="com.example.traveldeal2.ui.admin.HistoryTravelsFragment"
         android:label="@string/admin_tab"
         tools:layout="@layout/fragment_history_travels" />

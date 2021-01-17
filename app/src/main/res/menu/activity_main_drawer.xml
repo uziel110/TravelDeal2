@@ -8,16 +8,16 @@
        >
 
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_baseline_home_24"
-            android:title="@string/menu_home"
+            android:id="@+id/nav_myTravels"
+            android:icon="@drawable/ic_bus"
+            android:title="@string/My_travels"
             />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_bus"
+            android:id="@+id/nav_searchTravels"
+            android:icon="@drawable/ic_baseline_search_24"
             android:title="@string/travels_tab" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_admin"
             android:icon="@drawable/ic_user_admin_icon_1"
             android:title="@string/admin_tab" />
     </group>
