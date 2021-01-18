@@ -2,7 +2,9 @@ package com.example.traveldeal2
 
 import android.app.Activity
 import android.content.Intent
+import android.icu.util.TimeUnit
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,7 +20,11 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.*
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
-import com.google.firebase.auth.FirebaseAuth
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.auth.*
+import javax.xml.datatype.DatatypeConstants.SECONDS
 
 class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 123
@@ -26,28 +32,25 @@ class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navView: NavigationView
-    lateinit var userMailTextView:TextView
-    lateinit var userNameTextView:TextView
+    lateinit var userMailTextView: TextView
+    lateinit var userNameTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+//        val toolbar: Toolbar = findViewById(R.id.toolbar)
+//        setSupportActionBar(toolbar)
 
         setViews()
         setNavigationDrawer()
 
-        if (FirebaseAuth.getInstance().currentUser != null)
-            return
-        startSignInIntent()
+//        if (FirebaseAuth.getInstance().currentUser != null)
+//            return
+//        startSignInIntent()
     }
 
-
     private fun setViews() {
-
-
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
@@ -65,8 +68,8 @@ class MainActivity : AppCompatActivity() {
             headerView.findViewById<View>(R.id.userMailTextView) as TextView
         userMailTextView.text = FirebaseAuth.getInstance().currentUser?.email
 
-        userNameTextView =    headerView.findViewById<View>(R.id.userNameTextView) as TextView
-        userNameTextView.text =  FirebaseAuth.getInstance().currentUser?.displayName
+        userNameTextView = headerView.findViewById<View>(R.id.userNameTextView) as TextView
+        userNameTextView.text = FirebaseAuth.getInstance().currentUser?.displayName
 
     }
 

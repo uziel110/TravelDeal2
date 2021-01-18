@@ -12,6 +12,9 @@
         android:theme="@style/Theme.TravelDeal2">
         <activity
             android:name=".MainActivity"
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".LoginActivity"
             android:theme="@style/Theme.TravelDeal2.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
