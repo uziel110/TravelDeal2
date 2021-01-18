@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
-import com.example.traveldeal2.ui.company.MyTravelsViewModel
 import com.example.traveldeal2.utils.App
 import com.example.traveldeal2.utils.Utils
 

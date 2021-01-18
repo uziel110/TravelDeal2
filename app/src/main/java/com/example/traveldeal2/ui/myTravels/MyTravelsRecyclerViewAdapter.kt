@@ -56,10 +56,6 @@ class MyTravelsRecyclerViewAdapter(
             holder.cbApproved.isChecked = (currentItem.company[userMail] == true)
         }
 
-        //brodCast test
-        if (currentItem.company[userMail] == true)
-            sendBroadcastCustomIntent("הנסיעה אושרה")
-
         val passengersNum = currentItem.passengersNumber.toString()
         holder.psgNum.text =
             if (passengersNum == "1") {

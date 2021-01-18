@@ -23,5 +23,4 @@ class TravelBroadcastReceiver : BroadcastReceiver() {
         broadcastCustomIntent(intentData)
         Toast.makeText(context,"$intentData",Toast.LENGTH_LONG).show()
     }
-
 }

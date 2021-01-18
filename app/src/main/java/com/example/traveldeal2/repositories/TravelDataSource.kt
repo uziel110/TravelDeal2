@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.traveldeal2.data.entities.Travel
+import com.example.traveldeal2.utils.Utils
+import com.example.traveldeal2.utils.Utils.Companion.encodeKey
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -16,27 +18,26 @@ class TravelDataSource :
     private val rootNode = FirebaseDatabase.getInstance()
     private val reference = rootNode.getReference("travels")
     private val liveData: MutableLiveData<Boolean> = MutableLiveData()
-    private var uid: String
+    private var uid: String = FirebaseAuth.getInstance().uid.toString()
     var allTravelsList: MutableList<Travel> = mutableListOf()
-    private var travels: MutableLiveData<MutableList<Travel>> = MutableLiveData()
-    private var aTravel: MutableLiveData<Travel> = MutableLiveData()
 
     lateinit var notifyData: ITravelDataSource.NotifyLiveData
 
     init {
-        uid = FirebaseAuth.getInstance().uid.toString()
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 allTravelsList.clear()
-                    for (travelSnapshot in dataSnapshot.children) {
-                        val travel: Travel? = travelSnapshot.getValue(Travel::class.java)
-                        if (travel != null) {
-                            allTravelsList.add(travel)
-                        }
+                for (travelSnapshot in dataSnapshot.children) {
+                    val travel: Travel? = travelSnapshot.getValue(Travel::class.java)
+                    if (travel != null) {
+                        allTravelsList.add(travel)
+
                     }
+                }
                 // travels.value = travelsList
                 notifyData.onDataChange()
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
             }
         })
@@ -55,6 +56,24 @@ class TravelDataSource :
             liveData.value = false
         }
     }
+
+//    fun uidTravelsChange() {
+//        reference.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                for (travelSnapshot in dataSnapshot.children) {
+//                    val travel: Travel? = travelSnapshot.getValue(Travel::class.java)
+//                    if (travel != null && travel.company.filter { it.value }.keys.first() == email) {
+//                        uidTravels.add(travel)
+//                    }
+//                }
+//                // travels.value = travelsList
+//                notifyData.onDataChange()
+//            }
+//
+//            override fun onCancelled(databaseError: DatabaseError) {
+//            }
+//        })
+//    }
 
     override fun updateTravel(travel: Travel) {
         val curKey = travel.travelId

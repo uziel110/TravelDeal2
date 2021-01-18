@@ -1,20 +1,22 @@
 package com.example.traveldeal2.repositories
 
-import  android.app.Application
+import android.app.Application
 import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.traveldeal2.data.entities.Travel
-import com.example.traveldeal2.enums.Status
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
+import com.example.traveldeal2.utils.Utils
+import com.google.firebase.auth.FirebaseAuth
 
 class TravelRepository(context: Context) : Application() {
 
     private var remoteDatabase: ITravelDataSource = TravelDataSource()
     private val localDatabase = LocalDatabase.getLocalDatabase(context)
     val travelsList = MutableLiveData<List<Travel?>?>()
+
+    private var email: String? = Utils.encodeKey(FirebaseAuth.getInstance().currentUser?.email)
+    private var uidMapTravels = hashMapOf<Travel, String>()
 
     init {
         val notifyData: ITravelDataSource.NotifyLiveData =
@@ -27,6 +29,7 @@ class TravelRepository(context: Context) : Application() {
                 }
             }
         remoteDatabase.setNotifyLiveData(notifyData)
+        checkNewChanged()
     }
 
     @Suppress("RedundantSuspendModifier")
@@ -53,5 +56,21 @@ class TravelRepository(context: Context) : Application() {
 
     fun getTravelsByStatus(status: List<Int>): LiveData<List<Travel>> {
         return localDatabase.getTravelsByStatus(status)
+    }
+
+    private fun checkNewChanged() {
+        val runnable = Runnable {
+            //some code here
+            for (travel in travelsList.value!!)
+                if (travel != null) {
+                    if (travel.company.filter { it.value }.keys.first() == email)
+                        if (uidMapTravels[travel] != email) {
+                            //brodCast test
+                            uidMapTravels[travel] = email!!
+                            Utils.sendBroadcastCustomIntent("הנסיעה אושרה")
+                        }
+                }
+        }
+//        Thread(runnable).start()
     }
 }

@@ -83,13 +83,14 @@ class Utils {
         }
 
         fun sendBroadcastCustomIntent(message: String) {
+            val myService = MyService()
             val intent = Intent("com.example.traveldeal2.A_CUSTOM_INTENT")
-
             // add data to the Intent
             intent.putExtra("message", message/*as CharSequence*/)
+//            myService.startService(intent)
+
             App.instance.sendBroadcast(intent)
         }
-
 
         fun broadcastCustomIntent(message: CharSequence?) {
             // Create an explicit intent for an Activity in your app
@@ -97,7 +98,7 @@ class Utils {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
             val pendingIntent: PendingIntent = PendingIntent.getActivity(App.instance, 0, intent, 0)
-            var builder = NotificationCompat.Builder(App.instance, App.CHANNEL_ID)
+            val builder = NotificationCompat.Builder(App.instance, App.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_baseline_call)
                 .setContentTitle("textTitle")
                 .setContentText(message)
