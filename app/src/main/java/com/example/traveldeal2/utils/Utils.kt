@@ -2,8 +2,9 @@ package com.example.traveldeal2.utils
 
 import android.content.Intent
 import android.net.Uri
+import android.view.View
+import android.widget.EditText
 import com.example.traveldeal2.data.entities.Travel
-import com.google.firebase.auth.FirebaseAuth
 
 
 class Utils {
@@ -67,5 +68,17 @@ class Utils {
 //                Toast.makeText(App.instance, e.message, Toast.LENGTH_LONG).show()
 //            }
         }
+
+        fun broadcastCustomIntent(message : String) {
+            val intent = Intent("MyCustomIntent")
+
+            // add data to the Intent
+            intent.putExtra("message",  message/*as CharSequence*/)
+            intent.action = "com.example.traveldeal2.A_CUSTOM_INTENT"
+            App.instance.sendBroadcast(intent)
+        }
+
     }
+
+
 }

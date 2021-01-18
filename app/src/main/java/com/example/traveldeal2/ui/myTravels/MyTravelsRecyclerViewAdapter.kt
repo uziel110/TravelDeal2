@@ -13,6 +13,7 @@ import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.enums.Status
 import com.example.traveldeal2.utils.*
+import com.example.traveldeal2.utils.Utils.Companion.broadcastCustomIntent
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
 
@@ -56,6 +57,11 @@ class MyTravelsRecyclerViewAdapter(
             holder.cbApproved.isChecked = (currentItem.requestStatus == Status.RUNNING &&
                     currentItem.company?.get(userMail)  == true)
         }
+
+        //brodCast test
+        if (currentItem.requestStatus == Status.RUNNING &&
+            currentItem.company?.get(userMail)  == true)
+            broadcastCustomIntent("הצלחנווווו!!!")
 //                   .contains(FirebaseAuth.getInstance().uid) == true && )
 
         val passengersNum = currentItem.passengersNumber.toString()
