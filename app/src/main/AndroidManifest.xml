@@ -13,6 +13,7 @@
         android:theme="@style/Theme.TravelDeal2">
         <activity
             android:name=".MainActivity"
+            android:theme="@style/Theme.TravelDeal2.NoActionBar"
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".LoginActivity"
