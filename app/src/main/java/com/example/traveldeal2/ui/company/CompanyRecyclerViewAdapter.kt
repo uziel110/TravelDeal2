@@ -12,7 +12,6 @@ import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.enums.Status
 import com.example.traveldeal2.utils.*
-import com.example.traveldeal2.utils.Utils.Companion.decodeKey
 import com.example.traveldeal2.utils.Utils.Companion.encodeKey
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
@@ -24,7 +23,7 @@ object Strings {
 }
 
 class CompanyRecyclerViewAdapter(
-    var travelList: List<Travel>,
+    private var travelList: List<Travel>,
     private val listener: CompanyCardButtonsListener
 ) :
     RecyclerView.Adapter<CompanyRecyclerViewAdapter.ViewHolder>() {
@@ -51,9 +50,7 @@ class CompanyRecyclerViewAdapter(
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
         holder.switchInterested.isChecked =
-            currentItem.company?.contains(userMail) == true
-
-//        holder.cbApproved.isChecked = if (currentItem.requestStatus == Status.RUNNING || )
+            currentItem.company.contains(userMail) == true
 
         val passengersNum = currentItem.passengersNumber.toString()
         holder.psgNum.text =
@@ -82,16 +79,13 @@ class CompanyRecyclerViewAdapter(
 
         holder.switchInterested.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
             val currTravel = travelList[listPosition]
-            val companyEmail = userMail
             if (isChecked) {
-                if (currTravel.company == null)
-                    currTravel.company = hashMapOf()
-                currTravel.company?.put(companyEmail!!, false)
+                currTravel.company[userMail] = false
                 currTravel.requestStatus = Status.RECEIVED
             } else {// not checked
-                if (currTravel.requestStatus == Status.RECEIVED && currTravel.company.size > 1)
+                if (currTravel.requestStatus == Status.RECEIVED && currTravel.company.size == 1)
                     currTravel.requestStatus = Status.SENT
-                currTravel.company?.remove(companyEmail!!)
+                currTravel.company.remove(userMail)
             }
             listener.updateTravel(currTravel)
             notifyDataSetChanged()
@@ -108,8 +102,6 @@ class CompanyRecyclerViewAdapter(
         var departureDate: TextView = this.itemView.findViewById(R.id.TextViewDepartureDate)
         var returnDate: TextView = this.itemView.findViewById(R.id.TextViewReturnDate)
         var psgNum: TextView = this.itemView.findViewById(R.id.TextViewPassengersNumber) as TextView
-        var expandableLayout: LinearLayout = this.itemView.findViewById(R.id.ExpandableLayout)
-        var mainLayout: RelativeLayout = this.itemView.findViewById(R.id.cardMainLayout)
         var btnCall: ImageButton = this.itemView.findViewById(R.id.btn_create_call)
         var btnSms: ImageButton = this.itemView.findViewById(R.id.btn_send_sms)
         var btnEmail: ImageButton = this.itemView.findViewById(R.id.btn_send_email)

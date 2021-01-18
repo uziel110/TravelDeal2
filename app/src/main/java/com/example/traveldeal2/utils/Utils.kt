@@ -2,8 +2,6 @@ package com.example.traveldeal2.utils
 
 import android.content.Intent
 import android.net.Uri
-import android.view.View
-import android.widget.EditText
 import com.example.traveldeal2.data.entities.Travel
 
 
@@ -16,11 +14,18 @@ class Utils {
             App.instance.startActivity(callIntent)
         }
 
-        fun sendSms(phoneNumber: String, travel: Travel) {
-            val uri = Uri.parse("smsto:$phoneNumber")
+        fun sendSms(travel: Travel) {
+            val uri = Uri.parse("smsto:${travel.clientPhone}")
             val intent = Intent(Intent.ACTION_SENDTO, uri)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            intent.putExtra("sms_body", "Here goes your message...")
+            intent.putExtra(
+                "sms_body", """שלום ${travel.clientName}
+אני מעוניין לבצע את הנסיעה מ ${travel.departureAddress} 
+ל ${travel.destinationAddress} 
+בתאריך ${travel.departureDate}
+ אשמח לתת שירות
+ תודה"""
+            )
             App.instance.startActivity(intent)
         }
 
@@ -32,12 +37,29 @@ class Utils {
             return key!!.replace("\\", "\\\\").replace("\$", "\\u0024").replace(".", "\\u002e")
         }
 
-        fun sendEmail(travel: Travel, isCompany: Boolean) {
-            val companyMail =  travel.company?.filter { it.value }?.keys?.first()
+        fun sendEmail(travel: Travel, mailToCompany: Boolean) {
+            var companyMail: String? = null
+            if (mailToCompany)
+                companyMail = travel.company.filter { it.value }.keys.first()
+            val recipient: String =
+                if (mailToCompany) decodeKey(companyMail) else travel.clientEmailAddress
+            val subject = if (mailToCompany) "Travel Deal - נסיעה הסתיימה" else "הצעת מחיר להסעה"
+            val message =
+                if (mailToCompany)
+                    """שלום
+                        |הנסיעה מ${travel.departureAddress}
+                        |ל${travel.destinationAddress}
+                        |הסתיימה.
+                        |נא להעביר תשלום לאתר, תודה.
+                    """.trimMargin()
+                else
+                    """שלום ${travel.clientName}
+אני מעוניין לבצע את הנסיעה מ ${travel.departureAddress} 
+ל ${travel.destinationAddress} 
+בתאריך ${travel.departureDate}
+ אשמח לתת שירות
+ תודה"""
 
-            val recipient: String =  if(isCompany) decodeKey(companyMail) else travel.clientEmailAddress
-            val subject = "אני מעוניין לבצע את הנסיעה.."
-            val message = "וזה תוכן ההודעה שלי"
             /*ACTION_SEND action to launch an email client installed on your Android device.*/
             val mIntent = Intent(Intent.ACTION_SEND)
             /*To send an email you need to specify mailto: as URI using setData() method
@@ -54,26 +76,13 @@ class Utils {
             //put the message in the intent
             mIntent.putExtra(Intent.EXTRA_TEXT, message)
             App.instance.startActivity(mIntent)
-//            try {
-//                //start email intent
-//                val v = Intent.createChooser(
-//                    mIntent,
-//                    "Choose Email Client..."
-//                )
-//                v.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//                App.instance.startActivity(v)
-//            } catch (e: Exception) {
-//                //if any thing goes wrong for example no email client application or any exception
-//                //get and show exception message
-//                Toast.makeText(App.instance, e.message, Toast.LENGTH_LONG).show()
-//            }
         }
 
-        fun broadcastCustomIntent(message : String) {
+        fun broadcastCustomIntent(message: String) {
             val intent = Intent("MyCustomIntent")
 
             // add data to the Intent
-            intent.putExtra("message",  message/*as CharSequence*/)
+            intent.putExtra("message", message/*as CharSequence*/)
             intent.action = "com.example.traveldeal2.A_CUSTOM_INTENT"
             App.instance.sendBroadcast(intent)
         }

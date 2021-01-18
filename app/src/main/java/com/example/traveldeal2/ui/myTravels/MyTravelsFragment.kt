@@ -4,15 +4,9 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -23,24 +17,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
-import com.example.traveldeal2.ui.company.CompanyRecyclerViewAdapter
 import com.example.traveldeal2.ui.company.MyTravelsViewModel
 import com.example.traveldeal2.utils.App
 import com.example.traveldeal2.utils.Utils
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-import com.google.android.material.switchmaterial.SwitchMaterial
-
 
 class MyTravelsFragment : Fragment(), MyTravelsRecyclerViewAdapter.CompanyCardButtonsListener {
 
     private lateinit var myTravelsViewModel: MyTravelsViewModel
 
-    lateinit var recyclerView: RecyclerView
-    lateinit var travelsList: MutableList<Travel?>
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var travelsList: MutableList<Travel?>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,13 +65,13 @@ class MyTravelsFragment : Fragment(), MyTravelsRecyclerViewAdapter.CompanyCardBu
         }
     }
 
-    override fun sendSms(phoneNumber: String, travel: Travel) {
+    override fun sendSms(travel: Travel) {
         if (ContextCompat.checkSelfPermission(
                 App.instance,
                 Manifest.permission.SEND_SMS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            Utils.sendSms(phoneNumber, travel)
+            Utils.sendSms(travel)
         } else {
             ActivityCompat.requestPermissions(
                 this.requireActivity(), arrayOf(Manifest.permission.SEND_SMS),
@@ -102,7 +88,7 @@ class MyTravelsFragment : Fragment(), MyTravelsRecyclerViewAdapter.CompanyCardBu
         myTravelsViewModel.updateItem(travel)
     }
 
-    fun requestCallPermission() {
+    private fun requestCallPermission() {
         // Permission has not been granted and must be requested.
         if (ActivityCompat.shouldShowRequestPermissionRationale(
                 this.requireActivity(),

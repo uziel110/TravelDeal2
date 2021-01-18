@@ -3,43 +3,37 @@ package com.example.traveldeal2
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.ui.*
-import com.example.traveldeal2.utils.TravelBroadcastReceiver
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 123
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var navController: NavController
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-    lateinit var navView: NavigationView
-    lateinit var userMailTextView:TextView
-    lateinit var userNameTextView:TextView
+    private lateinit var navView: NavigationView
+    private lateinit var userMailTextView:TextView
+    private lateinit var userNameTextView:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+/*
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
+*/
         setViews()
         setNavigationDrawer()
 
@@ -88,15 +82,13 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+        NavigationUI.setupWithNavController(navView, navController)
 
         navView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { menuItem ->
             val id = menuItem.itemId
-            //it's possible to do more actions on several items, if there is a large amount of items I prefer switch(){case} instead of if()
-            if (id == R.id.nav_signOut) {
+            if (id == R.id.nav_signOut)
                 signOut()
-            }
             //This is for maintaining the behavior of the Navigation view
             NavigationUI.onNavDestinationSelected(menuItem, navController)
             //This is for closing the drawer after acting on it

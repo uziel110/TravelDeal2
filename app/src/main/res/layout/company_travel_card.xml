@@ -6,15 +6,13 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     app:cardBackgroundColor="#80ffffff"
-    app:cardElevation="0.05dp"
-    >
-<!--    tools:showIn="@layout/company_travel_card"-->
+    app:cardElevation="0.05dp">
+    <!--    tools:showIn="@layout/company_travel_card"-->
     <RelativeLayout
         android:id="@+id/cardMainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp">
-
 
 
         <ImageView
@@ -135,67 +133,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/TextViewPassengersNumber"
-            android:visibility="visible"
-            android:orientation="horizontal"
             android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp">
+            android:layout_marginEnd="4dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/switch_interested"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/interested"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"/>
-
-
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_interested"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:text="@string/interested" />
         </LinearLayout>
 
-
-<!--        android:layout_toEndOf="@+id/TextViewDestinationAddress"-->
-<!--        android:layout_toRightOf="@+id/TextViewDestinationAddress"-->
         <LinearLayout
             android:id="@+id/ExpandableLayout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/switchrLayout"
-            android:visibility="visible"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible">
 
-                <ImageButton
-                    android:id="@+id/btn_create_call"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="8dp"
-                    android:layout_weight="1"
-                    android:textSize="12dp"
-                    android:background="@drawable/rounded_corner_grey_bg"
-                    android:src="@drawable/ic_baseline_call"
-                    android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/btn_create_call"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner_grey_bg"
+                android:src="@drawable/ic_baseline_call"
+                android:textSize="12dp"
+                android:textStyle="bold" />
 
-                <ImageButton
-                    android:id="@+id/btn_send_sms"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="8dp"
-                    android:layout_weight="1"
-                    android:textSize="12dp"
-                    android:background="@drawable/rounded_corner_grey_bg"
-                    android:src="@drawable/ic_baseline_sms"
-                    android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/btn_send_sms"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner_grey_bg"
+                android:src="@drawable/ic_baseline_sms"
+                android:textSize="12dp"
+                android:textStyle="bold" />
 
-                <ImageButton
-                    android:id="@+id/btn_send_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="8dp"
-                    android:layout_weight="1"
-                    android:textSize="12dp"
-                    android:background="@drawable/rounded_corner_grey_bg"
-                    android:src="@drawable/ic_baseline_email"
-                    android:textStyle="bold" />
-            </LinearLayout>
+            <ImageButton
+                android:id="@+id/btn_send_email"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner_grey_bg"
+                android:src="@drawable/ic_baseline_email"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

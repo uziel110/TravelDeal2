@@ -1,7 +1,6 @@
 package com.example.traveldeal2.utils
 
 import android.annotation.SuppressLint
-import android.icu.util.TimeUnit
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.enums.Status
 import com.google.android.material.switchmaterial.SwitchMaterial
-import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import kotlin.time.ExperimentalTime
 
@@ -25,7 +23,7 @@ object Strings {
 }
 
 class HistoryRecyclerViewAdapter(
-    var travelList: List<Travel>,
+    private var travelList: List<Travel>,
     private val listener: HistoryCardButtonsListener
 ) :
     RecyclerView.Adapter<HistoryRecyclerViewAdapter.ViewHolder>() {
@@ -38,7 +36,7 @@ class HistoryRecyclerViewAdapter(
 
     @ExperimentalTime
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("RestrictedApi", "SetTextI18n")
+    @SuppressLint("RestrictedApi", "SetTextI18n", "SimpleDateFormat")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
 
         val currentItem = travelList[listPosition]
@@ -55,8 +53,8 @@ class HistoryRecyclerViewAdapter(
 
             if (isChecked)
                 currentItem.requestStatus = Status.PAID
-             else // not checked
-                    currentItem.requestStatus = Status.CLOSED
+            else // not checked
+                currentItem.requestStatus = Status.CLOSED
 
             listener.updateTravel(currentItem)
             notifyDataSetChanged()
@@ -66,6 +64,7 @@ class HistoryRecyclerViewAdapter(
             listener.sendEMail(travelList[listPosition])
         }
     }
+
     override fun getItemCount() = travelList.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import android.widget.CompoundButton
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal2.R
@@ -25,7 +24,7 @@ object Strings {
 }
 
 class MyTravelsRecyclerViewAdapter(
-    var travelList: List<Travel>,
+    private var travelList: List<Travel>,
     private val listener: CompanyCardButtonsListener
 ) :
     RecyclerView.Adapter<MyTravelsRecyclerViewAdapter.ViewHolder>() {
@@ -52,15 +51,16 @@ class MyTravelsRecyclerViewAdapter(
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
         holder.switchInterested.isChecked =
-            currentItem.company?.contains(userMail) == true
+            currentItem.company.contains(userMail) == true
         if (holder.switchInterested.isChecked) {
             holder.cbApproved.isChecked = (currentItem.requestStatus == Status.RUNNING &&
-                    currentItem.company?.get(userMail)  == true)
+                    currentItem.company[userMail] == true)
         }
 
         //brodCast test
         if (currentItem.requestStatus == Status.RUNNING &&
-            currentItem.company?.get(userMail)  == true)
+            currentItem.company[userMail] == true
+        )
             broadcastCustomIntent("הצלחנווווו!!!")
 //                   .contains(FirebaseAuth.getInstance().uid) == true && )
 
@@ -70,41 +70,32 @@ class MyTravelsRecyclerViewAdapter(
                 Strings.get(R.string.onePassengers)
             } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
 
-//        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
-//
-//        holder.mainLayout.setOnClickListener {
-//            travelList[listPosition].expandable = !travelList[listPosition].expandable
-//            notifyItemChanged(listPosition)
-//        }
-
         holder.btnCall.setOnClickListener {
             listener.createCall(travelList[listPosition].clientPhone)
         }
 
         holder.btnSms.setOnClickListener {
-            listener.sendSms(travelList[listPosition].clientPhone, travelList[listPosition])
+            listener.sendSms(travelList[listPosition])
         }
 
         holder.btnEmail.setOnClickListener {
             listener.sendEMail(travelList[listPosition])
         }
 
-        holder.switchInterested.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
+        holder.switchInterested.setOnCheckedChangeListener { _, isChecked ->
             val currTravel = travelList[listPosition]
             val companyId = FirebaseAuth.getInstance().currentUser?.uid
             if (isChecked) {
-                if (currTravel.company == null)
-                    currTravel.company = hashMapOf()
-                currTravel.company?.put(companyId!!, false)
+                currTravel.company[companyId!!] = false
                 currTravel.requestStatus = Status.RECEIVED
             } else {// not checked
-                if (currTravel.requestStatus == Status.RECEIVED && currTravel.company?.size == 1)
+                if (currTravel.requestStatus == Status.RECEIVED && currTravel.company.size == 1)
                     currTravel.requestStatus = Status.SENT
-                currTravel.company?.remove(companyId!!)
+                currTravel.company.remove(companyId!!)
             }
             listener.updateTravel(currTravel)
             notifyDataSetChanged()
-        })
+        }
     }
 
     override fun getItemCount() = travelList.size
@@ -117,8 +108,6 @@ class MyTravelsRecyclerViewAdapter(
         var departureDate: TextView = this.itemView.findViewById(R.id.TextViewDepartureDate)
         var returnDate: TextView = this.itemView.findViewById(R.id.TextViewReturnDate)
         var psgNum: TextView = this.itemView.findViewById(R.id.TextViewPassengersNumber) as TextView
-        var expandableLayout: LinearLayout = this.itemView.findViewById(R.id.ExpandableLayout)
-        var mainLayout: RelativeLayout = this.itemView.findViewById(R.id.cardMainLayout)
         var btnCall: ImageButton = this.itemView.findViewById(R.id.btn_create_call)
         var btnSms: ImageButton = this.itemView.findViewById(R.id.btn_send_sms)
         var btnEmail: ImageButton = this.itemView.findViewById(R.id.btn_send_email)
@@ -126,14 +115,9 @@ class MyTravelsRecyclerViewAdapter(
         var cbApproved: CheckBox = this.itemView.findViewById(R.id.cb_ready_to_drive)
     }
 
-    /**
-     * Requests the [android.Manifest.permission.CAMERA] permission.
-     * If an additional rationale should be displayed, the user has to launch the request from
-     * a SnackBar that includes additional information.
-     */
     interface CompanyCardButtonsListener {
         fun createCall(phoneNumber: String)
-        fun sendSms(phoneNumber: String, travel: Travel)
+        fun sendSms(travel: Travel)
         fun sendEMail(travel: Travel)
         fun updateTravel(travel: Travel)
     }

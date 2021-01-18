@@ -174,7 +174,7 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
                 Manifest.permission.SEND_SMS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            Utils.sendSms(phoneNumber, travel)
+            Utils.sendSms(travel)
         } else {
             ActivityCompat.requestPermissions(
                 this.requireActivity(), arrayOf(Manifest.permission.SEND_SMS),
