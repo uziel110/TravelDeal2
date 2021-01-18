@@ -74,6 +74,7 @@ class RequestStatusConverter {
 //    }
 //}
 
+
 class CompanyConverter {
     @TypeConverter
     fun fromString(value: String?): MutableMap<String, Boolean>? {
@@ -101,5 +102,15 @@ class CompanyConverter {
             key
         ).append(":").append(value).append(",")
         return mapString.toString()
+    }
+}
+
+class Decode {
+    fun encodeKey(key: String): String {
+        return key.replace("\\", "\\\\").replace("\$", "\\u0024").replace(".", "\\u002e")
+    }
+
+    fun decodeKey(key: String): String {
+        return key.replace("\\u002e", ".").replace("\\u0024", "\$").replace("\\\\", "\\")
     }
 }

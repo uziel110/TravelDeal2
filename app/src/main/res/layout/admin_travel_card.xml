@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="#80ffffff"
+    app:cardElevation="0.05dp">
+
+<RelativeLayout
+        android:id="@+id/cardMainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_bus" />
+
+        <TextView
+            android:id="@+id/customerNameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="@string/customerName"
+            android:layout_toEndOf="@+id/image_view"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="8dp"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/TextViewCustomerName"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:text="Customer name"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="8dp"
+            android:layout_toEndOf="@+id/customerNameTitle"
+            android:layout_toRightOf="@+id/customerNameTitle"
+            android:textColor="#59b2d6"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/travelDaysTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="@string/travelDays"
+            android:layout_toEndOf="@+id/image_view"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/customerNameTitle"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/TextViewTravelDays"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:text="Travel days"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/customerNameTitle"
+            android:layout_toRightOf="@+id/travelDaysTitle"
+            android:layout_below="@+id/TextViewCustomerName"
+            android:textColor="#59b2d6"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:id="@+id/switchrLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/TextViewTravelDays"
+            android:visibility="visible"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switch_paid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/paid"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"/>
+
+                <ImageButton
+                    android:id="@+id/history_btn_send_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:textSize="12dp"
+                    android:background="@drawable/rounded_corner_grey_bg"
+                    android:src="@drawable/ic_baseline_email"
+                    android:textStyle="bold" />
+
+
+
+
+        </LinearLayout>
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/ExpandableLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/TextViewPassengersNumber"-->
+<!--            android:visibility="visible"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/Offers"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                android:layout_marginRight="8dp"-->
+<!--                android:text="הצעות הסעה:"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold" />-->
+
+<!--            &lt;!&ndash;            <androidx.recyclerview.widget.RecyclerView&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:id="@+id/rvUserTravels"&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:padding="4dp"&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:clipToPadding="false"&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+<!--            &lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--            &lt;!&ndash;                tools:listitem="@layout/activity_card_offer"/>&ndash;&gt;-->
+<!--        </LinearLayout>-->
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

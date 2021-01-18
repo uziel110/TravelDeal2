@@ -12,6 +12,8 @@ import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.enums.Status
 import com.example.traveldeal2.utils.*
+import com.example.traveldeal2.utils.Utils.Companion.decodeKey
+import com.example.traveldeal2.utils.Utils.Companion.encodeKey
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
 
@@ -36,6 +38,7 @@ class CompanyRecyclerViewAdapter(
     @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
 
+        val userMail = encodeKey(FirebaseAuth.getInstance().currentUser?.email)
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
         var tmp = currentItem.departureAddress
@@ -48,7 +51,7 @@ class CompanyRecyclerViewAdapter(
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
         holder.switchInterested.isChecked =
-            currentItem.company.contains(FirebaseAuth.getInstance().uid) == true
+            currentItem.company?.contains(userMail) == true
 
 //        holder.cbApproved.isChecked = if (currentItem.requestStatus == Status.RUNNING || )
 
@@ -79,14 +82,16 @@ class CompanyRecyclerViewAdapter(
 
         holder.switchInterested.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
             val currTravel = travelList[listPosition]
-            val companyId = FirebaseAuth.getInstance().currentUser?.uid
+            val companyEmail = userMail
             if (isChecked) {
-                currTravel.company[companyId!!] = false
+                if (currTravel.company == null)
+                    currTravel.company = hashMapOf()
+                currTravel.company?.put(companyEmail!!, false)
                 currTravel.requestStatus = Status.RECEIVED
             } else {// not checked
                 if (currTravel.requestStatus == Status.RECEIVED && currTravel.company.size > 1)
                     currTravel.requestStatus = Status.SENT
-                currTravel.company.remove(companyId!!)
+                currTravel.company?.remove(companyEmail!!)
             }
             listener.updateTravel(currTravel)
             notifyDataSetChanged()
@@ -97,9 +102,9 @@ class CompanyRecyclerViewAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemID: String = ""
-        var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewDepartureAddress)
+        var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewCustomerName)
         var destinationAddress: TextView =
-            this.itemView.findViewById(R.id.TextViewDestinationAddress)
+            this.itemView.findViewById(R.id.TextViewTravelDays)
         var departureDate: TextView = this.itemView.findViewById(R.id.TextViewDepartureDate)
         var returnDate: TextView = this.itemView.findViewById(R.id.TextViewReturnDate)
         var psgNum: TextView = this.itemView.findViewById(R.id.TextViewPassengersNumber) as TextView

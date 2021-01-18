@@ -59,5 +59,8 @@
     <string name="distance">Distance</string>
     <string name="interested">Interested in the travel</string>
     <string name="Approved">Approved</string>
+    <string name="customerName">Customer name:</string>
+    <string name="travelDays">Travel days:</string>
+    <string name="paid">Paid</string>
 
 </resources>

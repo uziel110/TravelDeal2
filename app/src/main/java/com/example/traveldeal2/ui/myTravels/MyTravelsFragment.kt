@@ -26,7 +26,6 @@ import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.ui.company.CompanyRecyclerViewAdapter
 import com.example.traveldeal2.ui.company.MyTravelsViewModel
 import com.example.traveldeal2.utils.App
-import com.example.traveldeal2.utils.TravelRecyclerViewAdapter
 import com.example.traveldeal2.utils.Utils
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
@@ -42,9 +41,6 @@ class MyTravelsFragment : Fragment(), MyTravelsRecyclerViewAdapter.CompanyCardBu
 
     lateinit var recyclerView: RecyclerView
     lateinit var travelsList: MutableList<Travel?>
-    var vehicleLocation: String = ""
-    lateinit var vehicleLatLng: LatLng
-    lateinit var sbInterested: SwitchMaterial
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -99,7 +95,7 @@ class MyTravelsFragment : Fragment(), MyTravelsRecyclerViewAdapter.CompanyCardBu
     }
 
     override fun sendEMail(travel: Travel) {
-        Utils.sendEmail(travel)
+        Utils.sendEmail(travel, false)
     }
 
     override fun updateTravel(travel: Travel) {

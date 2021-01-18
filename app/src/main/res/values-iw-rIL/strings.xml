@@ -53,6 +53,9 @@
     <string name="distance">מרחק</string>
     <string name="interested">מעוניין לבצע את הנסיעה</string>
     <string name="Approved">אושר</string>
+    <string name="customerName">שם לקוח:</string>
+    <string name="travelDays">ימי נסיעה:</string>
+    <string name="paid">שולם</string>
 
 
     <string-array name="status_array" tools:ignore="InconsistentArrays">

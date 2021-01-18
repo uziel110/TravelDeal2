@@ -28,7 +28,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginLeft="16dp"
-            tools:listitem="@layout/activity_card_travel" />
+            tools:listitem="@layout/my_travels_card" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

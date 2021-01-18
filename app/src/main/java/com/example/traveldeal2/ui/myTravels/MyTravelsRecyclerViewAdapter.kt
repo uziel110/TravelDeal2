@@ -13,6 +13,7 @@ import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.enums.Status
 import com.example.traveldeal2.utils.*
+import com.example.traveldeal2.utils.Utils.Companion.broadcastCustomIntent
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
 
@@ -38,6 +39,7 @@ class MyTravelsRecyclerViewAdapter(
     @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
 
+        val userMail = Utils.encodeKey(FirebaseAuth.getInstance().currentUser?.email)
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
         var tmp = currentItem.departureAddress
@@ -50,9 +52,17 @@ class MyTravelsRecyclerViewAdapter(
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
         holder.switchInterested.isChecked =
-            currentItem.company?.contains(FirebaseAuth.getInstance().uid) == true
+            currentItem.company?.contains(userMail) == true
+        if (holder.switchInterested.isChecked) {
+            holder.cbApproved.isChecked = (currentItem.requestStatus == Status.RUNNING &&
+                    currentItem.company?.get(userMail)  == true)
+        }
 
-//        holder.cbApproved.isChecked = if (currentItem.requestStatus == Status.RUNNING || )
+        //brodCast test
+        if (currentItem.requestStatus == Status.RUNNING &&
+            currentItem.company?.get(userMail)  == true)
+            broadcastCustomIntent("הצלחנווווו!!!")
+//                   .contains(FirebaseAuth.getInstance().uid) == true && )
 
         val passengersNum = currentItem.passengersNumber.toString()
         holder.psgNum.text =
@@ -101,9 +111,9 @@ class MyTravelsRecyclerViewAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemID: String = ""
-        var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewDepartureAddress)
+        var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewCustomerName)
         var destinationAddress: TextView =
-            this.itemView.findViewById(R.id.TextViewDestinationAddress)
+            this.itemView.findViewById(R.id.TextViewTravelDays)
         var departureDate: TextView = this.itemView.findViewById(R.id.TextViewDepartureDate)
         var returnDate: TextView = this.itemView.findViewById(R.id.TextViewReturnDate)
         var psgNum: TextView = this.itemView.findViewById(R.id.TextViewPassengersNumber) as TextView
