@@ -27,7 +27,7 @@ class MyTravelsRecyclerViewAdapter(
     private val listener: CompanyCardButtonsListener
 ) :
     RecyclerView.Adapter<MyTravelsRecyclerViewAdapter.ViewHolder>() {
-
+    private var userMail: String = ""
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.my_travels_card, parent, false)
@@ -36,8 +36,8 @@ class MyTravelsRecyclerViewAdapter(
 
     @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
-
-        val userMail = Utils.encodeKey(FirebaseAuth.getInstance().currentUser?.email)
+        if (FirebaseAuth.getInstance().currentUser?.email != null)
+            userMail = encodeKey(FirebaseAuth.getInstance().currentUser?.email)
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
         var tmp = currentItem.departureAddress

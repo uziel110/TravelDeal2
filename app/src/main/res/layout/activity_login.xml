@@ -5,21 +5,4 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="הכנס מספר טלפון" />
-
-    <EditText
-        android:id="@+id/et_phoneVerification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="050-0000000"/>
-
-    <Button
-        android:id="@+id/bt_verify"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send verification code" />
-
 </LinearLayout>
