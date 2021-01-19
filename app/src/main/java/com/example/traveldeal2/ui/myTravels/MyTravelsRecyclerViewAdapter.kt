@@ -12,10 +12,9 @@ import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.enums.Status
 import com.example.traveldeal2.utils.*
-import com.example.traveldeal2.utils.Utils.Companion.sendBroadcastCustomIntent
+import com.example.traveldeal2.utils.Utils.Companion.encodeKey
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
-
 
 object Strings {
     fun get(@StringRes stringRes: Int, vararg formatArgs: Any = emptyArray()): String {
@@ -50,8 +49,24 @@ class MyTravelsRecyclerViewAdapter(
         holder.departureDate.text = currentItem.departureDate
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
-        holder.switchInterested.isChecked =
-            currentItem.company.contains(userMail) == true
+
+        holder.switchInterested.isChecked = currentItem.company.contains(userMail)
+
+        holder.switchInterested.setOnCheckedChangeListener { _, isChecked ->
+            val currTravel = travelList[listPosition]
+            val companyId = encodeKey(FirebaseAuth.getInstance().currentUser?.email)
+            if (isChecked) {
+                currTravel.company[companyId] = false
+                currTravel.requestStatus = Status.RECEIVED
+            } else {// not checked
+                if (currTravel.requestStatus == Status.RECEIVED && currTravel.company.size == 1)
+                    currTravel.requestStatus = Status.SENT
+                currTravel.company.remove(companyId)
+            }
+            listener.updateTravel(currTravel)
+            notifyDataSetChanged()
+        }
+
         if (holder.switchInterested.isChecked) {
             holder.cbApproved.isChecked = (currentItem.company[userMail] == true)
         }
@@ -72,21 +87,6 @@ class MyTravelsRecyclerViewAdapter(
 
         holder.btnEmail.setOnClickListener {
             listener.sendEMail(travelList[listPosition])
-        }
-
-        holder.switchInterested.setOnCheckedChangeListener { _, isChecked ->
-            val currTravel = travelList[listPosition]
-            val companyId = FirebaseAuth.getInstance().currentUser?.uid
-            if (isChecked) {
-                currTravel.company[companyId!!] = false
-                currTravel.requestStatus = Status.RECEIVED
-            } else {// not checked
-                if (currTravel.requestStatus == Status.RECEIVED && currTravel.company.size == 1)
-                    currTravel.requestStatus = Status.SENT
-                currTravel.company.remove(companyId!!)
-            }
-            listener.updateTravel(currTravel)
-            notifyDataSetChanged()
         }
     }
 

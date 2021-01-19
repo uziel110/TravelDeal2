@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -32,12 +31,12 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 
 class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCardButtonsListener {
-    lateinit var companyTravelsViewModel: CompanyTravelsViewModel
-    lateinit var recyclerView: RecyclerView
-    lateinit var travelsList: MutableList<Travel?>
-    var vehicleLocation: String = ""
-    lateinit var vehicleLatLng: LatLng
-    lateinit var etDistance: EditText
+    private lateinit var companyTravelsViewModel: CompanyTravelsViewModel
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var travelsList: MutableList<Travel?>
+    private var vehicleLocation: String = ""
+    private lateinit var vehicleLatLng: LatLng
+    private lateinit var etDistance: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater,

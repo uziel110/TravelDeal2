@@ -18,7 +18,7 @@ class UserLocation() {
         lon = _lon
     }
 
-    fun convertFromLocation(location: Location?): UserLocation? {
+    private fun convertFromLocation(location: Location?): UserLocation? {
         return if (location == null) null else UserLocation(location.latitude, location.longitude)
     }
 

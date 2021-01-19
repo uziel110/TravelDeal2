@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 class MyTravelsViewModel: ViewModel() {
     val app = App
     private var rp: TravelRepository = TravelRepository(app.instance)
-    var travelsList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
+    private var travelsList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
     var filteredList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
 
     init {

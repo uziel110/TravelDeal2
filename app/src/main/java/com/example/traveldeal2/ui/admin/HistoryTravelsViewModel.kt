@@ -1,5 +1,6 @@
 package com.example.traveldeal2.ui.admin
 
+import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -14,8 +15,8 @@ import java.util.*
 class HistoryTravelsViewModel : ViewModel() {
     val app = App
     private var rp: TravelRepository = TravelRepository(app.instance)
-    var travelsList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
-    var filteredList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
+    private var travelsList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
+    private var filteredList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
 
     init {
         rp.getTravelsByStatus(listOf(Status.CLOSED.ordinal, Status.PAID.ordinal)).observeForever {
@@ -23,6 +24,7 @@ class HistoryTravelsViewModel : ViewModel() {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.N)
     fun getTravelsByDate(_startDate: String, _endDate: String): MutableLiveData<List<Travel?>?> {
         val t = Thread {

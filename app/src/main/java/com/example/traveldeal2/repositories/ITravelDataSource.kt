@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import com.example.traveldeal2.data.entities.Travel
 
 interface ITravelDataSource {
-    fun addTravel(p: Travel)
+    fun addTravel(travel: Travel)
     //fun addTravels(travelList: List<Travel>)
-    fun updateTravel(p: Travel)
+    fun updateTravel(travel: Travel)
     fun getAllTravels(): MutableList<Travel>
     fun getLiveData(): LiveData<Boolean>
 

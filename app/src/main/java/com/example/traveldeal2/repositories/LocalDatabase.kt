@@ -2,10 +2,7 @@ package com.example.traveldeal2.repositories
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.room.Room
 import com.example.traveldeal2.data.entities.Travel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
 
 class LocalDatabase(context: Context) : ILocalDatabase {
 
@@ -26,7 +23,7 @@ class LocalDatabase(context: Context) : ILocalDatabase {
     }
 
     private val database = TravelRoomDatabase.getDatabase(context)
-    var travelDao = database.travelDao()
+    private var travelDao = database.travelDao()
 
     fun getTravel(id: String?): LiveData<Travel?>? {
         return travelDao.getTravelById(id)

@@ -2,32 +2,10 @@ package com.example.traveldeal2.utils
 
 import android.content.Context
 import android.location.Geocoder
-import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLng
 import java.io.IOException
 import kotlin.math.*
 
-
-class Address {
-    var _city: String
-        private set
-        get() = field
-    var _street: String
-        private set
-        get() = field
-    var _number: Int
-        private set
-        get() = field
-
-    constructor(_city: String, _street: String, _number: Int) {
-        this._city = _city
-        this._street = _street
-        this._number = _number
-    }
-
-    override fun toString(): String {
-        return "Address: $_city, $_street, $_number"
-    }
-}
 
 class AddressTool {
     companion object {
@@ -38,7 +16,7 @@ class AddressTool {
             var latLong: LatLng? = null
             try {
                 // May throw an IOException
-                address = coder.getFromLocationName(strAddress, 5);
+                address = coder.getFromLocationName(strAddress, 5)
                 if (address == null) {
                     return null
                 }
@@ -55,10 +33,10 @@ class AddressTool {
             userLatLong: LatLng,
             venueLatLng: LatLng
         ): Float {
-            val userLat = userLatLong.latitude;
-            val userLng = userLatLong.longitude;
-            val venueLat = venueLatLng.latitude;
-            val venueLng = venueLatLng.longitude;
+            val userLat = userLatLong.latitude
+            val userLng = userLatLong.longitude
+            val venueLat = venueLatLng.latitude
+            val venueLng = venueLatLng.longitude
             val latDistance = Math.toRadians(userLat - venueLat)
             val lngDistance = Math.toRadians(userLng - venueLng)
             val a = sin(latDistance / 2) * sin(latDistance / 2) +

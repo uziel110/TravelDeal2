@@ -5,8 +5,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.traveldeal2.data.entities.Travel
-import com.example.traveldeal2.utils.Utils
-import com.example.traveldeal2.utils.Utils.Companion.encodeKey
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 

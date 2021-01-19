@@ -1,4 +1,4 @@
-package com.example.traveldeal2.utils
+package com.example.traveldeal2.ui.admin
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.enums.Status
+import com.example.traveldeal2.utils.App
 import com.google.android.material.switchmaterial.SwitchMaterial
 import java.text.SimpleDateFormat
 import kotlin.time.ExperimentalTime

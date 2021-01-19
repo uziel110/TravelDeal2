@@ -83,7 +83,7 @@ class Utils {
         }
 
         fun sendBroadcastCustomIntent(message: String) {
-            val myService = MyService()
+//            val myService = MyService()
             val intent = Intent("com.example.traveldeal2.A_CUSTOM_INTENT")
             // add data to the Intent
             intent.putExtra("message", message/*as CharSequence*/)

@@ -19,8 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
-import com.example.traveldeal2.ui.company.CompanyRecyclerViewAdapter
-import com.example.traveldeal2.utils.HistoryRecyclerViewAdapter
 import com.example.traveldeal2.utils.Utils
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -31,9 +29,9 @@ class HistoryTravelsFragment : Fragment(), HistoryRecyclerViewAdapter.HistoryCar
     private lateinit var historyTravelsViewModel: HistoryTravelsViewModel
     lateinit var recyclerView: RecyclerView
     lateinit var travelsList: MutableList<Travel?>
-    lateinit var etStartDate: EditText
-    lateinit var etEndDate: EditText
-    lateinit var picker: DatePickerDialog
+    private lateinit var etStartDate: EditText
+    private lateinit var etEndDate: EditText
+    private lateinit var picker: DatePickerDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,13 +40,8 @@ class HistoryTravelsFragment : Fragment(), HistoryRecyclerViewAdapter.HistoryCar
     ): View? {
         historyTravelsViewModel =
             ViewModelProvider(this).get(HistoryTravelsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_history_travels, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_slideshow)
-//        adminViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
 
-        return root
+        return inflater.inflate(R.layout.fragment_history_travels, container, false)
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -64,28 +57,26 @@ class HistoryTravelsFragment : Fragment(), HistoryRecyclerViewAdapter.HistoryCar
         setEditTextListener(etStartDate)
         setEditTextListener(etEndDate)
 
-        //todo apply when one of two edit text is empty
-        historyTravelsViewModel.getClosedTravels()?.observe(viewLifecycleOwner, {
-            travelsList = (it as List<Travel>).toMutableList()
-            recyclerView.adapter =
-                HistoryRecyclerViewAdapter(it, this@HistoryTravelsFragment)
-        })
+        observeAllTravels()
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
-    private fun setEditTextListener(editText: EditText){
+    private fun setEditTextListener(editText: EditText) {
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
-                if (editText.text.toString()==""){
-                    historyTravelsViewModel.getClosedTravels()?.observe(viewLifecycleOwner, {
-                        travelsList = (it as List<Travel>).toMutableList()
-                        recyclerView.adapter =
-                            HistoryRecyclerViewAdapter(it, this@HistoryTravelsFragment)
-                    })
-                }
+                if (editText.text.toString() == "")
+                    observeAllTravels()
             }
+        })
+    }
+
+    fun observeAllTravels() {
+        historyTravelsViewModel.getClosedTravels()?.observe(viewLifecycleOwner, {
+            travelsList = (it as List<Travel>).toMutableList()
+            recyclerView.adapter =
+                HistoryRecyclerViewAdapter(it, this@HistoryTravelsFragment)
         })
     }
 
@@ -138,7 +129,7 @@ class HistoryTravelsFragment : Fragment(), HistoryRecyclerViewAdapter.HistoryCar
     }
 
     override fun sendEMail(travel: Travel) {
-        Utils.sendEmail(travel, true) // TODO: 17/01/2021 need to send the company email
+        Utils.sendEmail(travel, true)
     }
 
     override fun updateTravel(travel: Travel) {

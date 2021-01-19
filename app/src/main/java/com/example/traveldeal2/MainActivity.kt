@@ -1,8 +1,10 @@
 package com.example.traveldeal2
 
 import android.app.Activity
+import android.app.Service
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userNameTextView: TextView
     private lateinit var intentFilter: IntentFilter
     private lateinit var toolbar: Toolbar
-
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,13 +43,14 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         setNavigationDrawer()
 
+        sharedPreferences = getSharedPreferences("name", MODE_PRIVATE)
+
         //brodCast receiver
         intentFilter = IntentFilter()
         intentFilter.addAction("com.example.traveldeal2.A_CUSTOM_INTENT")
         registerReceiver(TravelBroadcastReceiver(), intentFilter)
 
-        //FirebaseAuth
-        if (FirebaseAuth.getInstance().currentUser != null)
+        if (sharedPreferences.getBoolean("user", false))
             return
         startSignInIntent()
     }
@@ -96,10 +99,9 @@ class MainActivity : AppCompatActivity() {
             true
         })
 
-        if (FirebaseAuth.getInstance().currentUser != null)
-            return
-        startSignInIntent()
-
+//        if (FirebaseAuth.getInstance().currentUser != null)
+//            return
+//        startSignInIntent()
     }
 
     private fun startSignInIntent() {
@@ -131,6 +133,7 @@ class MainActivity : AppCompatActivity() {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
                 if (user != null) {
+                    sharedPreferences.edit().putBoolean("user", true).apply()
                     Toast.makeText(this, "Welcome ${user.displayName}", Toast.LENGTH_LONG).show()
                 }
             } else {

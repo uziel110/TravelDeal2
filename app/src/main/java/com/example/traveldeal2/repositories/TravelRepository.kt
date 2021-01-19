@@ -15,8 +15,8 @@ class TravelRepository(context: Context) : Application() {
     private val localDatabase = LocalDatabase.getLocalDatabase(context)
     val travelsList = MutableLiveData<List<Travel?>?>()
 
-    private var email: String? = Utils.encodeKey(FirebaseAuth.getInstance().currentUser?.email)
-    private var uidMapTravels = hashMapOf<Travel, String>()
+//    private var email: String? = Utils.encodeKey(FirebaseAuth.getInstance().currentUser?.email)
+//    private var uidMapTravels = hashMapOf<Travel, String>()
 
     init {
         val notifyData: ITravelDataSource.NotifyLiveData =
@@ -29,7 +29,6 @@ class TravelRepository(context: Context) : Application() {
                 }
             }
         remoteDatabase.setNotifyLiveData(notifyData)
-        checkNewChanged()
     }
 
     @Suppress("RedundantSuspendModifier")
@@ -58,19 +57,17 @@ class TravelRepository(context: Context) : Application() {
         return localDatabase.getTravelsByStatus(status)
     }
 
-    private fun checkNewChanged() {
-        val runnable = Runnable {
-            //some code here
-            for (travel in travelsList.value!!)
-                if (travel != null) {
-                    if (travel.company.filter { it.value }.keys.first() == email)
-                        if (uidMapTravels[travel] != email) {
-                            //brodCast test
-                            uidMapTravels[travel] = email!!
-                            Utils.sendBroadcastCustomIntent("הנסיעה אושרה")
-                        }
-                }
-        }
-//        Thread(runnable).start()
-    }
+//    private fun checkNewChanged() {
+//        Thread {
+//            for (travel in travelsList.value!!)
+//                if (travel != null) {
+//                    if (travel.company.filter { it.value }.keys.first() == email)
+//                        if (uidMapTravels[travel] != email) {
+//                            //brodCast test
+//                            uidMapTravels[travel] = email!!
+//                            Utils.sendBroadcastCustomIntent("הנסיעה אושרה")
+//                        }
+//                }
+//        }.start()
+//    }
 }

@@ -13,8 +13,8 @@ import com.google.android.gms.maps.model.LatLng
 class CompanyTravelsViewModel : ViewModel() {
     val app = App
     private var rp: TravelRepository = TravelRepository(app.instance)
-    var travelsList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
-    var filteredList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
+    private var travelsList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
+    private var filteredList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
 
     init {
         rp.getTravelsByStatus(listOf(Status.SENT.ordinal, Status.RECEIVED.ordinal )).observeForever {

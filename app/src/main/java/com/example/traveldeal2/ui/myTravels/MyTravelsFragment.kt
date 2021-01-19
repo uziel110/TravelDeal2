@@ -19,6 +19,7 @@ import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.utils.App
 import com.example.traveldeal2.utils.Utils
+import com.google.firebase.auth.FirebaseAuth
 
 class MyTravelsFragment : Fragment(), MyTravelsRecyclerViewAdapter.CompanyCardButtonsListener {
 

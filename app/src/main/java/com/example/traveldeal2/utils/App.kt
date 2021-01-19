@@ -3,21 +3,14 @@ package com.example.traveldeal2.utils
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Intent
 import android.os.Build
-import android.provider.Settings
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
-import com.example.traveldeal2.R
 
 class App : Application() {
 
     companion object {
         lateinit var instance: App private set
 
-        val CHANNEL_ID = "channel1"
+        const val CHANNEL_ID = "channel1"
     }
 
     override fun onCreate() {

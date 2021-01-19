@@ -142,7 +142,7 @@
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switch_interested"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/interested"
@@ -151,9 +151,8 @@
 
             <CheckBox
                 android:id="@+id/cb_ready_to_drive"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
                 android:text="@string/Approved"
                 android:clickable="false"
                 android:button="@null"

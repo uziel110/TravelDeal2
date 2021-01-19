@@ -2,11 +2,6 @@ package com.example.traveldeal2.utils
 
 import androidx.room.TypeConverter
 import com.example.traveldeal2.enums.Status
-import com.google.gson.Gson
-
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
-
 
 class UserLocationConverter {
     @TypeConverter
@@ -102,15 +97,5 @@ class CompanyConverter {
             key
         ).append(":").append(value).append(",")
         return mapString.toString()
-    }
-}
-
-class Decode {
-    fun encodeKey(key: String): String {
-        return key.replace("\\", "\\\\").replace("\$", "\\u0024").replace(".", "\\u002e")
-    }
-
-    fun decodeKey(key: String): String {
-        return key.replace("\\u002e", ".").replace("\\u0024", "\$").replace("\\\\", "\\")
     }
 }
