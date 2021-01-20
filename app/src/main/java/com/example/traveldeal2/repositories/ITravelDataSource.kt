@@ -9,7 +9,6 @@ interface ITravelDataSource {
     fun updateTravel(travel: Travel)
     fun getAllTravels(): MutableList<Travel>
     fun getLiveData(): LiveData<Boolean>
-
     interface NotifyLiveData{
         fun onDataChange ()
     }

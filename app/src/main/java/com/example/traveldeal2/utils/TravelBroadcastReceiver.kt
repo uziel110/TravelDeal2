@@ -14,14 +14,13 @@ import androidx.core.content.ContextCompat.getSystemService
 import com.example.traveldeal2.R
 import com.example.traveldeal2.utils.Utils.Companion.broadcastCustomIntent
 
-
 class TravelBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
-
-        // Extract data included in the Intent
-        val intentData = intent?.getCharSequenceExtra("message")
-        broadcastCustomIntent(intentData)
-        Toast.makeText(context,"$intentData",Toast.LENGTH_LONG).show()
+        if ("com.example.traveldeal.NewTravel" == intent?.action) {
+            // Extract data included in the Intent
+            broadcastCustomIntent()
+            Toast.makeText(context, "נכנסה נסיעה חדשה", Toast.LENGTH_LONG).show()
+        }
     }
 
 }

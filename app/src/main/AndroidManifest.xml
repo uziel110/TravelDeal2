@@ -13,9 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDeal2">
-
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:theme="@style/Theme.TravelDeal2.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,19 +22,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/Theme.TravelDeal2.NoActionBar">
+        </activity>
+        <receiver android:name=".utils.TravelBroadcastReceiver">
+            <intent-filter
+                android:enabled="true"
+                android:exported="true">
+                <action android:name="com.example.traveldeal.NewTravel" />
+            </intent-filter>
+        </receiver>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${mapsApiKey}" />
-
-        <receiver android:name="com.example.traveldeal2.utils.TravelBroadcastReceiver">
-            <intent-filter
-                android:enabled="true"
-                android:exported="true">
-                <action android:name="com.example.traveldeal2.A_CUSTOM_INTENT"/>
-            </intent-filter>
-        </receiver>
-        <service android:name=".utils.MyService" />
     </application>
-
 </manifest>

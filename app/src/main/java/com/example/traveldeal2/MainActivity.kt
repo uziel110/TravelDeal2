@@ -20,12 +20,10 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.*
 import com.example.traveldeal2.ui.myTravels.Strings
 import com.example.traveldeal2.utils.TravelBroadcastReceiver
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
-    private val RC_SIGN_IN = 123
+    //    private val RC_SIGN_IN = 123
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -35,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var intentFilter: IntentFilter
     private lateinit var toolbar: Toolbar
     private lateinit var sharedPreferences: SharedPreferences
+    private val broadcastReceiver: TravelBroadcastReceiver = TravelBroadcastReceiver()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -47,11 +47,9 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("name", MODE_PRIVATE)
 
         //brodCast receiver
-        registerReceiver(TravelBroadcastReceiver(), IntentFilter("com.example.traveldeal2.A_CUSTOM_INTENT"))
-
-        if (sharedPreferences.getBoolean("user", false))
-            return
-        startSignInIntent()
+        registerReceiver(
+            broadcastReceiver, IntentFilter("com.example.traveldeal.NewTravel")
+        )
     }
 
     private fun setViews() {
@@ -102,53 +100,6 @@ class MainActivity : AppCompatActivity() {
                 true
 
         })
-
-//        if (FirebaseAuth.getInstance().currentUser != null)
-//            return
-//        startSignInIntent()
-    }
-
-    private fun startSignInIntent() {
-        // Choose authentication providers
-        val providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build()
-            //,AuthUI.IdpConfig.PhoneBuilder().build()
-        )
-        // Create and launch sign-in intent
-        startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .setIsSmartLockEnabled(false)
-                .build(),
-            RC_SIGN_IN
-        )
-        // [END auth_fui_create_intent]
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-            val response = IdpResponse.fromResultIntent(data)
-
-            if (resultCode == Activity.RESULT_OK) {
-                // Successfully signed in
-                val user = FirebaseAuth.getInstance().currentUser
-                if (user != null) {
-                    sharedPreferences.edit().putBoolean("user", true).apply()
-                    Toast.makeText(this, "${Strings.get(R.string.welcome)} " + user.displayName, Toast.LENGTH_LONG).show()
-                }
-            } else {
-                Toast.makeText(this, "Sign in failed", Toast.LENGTH_LONG).show()
-                startSignInIntent()
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -165,6 +116,15 @@ class MainActivity : AppCompatActivity() {
     private fun signOut() {
         FirebaseAuth.getInstance().signOut()
         Toast.makeText(applicationContext, "You are signed out", Toast.LENGTH_SHORT).show()
-        startSignInIntent()
+
+        val intent = Intent(this, LoginActivity::class.java)
+        sharedPreferences.edit().putBoolean("user", false).apply()
+        sharedPreferences.edit().putString("userMail", "").apply()
+        this.startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(TravelBroadcastReceiver())
     }
 }

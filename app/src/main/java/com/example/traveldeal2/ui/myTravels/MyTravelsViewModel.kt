@@ -9,16 +9,26 @@ import com.example.traveldeal2.utils.App
 import com.example.traveldeal2.utils.Utils.Companion.encodeKey
 import com.google.firebase.auth.FirebaseAuth
 
-class MyTravelsViewModel: ViewModel() {
+class MyTravelsViewModel : ViewModel() {
     val app = App
     private var rp: TravelRepository = TravelRepository(app.instance)
     private var travelsList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
     var filteredList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
+    private var userMail = ""
 
     init {
-        rp.getTravelsByStatus(listOf( Status.RECEIVED.ordinal, Status.RUNNING.ordinal )).observeForever { it ->
-            travelsList?.postValue(it.filter { it.company.contains(encodeKey(FirebaseAuth.getInstance().currentUser?.email)) })
-        }
+        if (FirebaseAuth.getInstance().currentUser != null)
+            userMail = FirebaseAuth.getInstance().currentUser?.email.toString()
+        rp.getTravelsByStatus(listOf(Status.RECEIVED.ordinal, Status.RUNNING.ordinal))
+            .observeForever { it ->
+                travelsList?.postValue(it.filter {
+                    it.company.contains(
+                        encodeKey(
+                            userMail
+                        )
+                    )
+                })
+            }
     }
 
     fun updateItem(travel: Travel) {
