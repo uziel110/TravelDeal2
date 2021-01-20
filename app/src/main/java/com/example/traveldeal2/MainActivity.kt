@@ -18,6 +18,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.ui.*
+import com.example.traveldeal2.ui.myTravels.Strings
 import com.example.traveldeal2.utils.TravelBroadcastReceiver
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -46,9 +47,7 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("name", MODE_PRIVATE)
 
         //brodCast receiver
-        intentFilter = IntentFilter()
-        intentFilter.addAction("com.example.traveldeal2.A_CUSTOM_INTENT")
-        registerReceiver(TravelBroadcastReceiver(), intentFilter)
+        registerReceiver(TravelBroadcastReceiver(), IntentFilter("com.example.traveldeal2.A_CUSTOM_INTENT"))
 
         if (sharedPreferences.getBoolean("user", false))
             return
@@ -92,11 +91,16 @@ class MainActivity : AppCompatActivity() {
             val id = menuItem.itemId
             if (id == R.id.nav_signOut)
                 signOut()
-            //This is for maintaining the behavior of the Navigation view
-            NavigationUI.onNavDestinationSelected(menuItem, navController)
-            //This is for closing the drawer after acting on it
-            drawerLayout.closeDrawer(GravityCompat.START)
-            true
+            if (id == R.id.nav_admin && FirebaseAuth.getInstance().uid != "JzUvUuHVsIgILDm7Xn0gcW9wS1A3") {// Uziel Uid
+                Toast.makeText(this, "אתה לא בעל האתר המורשה", Toast.LENGTH_LONG).show()
+            }
+            else {
+                //This is for maintaining the behavior of the Navigation view
+                NavigationUI.onNavDestinationSelected(menuItem, navController) }
+                //This is for closing the drawer after acting on it
+                drawerLayout.closeDrawer(GravityCompat.START)
+                true
+
         })
 
 //        if (FirebaseAuth.getInstance().currentUser != null)
@@ -134,7 +138,7 @@ class MainActivity : AppCompatActivity() {
                 val user = FirebaseAuth.getInstance().currentUser
                 if (user != null) {
                     sharedPreferences.edit().putBoolean("user", true).apply()
-                    Toast.makeText(this, "Welcome ${user.displayName}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "${Strings.get(R.string.welcome)} " + user.displayName, Toast.LENGTH_LONG).show()
                 }
             } else {
                 Toast.makeText(this, "Sign in failed", Toast.LENGTH_LONG).show()

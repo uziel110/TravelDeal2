@@ -62,5 +62,6 @@
     <string name="customerName">Customer name:</string>
     <string name="travelDays">Travel days:</string>
     <string name="paid">Paid</string>
+    <string name="welcome">Welcome</string>
 
 </resources>

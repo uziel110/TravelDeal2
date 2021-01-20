@@ -56,6 +56,7 @@
     <string name="customerName">שם לקוח:</string>
     <string name="travelDays">ימי נסיעה:</string>
     <string name="paid">שולם</string>
+    <string name="welcome">ברוך הבא</string>
 
 
     <string-array name="status_array" tools:ignore="InconsistentArrays">
