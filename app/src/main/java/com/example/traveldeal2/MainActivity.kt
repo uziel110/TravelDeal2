@@ -1,7 +1,5 @@
 package com.example.traveldeal2
 
-import android.app.Activity
-import android.app.Service
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
@@ -19,8 +17,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.ui.*
 import com.example.traveldeal2.utils.TravelBroadcastReceiver
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var intentFilter: IntentFilter
     private lateinit var toolbar: Toolbar
     private lateinit var sharedPreferences: SharedPreferences
+    private val broadcastReceiver: TravelBroadcastReceiver = TravelBroadcastReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +44,9 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("name", MODE_PRIVATE)
 
         //brodCast receiver
-        intentFilter = IntentFilter()
-        intentFilter.addAction("com.example.traveldeal2.A_CUSTOM_INTENT")
-        registerReceiver(TravelBroadcastReceiver(), intentFilter)
+        registerReceiver(
+            broadcastReceiver, IntentFilter("com.example.traveldeal.NewTravel")
+        )
     }
 
     private fun setViews() {
@@ -116,5 +113,10 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences.edit().putBoolean("user", false).apply()
         sharedPreferences.edit().putString("userMail", "").apply()
         this.startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(TravelBroadcastReceiver())
     }
 }

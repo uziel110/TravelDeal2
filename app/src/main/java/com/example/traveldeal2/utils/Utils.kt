@@ -8,7 +8,6 @@ import androidx.core.app.NotificationManagerCompat
 import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 
-
 class Utils {
     companion object {
         fun createCall(phoneNumber: String) {
@@ -82,17 +81,7 @@ class Utils {
             App.instance.startActivity(mIntent)
         }
 
-        fun sendBroadcastCustomIntent(message: String) {
-//            val myService = MyService()
-            val intent = Intent("com.example.traveldeal2.A_CUSTOM_INTENT")
-            // add data to the Intent
-            intent.putExtra("message", message/*as CharSequence*/)
-//            myService.startService(intent)
-
-            App.instance.sendBroadcast(intent)
-        }
-
-        fun broadcastCustomIntent(message: CharSequence?) {
+        fun broadcastCustomIntent() {
             // Create an explicit intent for an Activity in your app
             val intent = Intent("com.example.traveldeal2.NOTIFICATION_INTENT").apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -100,8 +89,8 @@ class Utils {
             val pendingIntent: PendingIntent = PendingIntent.getActivity(App.instance, 0, intent, 0)
             val builder = NotificationCompat.Builder(App.instance, App.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_baseline_call)
-                .setContentTitle("textTitle")
-                .setContentText(message)
+                .setContentTitle("TravelDeal2")
+                .setContentText("התקבלה נסיעה חדשה")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
@@ -111,9 +100,5 @@ class Utils {
                 notify(1, builder.build())
             }
         }
-
-
     }
-
-
 }

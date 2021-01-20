@@ -15,9 +15,6 @@ class TravelRepository(context: Context) : Application() {
     private val localDatabase = LocalDatabase.getLocalDatabase(context)
     val travelsList = MutableLiveData<List<Travel?>?>()
 
-//    private var email: String? = Utils.encodeKey(FirebaseAuth.getInstance().currentUser?.email)
-//    private var uidMapTravels = hashMapOf<Travel, String>()
-
     init {
         val notifyData: ITravelDataSource.NotifyLiveData =
             object : ITravelDataSource.NotifyLiveData {
