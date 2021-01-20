@@ -1,5 +1,7 @@
 package com.example.traveldeal2
 
+import android.app.Activity
+import android.app.Service
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
@@ -16,6 +18,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.ui.*
+import com.example.traveldeal2.ui.myTravels.Strings
 import com.example.traveldeal2.utils.TravelBroadcastReceiver
 import com.google.firebase.auth.FirebaseAuth
 
@@ -85,11 +88,16 @@ class MainActivity : AppCompatActivity() {
             val id = menuItem.itemId
             if (id == R.id.nav_signOut)
                 signOut()
-            //This is for maintaining the behavior of the Navigation view
-            NavigationUI.onNavDestinationSelected(menuItem, navController)
-            //This is for closing the drawer after acting on it
-            drawerLayout.closeDrawer(GravityCompat.START)
-            true
+            if (id == R.id.nav_admin && FirebaseAuth.getInstance().uid != "JzUvUuHVsIgILDm7Xn0gcW9wS1A3") {// Uziel Uid
+                Toast.makeText(this, "אתה לא בעל האתר המורשה", Toast.LENGTH_LONG).show()
+            }
+            else {
+                //This is for maintaining the behavior of the Navigation view
+                NavigationUI.onNavDestinationSelected(menuItem, navController) }
+                //This is for closing the drawer after acting on it
+                drawerLayout.closeDrawer(GravityCompat.START)
+                true
+
         })
     }
 
