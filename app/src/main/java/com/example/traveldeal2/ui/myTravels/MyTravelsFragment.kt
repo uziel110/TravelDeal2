@@ -14,12 +14,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.utils.App
 import com.example.traveldeal2.utils.Utils
-import com.google.firebase.auth.FirebaseAuth
+
 
 class MyTravelsFragment : Fragment(), MyTravelsRecyclerViewAdapter.CompanyCardButtonsListener {
 

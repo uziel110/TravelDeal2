@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var intentFilter: IntentFilter
     private lateinit var toolbar: Toolbar
     private lateinit var sharedPreferences: SharedPreferences
-    private val broadcastReceiver: TravelBroadcastReceiver = TravelBroadcastReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         //brodCast receiver
         registerReceiver(
-            broadcastReceiver, IntentFilter("com.example.traveldeal.NewTravel")
+            TravelBroadcastReceiver(), IntentFilter("com.example.traveldeal.NewTravel")
         )
     }
 

@@ -58,7 +58,7 @@ class HistoryRecyclerViewAdapter(
                 currentItem.requestStatus = Status.CLOSED
 
             listener.updateTravel(currentItem)
-            notifyDataSetChanged()
+//            notifyDataSetChanged()
         })
 
         holder.btnEmail.setOnClickListener {

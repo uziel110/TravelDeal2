@@ -27,6 +27,7 @@ class CompanyRecyclerViewAdapter(
     private val listener: CompanyCardButtonsListener
 ) :
     RecyclerView.Adapter<CompanyRecyclerViewAdapter.ViewHolder>() {
+    val userMail = encodeKey(FirebaseAuth.getInstance().currentUser?.email)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -37,7 +38,6 @@ class CompanyRecyclerViewAdapter(
     @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
 
-        val userMail = encodeKey(FirebaseAuth.getInstance().currentUser?.email)
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
         var tmp = currentItem.departureAddress
@@ -88,7 +88,7 @@ class CompanyRecyclerViewAdapter(
                 currTravel.company.remove(userMail)
             }
             listener.updateTravel(currTravel)
-            notifyDataSetChanged()
+//            notifyDataSetChanged()
         })
     }
 
@@ -106,6 +106,7 @@ class CompanyRecyclerViewAdapter(
         var btnSms: ImageButton = this.itemView.findViewById(R.id.btn_send_sms)
         var btnEmail: ImageButton = this.itemView.findViewById(R.id.btn_send_email)
         var switchInterested: SwitchMaterial = this.itemView.findViewById(R.id.switch_interested)
+
     }
 
     /**
