@@ -84,9 +84,9 @@ class MyTravelsRecyclerViewAdapter(
             switchInterested.setOnCheckedChangeListener { _, isChecked ->
                 val companyId = encodeKey(FirebaseAuth.getInstance().currentUser?.email)
                 if (!isChecked) {// not checked
+                    travel.company.remove(companyId)
                     if (travel.requestStatus == Status.RECEIVED && travel.company.size == 1)
                         travel.requestStatus = Status.SENT
-                    travel.company.remove(companyId)
                 }
                 listener.updateTravel(travel)
             }

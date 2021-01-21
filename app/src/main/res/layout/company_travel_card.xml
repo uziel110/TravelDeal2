@@ -101,7 +101,6 @@
             android:background="#59b2d6"
             android:textStyle="bold" />
 
-
         <TextView
             android:id="@+id/TextViewReturnDate"
             android:layout_width="wrap_content"
@@ -152,7 +151,7 @@
                 android:layout_height="40dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:src="@drawable/ic_baseline_connect_without_contact_24" />
+                android:src="@drawable/ic_baseline_contact_phone_24" />
 
         </LinearLayout>
 

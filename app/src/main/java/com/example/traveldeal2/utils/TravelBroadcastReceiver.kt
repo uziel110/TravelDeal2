@@ -9,8 +9,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.navigation.NavDeepLinkBuilder
 import com.example.traveldeal2.MainActivity
 import com.example.traveldeal2.R
+import com.example.traveldeal2.ui.company.CompanyTravelsFragment
 
 class TravelBroadcastReceiver : BroadcastReceiver() {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -30,7 +32,7 @@ class TravelBroadcastReceiver : BroadcastReceiver() {
             //what will be open when clicking on notification
             val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
             val mBuilder: Notification.Builder = Notification.Builder(context, id)
-            mBuilder.setSmallIcon(R.drawable.ic_baseline_call)
+            mBuilder.setSmallIcon(R.drawable.ic_bus)
                 .setContentTitle("נסיעה חדשה נכנסה")
                 .setContentText("נכנסה נסיעה חדשה הזדרז לתפוס אותה ראשון")
                 .setContentIntent(pendingIntent)
