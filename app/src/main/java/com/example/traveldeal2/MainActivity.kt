@@ -1,6 +1,5 @@
 package com.example.traveldeal2
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
@@ -9,7 +8,6 @@ import android.view.Menu
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -17,7 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
-import com.example.traveldeal2.ui.AdminDialog
+import com.example.traveldeal2.ui.admin.AdminDialog
 import com.example.traveldeal2.utils.TravelBroadcastReceiver
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth

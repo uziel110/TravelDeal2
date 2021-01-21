@@ -14,6 +14,16 @@
         tools:ignore="MissingConstraints"
         />
 
+    <TextView
+        android:id="@+id/no_travels_textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/no_travels"
+        android:gravity="center"
+        tools:ignore="MissingConstraints"
+        android:visibility="gone"
+        android:textSize="30dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

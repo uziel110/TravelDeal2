@@ -48,6 +48,7 @@
     <string name="End_date">תאריך סיום</string>
     <string name="pick_dats">בחר תאריכים לסינון</string>
     <string name="travels_dont_exists">אין נסיעות בתאריכים שנבחרו</string>
+    <string name="no_travels">עדיין אין נסיעות</string>
     <string name="log_out">יציאה</string>
     <string name="distance_title">בחר נסיעות באזורך</string>
     <string name="distance">מרחק</string>
@@ -57,7 +58,11 @@
     <string name="travelDays">ימי נסיעה:</string>
     <string name="paid">שולם</string>
     <string name="welcome">ברוך הבא</string>
-
+    <string name="enter_password">נא הקש סיסמת מנהל</string>
+    <string name="password">סיסמה</string>
+    <string name="admin_enter">כניסת מנהל</string>
+    <string name="cancel">בטל</string>
+    <string name="enter">כניסה</string>
 
     <string-array name="status_array" tools:ignore="InconsistentArrays">
         <item>נשלח</item>

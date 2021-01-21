@@ -29,6 +29,7 @@
     <string name="admin_tab">Admin</string>
     <string name="travels_tab">Travels search</string>
     <string name="travels_dont_exists">No travels on selected dates</string>
+    <string name="no_travels">No travels</string>
 
     <string-array name="status_array">
         <item>SEND</item>
@@ -63,5 +64,10 @@
     <string name="travelDays">Travel days:</string>
     <string name="paid">Paid</string>
     <string name="welcome">Welcome</string>
+    <string name="enter_password">Please enter an admin password</string>
+    <string name="password">Password</string>
+    <string name="admin_enter">Manager login</string>
+    <string name="cancel">Cancel</string>
+    <string name="enter">Enter</string>
 
 </resources>

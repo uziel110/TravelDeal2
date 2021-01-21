@@ -1,4 +1,4 @@
-package com.example.traveldeal2.ui
+package com.example.traveldeal2.ui.admin
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -26,14 +26,14 @@ class AdminDialog : AppCompatDialogFragment() {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(view)
-            ?.setTitle("כניסת מנהל")
+            ?.setTitle(R.string.admin_enter)
             // Add action buttons
-            ?.setPositiveButton("היכנס",
+            ?.setPositiveButton(R.string.enter,
                 DialogInterface.OnClickListener { _, _ ->
                     val password = editTextPassword.text.toString()
                     listener.checkAdminPassword(password)
                 })
-            ?.setNegativeButton("בטל",
+            ?.setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { _, _ ->
                     dialog?.cancel()
                 })

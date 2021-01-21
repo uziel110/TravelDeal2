@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -29,6 +30,9 @@ class MyTravelsFragment : Fragment(), MyTravelsRecyclerViewAdapter.CompanyCardBu
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var travelsList: MutableList<Travel?>
+    lateinit var noTravtlsTextView: TextView
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,11 +48,19 @@ class MyTravelsFragment : Fragment(), MyTravelsRecyclerViewAdapter.CompanyCardBu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.rvUserTravels)
+        noTravtlsTextView = view.findViewById(R.id.no_travels_textView)
 
 
         myTravelsViewModel.getAllTravels()?.observe(viewLifecycleOwner, {
             travelsList = (it as List<Travel>).toMutableList()
             recyclerView.adapter = MyTravelsRecyclerViewAdapter(it, this)
+            if (it != null && it.isNotEmpty()
+            ) {
+                travelsList = it as MutableList<Travel?>
+                noTravtlsTextView.visibility = View.GONE
+            }
+            if (it.isEmpty())
+                noTravtlsTextView.visibility = View.VISIBLE
         })
 
         recyclerView.layoutManager = LinearLayoutManager(context)
