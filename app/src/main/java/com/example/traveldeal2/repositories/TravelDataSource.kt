@@ -56,32 +56,9 @@ class TravelDataSource :
         }
     }
 
-//    fun uidTravelsChange() {
-//        reference.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                for (travelSnapshot in dataSnapshot.children) {
-//                    val travel: Travel? = travelSnapshot.getValue(Travel::class.java)
-//                    if (travel != null && travel.company.filter { it.value }.keys.first() == email) {
-//                        uidTravels.add(travel)
-//                    }
-//                }
-//                // travels.value = travelsList
-//                notifyData.onDataChange()
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//            }
-//        })
-//    }
-
     override fun updateTravel(travel: Travel) {
         val curKey = travel.travelId
         reference.child(curKey).setValue(travel)
-//            .addOnSuccessListener {
-//            liveData.value = true
-//        }.addOnFailureListener {
-//            liveData.value = false
-//        }
     }
 
 
@@ -92,22 +69,6 @@ class TravelDataSource :
     override fun getAllTravels(): MutableList<Travel> {
         return allTravelsList
     }
-
-//    fun getTravel(travelId: String): MutableLiveData<Travel> {
-//        lateinit var currTravel: Travel
-//        reference.child(uid).child(travelId).addValueEventListener(object : ValueEventListener {
-//
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                val travel: Travel? = dataSnapshot.getValue(Travel::class.java)
-//                //currTravel = dataSnapshot.getValue(Travel::class.java)!!
-//                aTravel.value = travel
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//            }
-//        })
-//        return aTravel
-//    }
 
     override fun setNotifyLiveData(obj: ITravelDataSource.NotifyLiveData) {
         notifyData = obj

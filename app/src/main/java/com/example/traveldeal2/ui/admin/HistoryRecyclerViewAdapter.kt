@@ -61,8 +61,6 @@ class HistoryRecyclerViewAdapter(
         var switchPaid: SwitchMaterial = this.itemView.findViewById(R.id.switch_paid)
         private var btnEmail: ImageButton = this.itemView.findViewById(R.id.history_btn_send_email)
 
-        // var expandableLayout: LinearLayout = this.itemView.findViewById(R.id.ExpandableLayout)
-
         init {
             switchPaid.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
 

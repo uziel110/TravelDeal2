@@ -28,43 +28,15 @@ class TravelRepository(context: Context) : Application() {
         remoteDatabase.setNotifyLiveData(notifyData)
     }
 
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    fun insert(travel: Travel) {
-        remoteDatabase.addTravel(travel)
-    }
-
     fun update(travel: Travel) {
         remoteDatabase.updateTravel(travel)
-    }
-
-    fun getLiveData(): LiveData<Boolean> {
-        return remoteDatabase.getLiveData()
     }
 
     fun getAllTravels(): MutableLiveData<List<Travel?>?> {
         return travelsList
     }
 
-    fun getAllTravelsFromLocal(): LiveData<List<Travel>> {
-        return localDatabase.getAllTravels()
-    }
-
     fun getTravelsByStatus(status: List<Int>): LiveData<List<Travel>> {
         return localDatabase.getTravelsByStatus(status)
     }
-
-//    private fun checkNewChanged() {
-//        Thread {
-//            for (travel in travelsList.value!!)
-//                if (travel != null) {
-//                    if (travel.company.filter { it.value }.keys.first() == email)
-//                        if (uidMapTravels[travel] != email) {
-//                            //brodCast test
-//                            uidMapTravels[travel] = email!!
-//                            Utils.sendBroadcastCustomIntent("הנסיעה אושרה")
-//                        }
-//                }
-//        }.start()
-//    }
 }

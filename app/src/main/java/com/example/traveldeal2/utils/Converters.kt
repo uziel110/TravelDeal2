@@ -19,21 +19,6 @@ class UserLocationConverter {
     }
 }
 
-class DestinationAddresses {
-    @TypeConverter
-    fun getString(addressesList: MutableList<String>): String {
-        val addressesString = StringBuilder()
-        for (point in addressesList)
-            addressesString.append("$point&")
-        return addressesString.toString()
-    }
-
-    @TypeConverter
-    fun getListFromString(addressesString: String): MutableList<String> {
-        return addressesString.split("&").toMutableList()
-    }
-}
-
 class RequestStatusConverter {
 
     @TypeConverter
@@ -41,34 +26,7 @@ class RequestStatusConverter {
 
     @TypeConverter
     fun getStatus(value: Int) = enumValues<Status>()[value]
-
-//    @TypeConverter
-//    fun getStatus(status: Int): Status? {
-//        return when (status) {
-//            0 -> Status.SENT
-//            1 -> Status.RECEIVED
-//            2 -> Status.RUNNING
-//            3 -> Status.CLOSED
-//            4 -> Status.PAID
-//            else -> null
-//        }
-//    }
 }
-
-//object CompanyConverter {
-//    @TypeConverter
-//    fun fromString(value: String?): Map<String, Boolean> {
-//        val mapType: Type = object : TypeToken<Map<String?, Boolean?>?>() {}.type
-//        return Gson().fromJson(value, mapType)
-//    }
-//
-//    @TypeConverter
-//    fun fromStringMap(map: Map<String?, Boolean?>?): String {
-//        val gson = Gson()
-//        return gson.toJson(map)
-//    }
-//}
-
 
 class CompanyConverter {
     @TypeConverter

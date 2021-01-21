@@ -63,6 +63,8 @@
     <string name="admin_enter">כניסת מנהל</string>
     <string name="cancel">בטל</string>
     <string name="enter">כניסה</string>
+    <string name="wrong_password">סיסמה שגויה</string>
+    <string name="Sign_out_toast">התנתקת מהמערכת</string>
 
     <string-array name="status_array" tools:ignore="InconsistentArrays">
         <item>נשלח</item>

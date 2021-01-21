@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -102,39 +101,7 @@
                     android:background="@drawable/rounded_corner_grey_bg"
                     android:src="@drawable/ic_baseline_email"
                     android:textStyle="bold" />
-
-
-
-
         </LinearLayout>
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/ExpandableLayout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/TextViewPassengersNumber"-->
-<!--            android:visibility="visible"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/Offers"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="20dp"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:layout_marginEnd="10dp"-->
-<!--                android:layout_marginRight="8dp"-->
-<!--                android:text="הצעות הסעה:"-->
-<!--                android:textSize="12sp"-->
-<!--                android:textStyle="bold" />-->
-
-<!--            &lt;!&ndash;            <androidx.recyclerview.widget.RecyclerView&ndash;&gt;-->
-<!--            &lt;!&ndash;                android:id="@+id/rvUserTravels"&ndash;&gt;-->
-<!--            &lt;!&ndash;                android:padding="4dp"&ndash;&gt;-->
-<!--            &lt;!&ndash;                android:clipToPadding="false"&ndash;&gt;-->
-<!--            &lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
-<!--            &lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
-<!--            &lt;!&ndash;                tools:listitem="@layout/activity_card_offer"/>&ndash;&gt;-->
-<!--        </LinearLayout>-->
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

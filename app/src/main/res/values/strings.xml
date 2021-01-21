@@ -69,5 +69,7 @@
     <string name="admin_enter">Manager login</string>
     <string name="cancel">Cancel</string>
     <string name="enter">Enter</string>
+    <string name="wrong_password">Wrong password</string>
+    <string name="Sign_out_toast">You have been logged out</string>
 
 </resources>

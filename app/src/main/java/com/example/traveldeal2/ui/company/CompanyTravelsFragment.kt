@@ -106,7 +106,7 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
     private fun placeAutoComplete() {
         Places.initialize(this.requireContext(), "AIzaSyBlm-gYIse1zkWi3WwqQg3w9UOxRm4P3pE")
 
-        // Initialize the AutocompleteSupportFragment.
+        // Initialize the AutocompleteSupportFragment
         val vehicleLocationAutocompleteFragment =
             childFragmentManager.findFragmentById(R.id.ac_VehicleLocation)
                     as AutocompleteSupportFragment

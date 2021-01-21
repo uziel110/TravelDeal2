@@ -74,7 +74,6 @@ class CompanyRecyclerViewAdapter(
         private var btnSms: ImageButton = this.itemView.findViewById(R.id.btn_send_sms)
         private var btnEmail: ImageButton = this.itemView.findViewById(R.id.btn_send_email)
         var switchInterested: SwitchMaterial = this.itemView.findViewById(R.id.switch_interested)
-        private val mainLayout: RelativeLayout = this.itemView.findViewById(R.id.cardMainLayout)
         private val expandableLayout: LinearLayout = this.itemView.findViewById(R.id.ExpandableLayout)
         private val connectionImage: ImageView = this.itemView.findViewById(R.id.image_view_connection)
 
@@ -104,10 +103,7 @@ class CompanyRecyclerViewAdapter(
             })
 
             connectionImage.setOnClickListener {
-//                travel.expandable = !travel.expandable
-//                notifyItemChanged(listPosition)
                 expandableLayout.visibility =
-//                    if (travel.expandable) View.VISIBLE else View.GONE
                     if (expandableLayout.visibility == View.GONE) View.VISIBLE else View.GONE
             }
         }

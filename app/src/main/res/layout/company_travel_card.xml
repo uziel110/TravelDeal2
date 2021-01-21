@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     app:cardBackgroundColor="#80ffffff"
     app:cardElevation="0.05dp">
-    <!--    tools:showIn="@layout/company_travel_card"-->
     <RelativeLayout
         android:id="@+id/cardMainLayout"
         android:layout_width="match_parent"

@@ -23,14 +23,12 @@ import com.google.firebase.auth.FirebaseAuth
 const val ADMIN_PASSWORD: String = "123456"
 
 class MainActivity : AppCompatActivity(), AdminDialog.AdminDialogListener {
-    //    private val RC_SIGN_IN = 123
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navView: NavigationView
     private lateinit var userMailTextView: TextView
     private lateinit var userNameTextView: TextView
-    private lateinit var intentFilter: IntentFilter
     private lateinit var toolbar: Toolbar
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -88,11 +86,9 @@ class MainActivity : AppCompatActivity(), AdminDialog.AdminDialogListener {
             val id = menuItem.itemId
             if (id == R.id.nav_signOut)
                 signOut()
-            if (id == R.id.nav_admin) {// && FirebaseAuth.getInstance().uid != "RfAzMEgn6mRHBW7NTWFRDKeX06Y2") {// ari's Uid
-//            if (id == R.id.nav_admin && FirebaseAuth.getInstance().uid != "JzUvUuHVsIgILDm7Xn0gcW9wS1A3") {// Uziel Uid
-//                Toast.makeText(this, "אתה לא בעל האתר המורשה", Toast.LENGTH_LONG).show()
+            if (id == R.id.nav_admin)
                 openDialog()
-            } else {
+            else {
                 //This is for maintaining the behavior of the Navigation view
                 NavigationUI.onNavDestinationSelected(menuItem, navController)
             }
@@ -112,7 +108,7 @@ class MainActivity : AppCompatActivity(), AdminDialog.AdminDialogListener {
         if (password == ADMIN_PASSWORD)
             NavigationUI.onNavDestinationSelected(navView.checkedItem!!, navController)
         else
-            Toast.makeText(this, "אתה לא בעל האתר המורשה", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.wrong_password, Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -128,7 +124,7 @@ class MainActivity : AppCompatActivity(), AdminDialog.AdminDialogListener {
 
     private fun signOut() {
         FirebaseAuth.getInstance().signOut()
-        Toast.makeText(applicationContext, "You are signed out", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, R.string.Sign_out_toast, Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this, LoginActivity::class.java)
         sharedPreferences.edit().putBoolean("user", false).apply()

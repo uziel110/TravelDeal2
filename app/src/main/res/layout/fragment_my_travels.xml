@@ -11,8 +11,7 @@
         android:layout_height="match_parent"
         android:focusableInTouchMode="false"
         android:src="@drawable/back_uu"
-        tools:ignore="MissingConstraints"
-        />
+        tools:ignore="MissingConstraints"/>
 
     <TextView
         android:id="@+id/no_travels_textView"

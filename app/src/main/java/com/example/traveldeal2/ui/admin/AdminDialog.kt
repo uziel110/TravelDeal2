@@ -17,7 +17,6 @@ class AdminDialog : AppCompatDialogFragment() {
 
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-//        val builder = activity?.let { AlertDialog.Builder(it) }
         val builder = AlertDialog.Builder(context)
         // Get the layout inflater
         val inflater = requireActivity().layoutInflater;

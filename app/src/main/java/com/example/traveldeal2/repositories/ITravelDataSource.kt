@@ -5,7 +5,6 @@ import com.example.traveldeal2.data.entities.Travel
 
 interface ITravelDataSource {
     fun addTravel(travel: Travel)
-    //fun addTravels(travelList: List<Travel>)
     fun updateTravel(travel: Travel)
     fun getAllTravels(): MutableList<Travel>
     fun getLiveData(): LiveData<Boolean>
