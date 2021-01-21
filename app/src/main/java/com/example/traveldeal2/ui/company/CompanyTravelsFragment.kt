@@ -1,6 +1,7 @@
 package com.example.traveldeal2.ui.company
 
 import android.Manifest
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -46,7 +48,6 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
         companyTravelsViewModel =
             ViewModelProvider(this).get(CompanyTravelsViewModel::class.java)
         return inflater.inflate(R.layout.fragment_company_travels, container, false)
-
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -58,7 +59,7 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
         placeAutoComplete()
         setEditTextListener(etDistance)
 
-        viewNotClosedTravels()
+        filter()
 
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
@@ -73,36 +74,18 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
-                if (editText.text.toString() == "")
-                    viewNotClosedTravels()
+                filter()
             }
         })
     }
 
-    fun viewNotClosedTravels() {
+    private fun viewNotClosedTravels() {
         companyTravelsViewModel.getAllTravels()?.observe(viewLifecycleOwner, {
             travelsList = (it as List<Travel>).toMutableList()
             recyclerView.adapter =
                 CompanyRecyclerViewAdapter(it, this)
         })
     }
-
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        outState.putParcelable(
-//            "bla",
-//            recyclerView.layoutManager?.onSaveInstanceState()
-//        )
-//    }
-//
-//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-//        super.onViewStateRestored(savedInstanceState)
-//        if (savedInstanceState != null) {
-//            val savedRecyclerLayoutState: Parcelable? =
-//                savedInstanceState.getParcelable("bla")
-//            recyclerView.layoutManager!!.onRestoreInstanceState(savedRecyclerLayoutState)
-//        }
-//    }
 
     fun filter() {
         if (vehicleLocation != "" && etDistance.text.toString() != "") {
@@ -115,9 +98,9 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
                 recyclerView.adapter =
                     CompanyRecyclerViewAdapter(it, this)
             })
-
-        } else
-            Toast.makeText(this.requireContext(), "Fill all the fields", Toast.LENGTH_SHORT).show()
+        }
+        else
+            viewNotClosedTravels()
     }
 
     private fun placeAutoComplete() {

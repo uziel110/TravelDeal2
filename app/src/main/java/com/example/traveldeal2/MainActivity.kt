@@ -1,7 +1,6 @@
 package com.example.traveldeal2
 
-import android.app.Activity
-import android.app.Service
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
@@ -10,19 +9,22 @@ import android.view.Menu
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import com.google.android.material.navigation.NavigationView
-import androidx.navigation.findNavController
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.ui.*
-import com.example.traveldeal2.ui.myTravels.Strings
+import com.example.traveldeal2.ui.AdminDialog
 import com.example.traveldeal2.utils.TravelBroadcastReceiver
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : AppCompatActivity() {
+const val ADMIN_PASSWORD: String = "123456"
+
+class MainActivity : AppCompatActivity(), AdminDialog.AdminDialogListener {
     //    private val RC_SIGN_IN = 123
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
@@ -33,7 +35,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var intentFilter: IntentFilter
     private lateinit var toolbar: Toolbar
     private lateinit var sharedPreferences: SharedPreferences
-    private val broadcastReceiver: TravelBroadcastReceiver = TravelBroadcastReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,18 +90,31 @@ class MainActivity : AppCompatActivity() {
             val id = menuItem.itemId
             if (id == R.id.nav_signOut)
                 signOut()
-            if (id == R.id.nav_admin && FirebaseAuth.getInstance().uid != "RfAzMEgn6mRHBW7NTWFRDKeX06Y2") {// ari's Uid
+            if (id == R.id.nav_admin) {// && FirebaseAuth.getInstance().uid != "RfAzMEgn6mRHBW7NTWFRDKeX06Y2") {// ari's Uid
 //            if (id == R.id.nav_admin && FirebaseAuth.getInstance().uid != "JzUvUuHVsIgILDm7Xn0gcW9wS1A3") {// Uziel Uid
-                Toast.makeText(this, "אתה לא בעל האתר המורשה", Toast.LENGTH_LONG).show()
-            }
-            else {
+//                Toast.makeText(this, "אתה לא בעל האתר המורשה", Toast.LENGTH_LONG).show()
+                openDialog()
+            } else {
                 //This is for maintaining the behavior of the Navigation view
-                NavigationUI.onNavDestinationSelected(menuItem, navController) }
-                //This is for closing the drawer after acting on it
-                drawerLayout.closeDrawer(GravityCompat.START)
-                true
+                NavigationUI.onNavDestinationSelected(menuItem, navController)
+            }
+            //This is for closing the drawer after acting on it
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
 
         })
+    }
+
+    private fun openDialog() {
+        val adminDialog = AdminDialog()
+        adminDialog.show(supportFragmentManager, "adminDialog")
+    }
+
+    override fun checkAdminPassword(password: String) {
+        if (password == ADMIN_PASSWORD)
+            NavigationUI.onNavDestinationSelected(navView.checkedItem!!, navController)
+        else
+            Toast.makeText(this, "אתה לא בעל האתר המורשה", Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
