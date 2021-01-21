@@ -14,7 +14,6 @@
         android:layout_height="match_parent"
         android:padding="8dp">
 
-
         <ImageView
             android:id="@+id/image_view"
             android:layout_width="50dp"
@@ -146,6 +145,15 @@
                 android:layout_marginRight="16dp"
                 android:layout_weight="1"
                 android:text="@string/interested" />
+
+            <ImageView
+                android:id="@+id/image_view_connection"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/ic_baseline_connect_without_contact_24" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -154,7 +162,7 @@
             android:layout_height="40dp"
             android:layout_below="@+id/switchrLayout"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <ImageButton
                 android:id="@+id/btn_create_call"

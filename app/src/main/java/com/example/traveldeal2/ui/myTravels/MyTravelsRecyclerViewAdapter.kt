@@ -38,6 +38,7 @@ class MyTravelsRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
         if (FirebaseAuth.getInstance().currentUser?.email != null)
             userMail = encodeKey(FirebaseAuth.getInstance().currentUser?.email)
+        holder.travel = travelList[listPosition]
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
         var tmp = currentItem.departureAddress
@@ -52,20 +53,6 @@ class MyTravelsRecyclerViewAdapter(
 
         holder.switchInterested.isChecked = currentItem.company.contains(userMail)
 
-        holder.switchInterested.setOnCheckedChangeListener { _, isChecked ->
-            val currTravel = travelList[listPosition]
-            val companyId = encodeKey(FirebaseAuth.getInstance().currentUser?.email)
-            if (isChecked) {
-                currTravel.company[companyId] = false
-                currTravel.requestStatus = Status.RECEIVED
-            } else {// not checked
-                if (currTravel.requestStatus == Status.RECEIVED && currTravel.company.size == 1)
-                    currTravel.requestStatus = Status.SENT
-                currTravel.company.remove(companyId)
-            }
-            listener.updateTravel(currTravel)
-            notifyDataSetChanged()
-        }
 
         if (holder.switchInterested.isChecked) {
             holder.cbApproved.isChecked = (currentItem.company[userMail] == true)
@@ -76,18 +63,6 @@ class MyTravelsRecyclerViewAdapter(
             if (passengersNum == "1") {
                 Strings.get(R.string.onePassengers)
             } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
-
-        holder.btnCall.setOnClickListener {
-            listener.createCall(travelList[listPosition].clientPhone)
-        }
-
-        holder.btnSms.setOnClickListener {
-            listener.sendSms(travelList[listPosition])
-        }
-
-        holder.btnEmail.setOnClickListener {
-            listener.sendEMail(travelList[listPosition])
-        }
     }
 
     override fun getItemCount() = travelList.size
@@ -105,6 +80,34 @@ class MyTravelsRecyclerViewAdapter(
         var btnEmail: ImageButton = this.itemView.findViewById(R.id.btn_send_email)
         var switchInterested: SwitchMaterial = this.itemView.findViewById(R.id.switch_interested)
         var cbApproved: CheckBox = this.itemView.findViewById(R.id.cb_ready_to_drive)
+        lateinit var travel: Travel
+
+        init {
+            switchInterested.setOnCheckedChangeListener { _, isChecked ->
+                val companyId = encodeKey(FirebaseAuth.getInstance().currentUser?.email)
+                if (isChecked) {
+                    travel.company[companyId] = false
+                    travel.requestStatus = Status.RECEIVED
+                } else {// not checked
+                    if (travel.requestStatus == Status.RECEIVED && travel.company.size == 1)
+                        travel.requestStatus = Status.SENT
+                    travel.company.remove(companyId)
+                }
+                listener.updateTravel(travel)
+            }
+
+            btnCall.setOnClickListener {
+                listener.createCall(travel.clientPhone)
+            }
+
+            btnSms.setOnClickListener {
+                listener.sendSms(travel)
+            }
+
+            btnEmail.setOnClickListener {
+                listener.sendEMail(travel)
+            }
+        }
     }
 
     interface CompanyCardButtonsListener {

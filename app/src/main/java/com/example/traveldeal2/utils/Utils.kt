@@ -1,11 +1,7 @@
 package com.example.traveldeal2.utils
 
-import android.app.PendingIntent
 import android.content.Intent
 import android.net.Uri
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 
 class Utils {
@@ -81,24 +77,24 @@ class Utils {
             App.instance.startActivity(mIntent)
         }
 
-        fun broadcastCustomIntent() {
-            // Create an explicit intent for an Activity in your app
-            val intent = Intent("com.example.traveldeal2.NOTIFICATION_INTENT").apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
-            val pendingIntent: PendingIntent = PendingIntent.getActivity(App.instance, 0, intent, 0)
-            val builder = NotificationCompat.Builder(App.instance, App.CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_baseline_call)
-                .setContentTitle("TravelDeal2")
-                .setContentText("התקבלה נסיעה חדשה")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
-
-            with(NotificationManagerCompat.from(App.instance)) {
-                // notificationId is a unique int for each notification that you must define
-                notify(1, builder.build())
-            }
-        }
+//        fun broadcastCustomIntent() {
+//            // Create an explicit intent for an Activity in your app
+//            val intent = Intent("com.example.traveldeal2.NOTIFICATION_INTENT").apply {
+//                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            }
+//            val pendingIntent: PendingIntent = PendingIntent.getActivity(App.instance, 0, intent, 0)
+//            val builder = NotificationCompat.Builder(App.instance, App.CHANNEL_ID)
+//                .setSmallIcon(R.drawable.ic_baseline_call)
+//                .setContentTitle("TravelDeal2")
+//                .setContentText("התקבלה נסיעה חדשה")
+//                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                .setContentIntent(pendingIntent)
+//                .setAutoCancel(true)
+//
+//            with(NotificationManagerCompat.from(App.instance)) {
+//                // notificationId is a unique int for each notification that you must define
+//                notify(1, builder.build())
+//            }
+//        }
     }
 }

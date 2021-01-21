@@ -39,7 +39,7 @@ class HistoryRecyclerViewAdapter(
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("RestrictedApi", "SetTextI18n", "SimpleDateFormat")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
-
+        holder.travel = travelList[listPosition]
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
         holder.customerName.text = currentItem.clientName
@@ -49,33 +49,48 @@ class HistoryRecyclerViewAdapter(
         holder.travelDays.text = (java.util.concurrent.TimeUnit.MILLISECONDS.toDays(
             sdf.parse(currentItem.returnDate).time - sdf.parse(currentItem.departureDate).time
         ) + 1).toString()
-
-        holder.switchPaid.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
-
-            if (isChecked)
-                currentItem.requestStatus = Status.PAID
-            else // not checked
-                currentItem.requestStatus = Status.CLOSED
-
-            listener.updateTravel(currentItem)
-//            notifyDataSetChanged()
-        })
-
-        holder.btnEmail.setOnClickListener {
-            listener.sendEMail(travelList[listPosition])
-        }
     }
 
     override fun getItemCount() = travelList.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        lateinit var travel: Travel
         var itemID: String = ""
         var customerName: TextView = this.itemView.findViewById(R.id.TextViewCustomerName)
         var travelDays: TextView = this.itemView.findViewById(R.id.TextViewTravelDays)
         var switchPaid: SwitchMaterial = this.itemView.findViewById(R.id.switch_paid)
-        var btnEmail: ImageButton = this.itemView.findViewById(R.id.history_btn_send_email)
+        private var btnEmail: ImageButton = this.itemView.findViewById(R.id.history_btn_send_email)
 
         // var expandableLayout: LinearLayout = this.itemView.findViewById(R.id.ExpandableLayout)
+
+        init {
+            switchPaid.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
+
+                if (isChecked)
+                    travel.requestStatus = Status.PAID
+                else // not checked
+                    travel.requestStatus = Status.CLOSED
+
+                listener.updateTravel(travel)
+            })
+
+            btnEmail.setOnClickListener {
+                listener.sendEMail(travel)
+            }
+            switchPaid.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
+
+                if (isChecked)
+                    travel.requestStatus = Status.PAID
+                else // not checked
+                    travel.requestStatus = Status.CLOSED
+
+                listener.updateTravel(travel)
+            })
+
+            btnEmail.setOnClickListener {
+                listener.sendEMail(travel)
+            }
+        }
     }
 
     interface HistoryCardButtonsListener {

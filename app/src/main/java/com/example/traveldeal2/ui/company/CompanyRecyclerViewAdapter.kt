@@ -37,7 +37,7 @@ class CompanyRecyclerViewAdapter(
 
     @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
-
+        holder.travel = travelList[listPosition]
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
         var tmp = currentItem.departureAddress
@@ -57,44 +57,12 @@ class CompanyRecyclerViewAdapter(
             if (passengersNum == "1") {
                 Strings.get(R.string.onePassengers)
             } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
-
-//        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
-
-//        holder.mainLayout.setOnClickListener {
-//            travelList[listPosition].expandable = !travelList[listPosition].expandable
-//            notifyItemChanged(listPosition)
-//        }
-
-        holder.btnCall.setOnClickListener {
-            listener.createCall(travelList[listPosition].clientPhone)
-        }
-
-        holder.btnSms.setOnClickListener {
-            listener.sendSms(travelList[listPosition].clientPhone, travelList[listPosition])
-        }
-
-        holder.btnEmail.setOnClickListener {
-            listener.sendEMail(travelList[listPosition])
-        }
-
-        holder.switchInterested.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
-            val currTravel = travelList[listPosition]
-            if (isChecked) {
-                currTravel.company[userMail] = false
-                currTravel.requestStatus = Status.RECEIVED
-            } else {// not checked
-                if (currTravel.requestStatus == Status.RECEIVED && currTravel.company.size == 1)
-                    currTravel.requestStatus = Status.SENT
-                currTravel.company.remove(userMail)
-            }
-            listener.updateTravel(currTravel)
-//            notifyDataSetChanged()
-        })
     }
 
     override fun getItemCount() = travelList.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        lateinit var travel: Travel
         var itemID: String = ""
         var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewCustomerName)
         var destinationAddress: TextView =
@@ -102,11 +70,47 @@ class CompanyRecyclerViewAdapter(
         var departureDate: TextView = this.itemView.findViewById(R.id.TextViewDepartureDate)
         var returnDate: TextView = this.itemView.findViewById(R.id.TextViewReturnDate)
         var psgNum: TextView = this.itemView.findViewById(R.id.TextViewPassengersNumber) as TextView
-        var btnCall: ImageButton = this.itemView.findViewById(R.id.btn_create_call)
-        var btnSms: ImageButton = this.itemView.findViewById(R.id.btn_send_sms)
-        var btnEmail: ImageButton = this.itemView.findViewById(R.id.btn_send_email)
+        private var btnCall: ImageButton = this.itemView.findViewById(R.id.btn_create_call)
+        private var btnSms: ImageButton = this.itemView.findViewById(R.id.btn_send_sms)
+        private var btnEmail: ImageButton = this.itemView.findViewById(R.id.btn_send_email)
         var switchInterested: SwitchMaterial = this.itemView.findViewById(R.id.switch_interested)
+        private val mainLayout: RelativeLayout = this.itemView.findViewById(R.id.cardMainLayout)
+        private val expandableLayout: LinearLayout = this.itemView.findViewById(R.id.ExpandableLayout)
+        private val connectionImage: ImageView = this.itemView.findViewById(R.id.image_view_connection)
 
+        init {
+            btnCall.setOnClickListener {
+                listener.createCall(travel.clientPhone)
+            }
+
+            btnSms.setOnClickListener {
+                listener.sendSms(travel.clientPhone, travel)
+            }
+
+            btnEmail.setOnClickListener {
+                listener.sendEMail(travel)
+            }
+
+            switchInterested.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    travel.company[userMail] = false
+                    travel.requestStatus = Status.RECEIVED
+                } else {// not checked
+                    if (travel.requestStatus == Status.RECEIVED && travel.company.size == 1)
+                        travel.requestStatus = Status.SENT
+                    travel.company.remove(userMail)
+                }
+                listener.updateTravel(travel)
+            })
+
+            connectionImage.setOnClickListener {
+//                travel.expandable = !travel.expandable
+//                notifyItemChanged(listPosition)
+                expandableLayout.visibility =
+//                    if (travel.expandable) View.VISIBLE else View.GONE
+                    if (expandableLayout.visibility == View.GONE) View.VISIBLE else View.GONE
+            }
+        }
     }
 
     /**
