@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var intentFilter: IntentFilter
     private lateinit var toolbar: Toolbar
     private lateinit var sharedPreferences: SharedPreferences
+    private val broadcastReceiver: TravelBroadcastReceiver = TravelBroadcastReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,7 +89,8 @@ class MainActivity : AppCompatActivity() {
             val id = menuItem.itemId
             if (id == R.id.nav_signOut)
                 signOut()
-            if (id == R.id.nav_admin && FirebaseAuth.getInstance().uid != "JzUvUuHVsIgILDm7Xn0gcW9wS1A3") {// Uziel Uid
+            if (id == R.id.nav_admin && FirebaseAuth.getInstance().uid != "RfAzMEgn6mRHBW7NTWFRDKeX06Y2") {// ari's Uid
+//            if (id == R.id.nav_admin && FirebaseAuth.getInstance().uid != "JzUvUuHVsIgILDm7Xn0gcW9wS1A3") {// Uziel Uid
                 Toast.makeText(this, "אתה לא בעל האתר המורשה", Toast.LENGTH_LONG).show()
             }
             else {

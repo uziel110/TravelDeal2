@@ -50,13 +50,11 @@ class MyTravelsRecyclerViewAdapter(
         holder.departureDate.text = currentItem.departureDate
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
+        holder.switchInterested.isChecked =
+            currentItem.company.contains(userMail) == true
 
-        holder.switchInterested.isChecked = currentItem.company.contains(userMail)
-
-
-        if (holder.switchInterested.isChecked) {
-            holder.cbApproved.isChecked = (currentItem.company[userMail] == true)
-        }
+        holder.cbApproved.isChecked = (currentItem.company[userMail] == true)
+        holder.switchInterested.isEnabled = !(currentItem.company[userMail] == true)
 
         val passengersNum = currentItem.passengersNumber.toString()
         holder.psgNum.text =
@@ -85,10 +83,7 @@ class MyTravelsRecyclerViewAdapter(
         init {
             switchInterested.setOnCheckedChangeListener { _, isChecked ->
                 val companyId = encodeKey(FirebaseAuth.getInstance().currentUser?.email)
-                if (isChecked) {
-                    travel.company[companyId] = false
-                    travel.requestStatus = Status.RECEIVED
-                } else {// not checked
+                if (!isChecked) {// not checked
                     if (travel.requestStatus == Status.RECEIVED && travel.company.size == 1)
                         travel.requestStatus = Status.SENT
                     travel.company.remove(companyId)
