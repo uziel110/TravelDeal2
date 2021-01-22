@@ -110,7 +110,7 @@ class CompanyTravelsFragment : Fragment(), CompanyRecyclerViewAdapter.CompanyCar
         val vehicleLocationAutocompleteFragment =
             childFragmentManager.findFragmentById(R.id.ac_VehicleLocation)
                     as AutocompleteSupportFragment
-        vehicleLocationAutocompleteFragment.setHint("הזן את מיקום הרכב")//(getString(R.string.departureAddressHint))
+        vehicleLocationAutocompleteFragment.setHint(getString(R.string.vehicle_location))
 
         // Specify the types of place data to return.
         vehicleLocationAutocompleteFragment.setPlaceFields(

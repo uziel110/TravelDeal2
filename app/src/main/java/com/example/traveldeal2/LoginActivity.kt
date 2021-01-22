@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.traveldeal2.ui.myTravels.Strings
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -63,7 +64,8 @@ class LoginActivity : AppCompatActivity() {
                 if (user != null) {
                     sharedPreferences.edit().putBoolean("user", true).apply()
                     sharedPreferences.edit().putString("userMail", user.email).apply()
-                    Toast.makeText(this, "Welcome ${user.displayName}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"${Strings.get(R.string.welcome)} " + user.displayName
+                        , Toast.LENGTH_LONG).show()
                     val intent = Intent(this, MainActivity::class.java)
                     this.startActivity(intent)
                 }

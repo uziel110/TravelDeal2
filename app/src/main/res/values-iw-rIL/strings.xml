@@ -65,6 +65,10 @@
     <string name="enter">כניסה</string>
     <string name="wrong_password">סיסמה שגויה</string>
     <string name="Sign_out_toast">התנתקת מהמערכת</string>
+    <string name="confirmed">נרשם במערכת</string>
+    <string name="switch_paid_up">עמלה שולמה?</string>
+    <string name="paid_up_toast">עמלה שולמה</string>
+    <string name="vehicle_location">הזן את מיקום הרכב</string>
 
     <string-array name="status_array" tools:ignore="InconsistentArrays">
         <item>נשלח</item>

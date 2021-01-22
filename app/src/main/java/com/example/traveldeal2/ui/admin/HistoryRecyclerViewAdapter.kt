@@ -5,23 +5,17 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.CompoundButton
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal2.R
 import com.example.traveldeal2.data.entities.Travel
 import com.example.traveldeal2.enums.Status
-import com.example.traveldeal2.utils.App
 import com.google.android.material.switchmaterial.SwitchMaterial
 import java.text.SimpleDateFormat
 import kotlin.time.ExperimentalTime
-
-object Strings {
-    fun get(@StringRes stringRes: Int, vararg formatArgs: Any = emptyArray()): String {
-        return App.instance.getString(stringRes, *formatArgs)
-    }
-}
 
 class HistoryRecyclerViewAdapter(
     private var travelList: List<Travel>,

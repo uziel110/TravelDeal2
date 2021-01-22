@@ -25,10 +25,6 @@ class LocalDatabase(context: Context) : ILocalDatabase {
     private val database = TravelRoomDatabase.getDatabase(context)
     private var travelDao = database.travelDao()
 
-    fun getTravel(id: String?): LiveData<Travel?>? {
-        return travelDao.getTravelById(id)
-    }
-
     override fun addTravel(p: Travel) {
         travelDao.insert(p)
     }

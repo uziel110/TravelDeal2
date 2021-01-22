@@ -1,6 +1,5 @@
 package com.example.traveldeal2.ui.myTravels
 
-
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View

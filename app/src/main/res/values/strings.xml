@@ -71,5 +71,9 @@
     <string name="enter">Enter</string>
     <string name="wrong_password">Wrong password</string>
     <string name="Sign_out_toast">You have been logged out</string>
+    <string name="confirmed">Registered in the system</string>
+    <string name="switch_paid_up">Commission paid?</string>
+    <string name="paid_up_toast">Commission paid</string>
+    <string name="vehicle_location">Vehicle location</string>
 
 </resources>
